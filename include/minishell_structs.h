@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/05 17:36:04 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:41:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ enum	e_toktype
 	ENV,
 	OPTION,
 	D_QUOTE,
-	U_QUOTE,
+	S_QUOTE,
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
