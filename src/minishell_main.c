@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/05 19:41:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:50:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	minishell(char **env, t_shell *tshell)
 			exit_minishell(tshell);
 		//tokenize \\> error handler case " ' 
 		tshell = split_intotokens(line, tshell);
-		free(line);
+		//free(line);
 		//parser \\> error handler case ...
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
 		//exit status or contiue in loop
 		rl_on_new_line();
+		ft_lstclear(&tshell->tokens, free);
+		break ;
 	}
 }
 

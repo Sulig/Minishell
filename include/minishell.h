@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/05 19:45:05 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:50:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*ft_readline(void);
 void	print_err_args(void);
 
 /* TO TEST OR TESTING */
+size_t	stokens(t_shell *tshell);
 t_shell	*split_intotokens(char *command, t_shell *tshell);
 
 void	*free_tshell(t_shell *tshell);

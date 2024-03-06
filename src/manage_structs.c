@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/05 19:42:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:50:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*free_tshell(t_shell *tshell)
 		return (NULL);
 	tshell->env = ft_auto_free_arr(tshell->env);
 	if (tshell->tokens)
-		free(tshell->tokens); //free all tokens
+		ft_lstclear(&tshell->tokens, free); //free all tokens
 	free(tshell);
 	return (NULL);
 }

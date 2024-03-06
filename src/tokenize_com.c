@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:45:41 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/05 19:44:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:50:43 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ t_token	*create_token(char elem, char *command, size_t pos)
 	token->comand = NULL;
 	token->options = NULL;
 	token->args = NULL;
-	token->next = NULL;
 	return (token);
 }
 
 t_shell	*split_intotokens(char *command, t_shell *tshell)
 {
-	t_token	*tmp;
+	t_token	*token;
+	t_list	*tmp;
 	size_t	i;
 	size_t	toktype;
 
@@ -71,7 +71,7 @@ t_shell	*split_intotokens(char *command, t_shell *tshell)
 	while (!tshell->tokens && command[i])
 	{
 		if (scan_toktype(command[i]) != TNULL)
-			tshell->tokens = create_token(command[i], command, i);
+			tshell->tokens = ft_lstnew(create_token(command[i], command, i));
 		i++;
 	}
 	while (command[i])
@@ -79,16 +79,14 @@ t_shell	*split_intotokens(char *command, t_shell *tshell)
 		toktype = scan_toktype(command[i]);
 		if (toktype != TNULL)
 		{
-			tmp = create_token(command[i], command, i);
-			if (!tshell->tokens->next)
-				tshell->tokens->next = tmp;
-			tmp = tmp->next;
+			tmp = ft_lstnew(create_token(command[i], command, i));
+			ft_lstadd_back(&tshell->tokens, tmp);
 		}
-		ft_printf("toktype = %u\n", toktype);
 		i++;
 	}
-	ft_printf("token created, content: %d\n", tshell->tokens->toktype);
-	if (tshell->tokens->next)
-		ft_printf("%p\n", tshell->tokens->next);
+	tshell->tsize = ft_lstsize(tshell->tokens);
+	ft_printf("Number of tokens created: %u\n", tshell->tsize);
+	token = (t_token *)tshell->tokens->content;
+	ft_printf("Type of 1st token = %d\n", token->toktype);
 	return (tshell);
 }
