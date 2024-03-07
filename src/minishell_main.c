@@ -6,33 +6,39 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/06 19:50:48 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:49:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	minishell(char **env, t_shell *tshell)
+/*
+static char	*fline(void)
 {
-	char	*line;
+	return ("echo \"hello\" | echo 'done'");
+}
+*/
 
-	(void) env;
+void	minishell(t_shell *tshell)
+{
 	while (4)
 	{
 		start_signals();
-		line = ft_readline();
-		if (!line)
+		//tshell->line = ft_readline();
+		tshell->line = fline();
+		if (!tshell->line)
 			exit_minishell(tshell);
 		//tokenize \\> error handler case " ' 
-		tshell = split_intotokens(line, tshell);
-		//free(line);
+		tshell = split_intotokens(tshell);
+		//free(tshell->line);
 		//parser \\> error handler case ...
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
 		//exit status or contiue in loop
 		rl_on_new_line();
-		ft_lstclear(&tshell->tokens, free);
+		free_tokens(tshell);
+		//ft_lstclear(&tshell->tokens, free);
 		break ;
 	}
 }
@@ -46,7 +52,7 @@ int	main(int argc, char **args, char **env)
 		print_err_args();
 	print_minishell_welcome(env);
 	t_shell = init_tshell(t_shell, env);
-	minishell(env, t_shell);
+	minishell(t_shell);
 	t_shell = free_tshell(t_shell);
 	return (0);
 }

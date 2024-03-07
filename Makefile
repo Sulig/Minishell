@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/03/06 19:50:46 by sadoming         ###   ########.fr        #
+#    Updated: 2024/03/07 19:50:07 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenize_com.c\
 		  manage_structs.c
 BLT_SRC = echo.c 
 PER_SRC = print_common_errors.c
-UTL_SRC = print_all_arrstr.c signals.c
+UTL_SRC = print_utils.c signals.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))

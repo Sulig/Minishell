@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_all_arrstr.c                                 :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:29:27 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/01 15:59:37 by sadoming         ###   ########.fr       */
+/*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
+/*   Updated: 2024/03/07 19:49:54 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,26 @@ void	print_all_arrstr(char **arr)
 			ft_printf_fd(1, "Pos |%u|: %s\n", i, arr[i]);
 			i++;
 		}
+	}
+}
+
+void	print_tokens_st(t_list *tokens)
+{
+	size_t	size;
+	t_token	*token;
+
+	size = ft_lstsize(tokens);
+	ft_printf("\tNumber of tokens: %u\n", size);
+	size = 0;
+	ft_printf("\t----------------\n\t---- TOKENS ----\n");
+	while (tokens)
+	{
+		ft_printf(" ~ [%u] in list\t", size);
+		token = (t_token *)tokens->content;
+		ft_printf("~ toktype = '%c'\t", token->toktype);
+		ft_printf("~ content '%s'\n", token->content);
+		ft_printf("--------------------------------\n");
+		tokens = tokens->next;
+		size++;
 	}
 }

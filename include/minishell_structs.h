@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/06 19:51:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:49:58 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,31 @@
 
 enum	e_toktype
 {
-	ARGS,
-	ENV,
-	OPTION,
-	D_QUOTE,
-	S_QUOTE,
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
+	TNULL,
+	ARGS = 'f',
+	ENV = '$',
+	OPTION = '-',
+	D_QUOTE = '"',
+	S_QUOTE = 39,
+	PIPE = '|',
+	REDIR_IN = '<',
+	REDIR_OUT = '>',
 	REDIR_DEL,
-	REDIR_APP,
-	TNULL
+	REDIR_APP
 };
 
 typedef struct s_token
 {
 	enum e_toktype	toktype;
-	char			*comand;
-	char			**options;
-	char			*args;
+	char			*content;
 }					t_token;
 
 typedef struct s_shell
 {
 	char		**env;
+	char		*line;
 	t_list		*tokens;
+	int			d_quote;
 	size_t		tsize;
 }				t_shell;
 
