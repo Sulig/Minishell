@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:45:41 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/08 18:11:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:10:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ enum	e_toktype	scan_toktype(char c)
 		return (REDIR_IN);
 	else if (c == '>')
 		return (REDIR_OUT);
-	else
-		return (ARGS);
+	return (ARGS);
 }
 
 char	*fill_content(t_shell *tshell, size_t pos)
@@ -90,6 +89,8 @@ t_shell	*split_intotokens(t_shell *tshell)
 		ft_lstadd_back(&tshell->tokens, tmp);
 		i += ft_strllen(token->content);
 		if (!ft_strllen(token->content))
+			i++;
+		if (token->toktype == REDIR_DEL || token->toktype == REDIR_APP)
 			i++;
 	}
 	tshell->tsize = ft_lstsize(tshell->tokens);
