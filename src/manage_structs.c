@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/07 19:50:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:11:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_tokens(t_shell *tshell)
 	{
 		token = (t_token *)tmp->content;
 		if (token->content)
-			free(token->content);
+			token->content = ft_free_str(token->content);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&tshell->tokens, free);
@@ -49,7 +49,6 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 		return (free_tshell(tshell));
 	tshell->line = NULL;
 	tshell->tokens = NULL;
-	tshell->d_quote = 0;
 	tshell->tsize = 0;
 	return (tshell);
 }

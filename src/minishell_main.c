@@ -6,31 +6,29 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/07 19:49:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:11:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
-static char	*fline(void)
+char	*fline(void)
 {
-	return ("echo \"hello\" | echo 'done'");
+	return (" echo \"Alastor    loves you ~ $USER\" > test.txt | cat text.txt\0");
 }
-*/
 
 void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
 		start_signals();
-		//tshell->line = ft_readline();
 		tshell->line = fline();
+		//tshell->line = ft_readline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		//tokenize \\> error handler case " ' 
 		tshell = split_intotokens(tshell);
-		//free(tshell->line);
+		//tshell->line = ft_free_str(tshell->line);
 		//parser \\> error handler case ...
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors
