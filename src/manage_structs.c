@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/08 19:13:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:37:03 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 	tshell->line = NULL;
 	tshell->tokens = NULL;
 	tshell->tsize = 0;
+	tshell->cmd_size = 0;
 	return (tshell);
 }

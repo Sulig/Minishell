@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:11:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:37:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+/* MINISHELL */
 void	print_minishell_welcome(char **env);
 void	exit_minishell(t_shell *tshell);
 void	start_signals(void);
 
 char	*ft_readline(void);
+t_shell	*split_intotokens(t_shell *tshell);
 
+/* PRINTING ERRORS */
 void	print_err_args(void);
 
 /* TO TEST OR TESTING */
-t_shell	*split_intotokens(t_shell *tshell);
+long	comand_counter(t_list *tokens);
 
 /* MINISHELL STRUCTURE MEM MAN*/
 void	free_tokens(t_shell *tshell);

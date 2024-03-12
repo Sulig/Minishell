@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:20:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:41:26 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ void	minishell(t_shell *tshell)
 		tshell = split_intotokens(tshell);
 		tshell->line = ft_free_str(tshell->line);
 		print_tokens_st(tshell->tokens);
+		ft_printf("Comands encountered: %i\n", comand_counter(tshell->tokens));
 		//parser \\> error handler case ...
+		free_tokens(tshell);
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
 		//exit status or contiue in loop
 		rl_on_new_line();
-		free_tokens(tshell);
-		ft_lstclear(&tshell->tokens, free);
+		break ;
 	}
 }
 

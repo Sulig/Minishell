@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:11:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:36:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,21 @@ typedef struct s_token
 	size_t			cont_len;
 }					t_token;
 
+typedef struct s_cmd
+{
+	char			*comand;
+	char			*options;
+	void			*input;
+	void			*output;
+}					t_cmd;
+
 typedef struct s_shell
 {
 	char		**env;
 	char		*line;
 	t_list		*tokens;
 	size_t		tsize;
+	long		cmd_size;
 }				t_shell;
 
 #endif
