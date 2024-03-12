@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:45:41 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/08 19:10:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:10:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,24 @@ enum	e_toktype	scan_toktype(char c)
 char	*fill_content(t_shell *tshell, size_t pos)
 {
 	size_t	i;
+	size_t	len;
 	char	*content;
 
 	i = pos;
 	content = NULL;
 	while (scan_toktype(tshell->line[i]) == ARGS)
 		i++;
-	content = ft_substr(tshell->line, pos, i - pos);
+	len = i - pos;
+	if (!len)
+	{
+		len++;
+		if (scan_toktype(tshell->line[i]) == REDIR_IN)
+			len++;
+		else
+			if (scan_toktype(tshell->line[i]) == REDIR_OUT)
+				len++;
+	}
+	content = ft_substr(tshell->line, pos, len);
 	if (!ft_strllen(content))
 		content = ft_free_str(content);
 	return (content);
