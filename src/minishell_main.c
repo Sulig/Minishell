@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:10:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:20:01 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	minishell(t_shell *tshell)
 			exit_minishell(tshell);
 		tshell = split_intotokens(tshell);
 		tshell->line = ft_free_str(tshell->line);
+		print_tokens_st(tshell->tokens);
 		//parser \\> error handler case ...
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors

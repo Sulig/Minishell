@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_com.c                                     :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 17:45:41 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:10:49 by sadoming         ###   ########.fr       */
+/*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
+/*   Updated: 2024/03/12 16:21:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ t_shell	*split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tsize = ft_lstsize(tshell->tokens);
-	print_tokens_st(tshell->tokens);
 	return (tshell);
 }
