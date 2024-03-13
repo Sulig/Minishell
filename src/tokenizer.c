@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 16:21:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:55:10 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-enum	e_toktype	scan_toktype(char c)
+static enum	e_toktype	scan_toktype(char c)
 {
 	if (!c)
 		return (TNULL);
@@ -35,7 +35,7 @@ enum	e_toktype	scan_toktype(char c)
 	return (ARGS);
 }
 
-char	*fill_content(t_shell *tshell, size_t pos)
+static char	*fill_content(t_shell *tshell, size_t pos)
 {
 	size_t	i;
 	size_t	len;
@@ -61,7 +61,7 @@ char	*fill_content(t_shell *tshell, size_t pos)
 	return (content);
 }
 
-t_token	*create_token(t_shell *tshell, size_t pos)
+static t_token	*create_token(t_shell *tshell, size_t pos)
 {
 	t_token	*token;
 
@@ -79,11 +79,34 @@ t_token	*create_token(t_shell *tshell, size_t pos)
 		if (scan_toktype(tshell->line[pos + 1]) == REDIR_OUT)
 			token->toktype = REDIR_APP;
 	token->content = fill_content(tshell, pos);
-	token->cont_len = ft_strllen(token->content);
+	token->location = NO_QUOTED;
 	return (token);
 }
 
-t_shell	*split_intotokens(t_shell *tshell)
+static t_list *fill_token_location(t_list *tokens)
+{
+	t_list	*first;
+	t_token	*token;
+
+	first = tokens;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		while (token->toktype != D_QUOTE)
+		{
+			tokens = tokens->next;
+			token = (t_token *)tokens->content;
+			if (token->toktype != D_QUOTE)
+				token->location = IN_DOUBLE_Q;
+			tokens->content = token;
+		}
+		tokens = tokens->next;
+	}
+	tokens = first;
+	return (tokens);
+}
+
+void	split_intotokens(t_shell *tshell)
 {
 	t_list	*tmp;
 	t_token	*token;
@@ -91,8 +114,8 @@ t_shell	*split_intotokens(t_shell *tshell)
 
 	i = 0;
 	tmp = NULL;
-	if (!ft_strllen(tshell->line))
-		return (NULL);
+	if (!tshell->line)
+		return ;
 	while (tshell->line[i])
 	{
 		tmp = ft_lstnew(create_token(tshell, i));
@@ -104,6 +127,6 @@ t_shell	*split_intotokens(t_shell *tshell)
 		if (token->toktype == REDIR_DEL || token->toktype == REDIR_APP)
 			i++;
 	}
-	tshell->tsize = ft_lstsize(tshell->tokens);
-	return (tshell);
+	tshell->tok_size = ft_lstsize(tshell->tokens);
+	tshell->tokens = fill_token_location(tshell->tokens);
 }

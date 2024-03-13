@@ -6,41 +6,34 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 19:37:06 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:55:27 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	is_valid(t_list *tokens)
+t_cmd	*create_comand(t_shell *tshell, t_list *token, size_t pos)
 {
-	t_token	*token;
+	t_cmd	*comand;
 
-	token = (t_token *)tokens->content;
-	if (token->toktype != ARGS)
-		return (0);
-	return (1);
+	comand = ft_calloc(sizeof(t_cmd), 1);
+	if (!comand)
+		return (NULL);
+	return (comand);
 }
 
-long	comand_counter(t_list *tokens)
+void	split_intocomands(t_shell *tshell)
 {
-	long	cnt;
-	t_token	*token;
+	t_list	*tmp;
+	t_cmd	*cmd;
+	t_list	*tokens;
 
-	cnt = 0;
+	if (!tshell->tokens)
+		return ;
+	tokens = tshell->tokens;
 	while (tokens)
 	{
-		token = (t_token *)tokens->content;
-		if (token->toktype == PIPE)
-		{
-			if (!is_valid(tokens->next))
-				return (-1);
-			cnt++;
-		}
-		if (token->toktype == REDIR_OUT)
-			if (!is_valid(tokens->next))
-				return (-1);
+		tmp = ft_lstnew(create_comand(tshell, tokens, i));
 		tokens = tokens->next;
 	}
-	return (cnt);
 }

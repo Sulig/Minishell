@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/03/12 19:41:23 by sadoming         ###   ########.fr        #
+#    Updated: 2024/03/13 19:55:23 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,6 +153,10 @@ leaks: $(NAME)
 # ------------------
 
 val: $(NAME)
+	@echo " ~ Running valgrind ./$(NAME)"
+	@valgrind --leak-check=full ./$(NAME)
+
+val-strict: $(NAME)
 	@echo " ~ Running valgrind ./$(NAME)"
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/08 18:11:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:55:34 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_tokens_st(t_list *tokens)
 	t_token	*token;
 
 	size = ft_lstsize(tokens);
-	ft_printf("\tNumber of tokens: %u\n", size);
+	ft_printf("\n\tNumber of tokens: %u\n", size);
 	size = 0;
 	ft_printf("\t----------------\n\t---- TOKENS ----\n");
 	while (tokens)
@@ -43,9 +43,44 @@ void	print_tokens_st(t_list *tokens)
 		ft_printf(" ~ [%u] in list\t", size);
 		token = (t_token *)tokens->content;
 		ft_printf("~ toktype = '%c'\t", token->toktype);
+		ft_printf("~ location/quoted = ");
+		if (token->location == IN_DOUBLE_Q)
+			ft_printf("IN DOUBLE QUOTES\t");
+		else if (token->location == IN_SINGLE_Q)
+			ft_printf("IN SINGLE QUOTES\t");
+		else
+			ft_printf("NO QUOTED\t");
 		ft_printf("~ content '%s'\n", token->content);
 		ft_printf("--------------------------------\n");
 		tokens = tokens->next;
+		size++;
+	}
+}
+
+void	print_comands_st(t_list *cmd)
+{
+	size_t	size;
+	t_cmd	*comand;
+
+	size = ft_lstsize(cmd);
+	ft_printf("\n\tNumber of comands: %u\n", size);
+	size = 0;
+	ft_printf("\t----------------\n\t---- COMANDS ----\n");
+	while (cmd)
+	{
+		ft_printf(" ~ [%u] in list\t", size);
+		comand = (t_cmd *)cmd->content;
+		ft_printf("~ toktype = '%c'\t", comand->toktype);
+		ft_printf("~ comand '%s'\n", comand->comand);
+		ft_printf("~ options '%s'\n", comand->options);
+		ft_printf("~ input: '%s'\n", (char *)comand->input);
+		ft_printf("~ output is (null)?:\t");
+		if (comand->output)
+			ft_printf("no\n");
+		else
+			ft_printf("yes\n");
+		ft_printf("--------------------------------\n");
+		cmd = cmd->next;
 		size++;
 	}
 }

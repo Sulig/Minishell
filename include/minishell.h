@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/12 19:37:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:55:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	exit_minishell(t_shell *tshell);
 void	start_signals(void);
 
 char	*ft_readline(void);
-t_shell	*split_intotokens(t_shell *tshell);
+void	split_intotokens(t_shell *tshell);
 
 /* PRINTING ERRORS */
 void	print_err_args(void);
+int		print_err_syntax(char *content);
 
 /* TO TEST OR TESTING */
-long	comand_counter(t_list *tokens);
+void	split_intocomands(t_shell *tshell);
 
 /* MINISHELL STRUCTURE MEM MAN*/
 void	free_tokens(t_shell *tshell);
@@ -48,5 +49,6 @@ int		ft_echo(char *n, char *message);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);
+void	print_comands_st(t_list *cmd);
 
 #endif
