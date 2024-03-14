@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:40:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/12 19:05:31 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:46:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_nexttonull(t_list *tonull, int cnt)
 		cnt--;
 	}
 	tonull->next = NULL;
+	tonull->prev = NULL;
 }
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))

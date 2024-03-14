@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/13 19:55:10 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:52:01 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,30 +80,11 @@ static t_token	*create_token(t_shell *tshell, size_t pos)
 			token->toktype = REDIR_APP;
 	token->content = fill_content(tshell, pos);
 	token->location = NO_QUOTED;
+	if (token->toktype == REDIR_IN || token->toktype == REDIR_OUT)
+		token->toktype = REDIR;
+	if (token->toktype == REDIR_APP || token->toktype == REDIR_DEL)
+		token->toktype = REDIR;
 	return (token);
-}
-
-static t_list *fill_token_location(t_list *tokens)
-{
-	t_list	*first;
-	t_token	*token;
-
-	first = tokens;
-	while (tokens)
-	{
-		token = (t_token *)tokens->content;
-		while (token->toktype != D_QUOTE)
-		{
-			tokens = tokens->next;
-			token = (t_token *)tokens->content;
-			if (token->toktype != D_QUOTE)
-				token->location = IN_DOUBLE_Q;
-			tokens->content = token;
-		}
-		tokens = tokens->next;
-	}
-	tokens = first;
-	return (tokens);
 }
 
 void	split_intotokens(t_shell *tshell)
@@ -128,5 +109,5 @@ void	split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tok_size = ft_lstsize(tshell->tokens);
-	tshell->tokens = fill_token_location(tshell->tokens);
+	fill_token_location(tshell);
 }

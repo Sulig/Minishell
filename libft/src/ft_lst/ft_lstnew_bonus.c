@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:54:22 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/12 19:06:06 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:46:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_list	*ft_lstnew(void *content)
 	if (!new)
 		return (0);
 	new->content = content;
+	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }

@@ -49,7 +49,7 @@ STR_SRC = ft_split.c ft_strchr.c ft_strcmp.c ft_strcpy.c ft_strcut.c ft_strinter
 
 LST_SRC = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c\
 		  ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c\
-		  ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
+		  ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstnodepos_bonus.c
 
 SRC = $(addprefix $(GNL_DIR)/, $(GNL_SRC))
 SRC += $(addprefix $(CNV_DIR)/, $(CNV_SRC))
