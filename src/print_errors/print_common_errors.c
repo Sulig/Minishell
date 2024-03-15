@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/14 19:52:14 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:36:43 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_err_args(void)
 	exit(1);
 }
 
-void	print_err_syntax(char *content)
+int	print_err_syntax(char *content)
 {
 	ft_printf_fd(2, "%s: syntax error near token", "minishell");
 	if (!content)
@@ -29,4 +29,5 @@ void	print_err_syntax(char *content)
 		ft_printf_fd(2, " %c%s'\n", 96, content);
 	else
 		ft_printf_fd(2, " %c%s'\n", 96, content);
+	return (0);
 }
