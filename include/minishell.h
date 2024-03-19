@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/15 19:36:29 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:47:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	fill_token_location(t_shell *tshell);
 void	split_intocomands(t_shell *tshell);
 
 /* CHECKERS */
-int	check_valid_syntax(t_shell *tshell);
+int		check_valid_syntax(t_shell *tshell);
+int		checkfor_unclosedquotes(char *line);
 
 /* PRINTING ERRORS */
 void	print_err_args(void);

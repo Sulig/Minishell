@@ -21,6 +21,7 @@ size_t	ft_strlen(const char *s);
 size_t	ft_strllen(const char *s);
 size_t	ft_cnttoch_in(const char *str, char c);
 size_t	ft_cnttoch_out(const char *str, char c);
+size_t	ft_cnt_tostr(const char *haystack, const char *needle);
 size_t	ft_numlen(size_t n, int base);
 
 #endif

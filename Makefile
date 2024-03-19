@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/03/15 19:36:38 by sadoming         ###   ########.fr        #
+#    Updated: 2024/03/19 19:47:48 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
 # MINISHELL SRC ->
 
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
-		  manage_structs.c check_valid_syntax.c parse_the_tokens.c
+		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
+		  checkfor_unclosedquotes.c
 BLT_SRC = echo.c 
 PER_SRC = print_common_errors.c
 UTL_SRC = fill_token_location.c print_utils.c signals.c
@@ -100,7 +101,7 @@ norm:
 	@echo "~~~~~~~~~~~~~~~~~~~~~~\n"
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
-run: all
+run: $(NAME)
 	@echo "\033[1;34m\n~ **************************************** ~\n"
 	@echo " ~ Running ./$(NAME)"
 	@echo "\n~ **************************************** ~\033[0;37m\n"

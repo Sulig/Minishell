@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# include "ft_is.h"
 # include "converter.h"
 # include "lenght.h"
 # include "memory.h"

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/13 19:23:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:29:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 	tshell = ft_calloc(sizeof(t_shell), 1);
 	if (!tshell)
 		return (NULL);
+	tshell->exit_state = 0;
 	tshell->env = ft_strarrdup(env);
 	if (!tshell->env)
+	{
+		tshell->exit_state = 1;
 		return (free_tshell(tshell));
+	}
 	tshell->line = NULL;
 	tshell->tokens = NULL;
 	tshell->tok_size = 0;

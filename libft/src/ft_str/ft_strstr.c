@@ -6,11 +6,12 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 17:57:36 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 19:14:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:19:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "../../include/searchers.h"
 
 /*
  * Search where ocours needle in haystack
@@ -71,23 +72,42 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 }
 
 /*
- * Search where ocours to_search in arr
- * if !to_search -> return NULL
- * if !arr -> return NULL
- * if coincidence, return the arr pos on encountered
- * if no coincidence, return  NULL
+ * Get the len of haystack on the first coincidence
+ * of some of the chars of needle.
+ * Example: "hi 0 len" "0" -> 3
+ * if !haystack -> return 0
+ * if !needle -> return length of haystack 
 */
-char	*ft_search_str(char **arr, char *to_search)
+size_t	ft_cnt_tostr(const char *haystack, const char *needle)
+{
+	size_t	len;
+
+	len = 0;
+	if (!haystack)
+		return (0);
+	while (haystack[len])
+	{
+		if (ft_strchr(needle, haystack[len]))
+			return (len);
+		len++;
+	}
+	return (len);
+}
+
+/*
+ * Search where ocours to_search in arr
+ * if !to_search || !arr -> return 0
+ * if coincidence, return the arr pos on encountered
+ * if no coincidence, return arr len
+*/
+size_t	ft_search_str(char **arr, char *to_search)
 {
 	size_t	i;
 
 	i = 0;
 	if (!arr || !to_search)
-		return (NULL);
+		return (0);
 	while (arr[i] && !ft_strstr(arr[i], to_search))
 		i++;
-	if (!arr[i])
-		return (NULL);
-	else
-		return (arr[i]);
+	return (i);
 }

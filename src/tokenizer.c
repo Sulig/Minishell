@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/14 19:52:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:57:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@ static enum	e_toktype	scan_toktype(char c)
 	return (ARGS);
 }
 
+static size_t	len_of_content(char *line)
+{
+	size_t	len;
+
+	len = 0;
+	if (!line)
+		return (0);
+	while (line[len])
+	{
+		if (!ft_is_alphanumeric(line[len]))
+			return (len);
+		len++;
+	}
+	return (len);
+}
+
 static char	*fill_content(t_shell *tshell, size_t pos)
 {
 	size_t	i;
@@ -50,10 +66,13 @@ static char	*fill_content(t_shell *tshell, size_t pos)
 	{
 		len++;
 		if (scan_toktype(tshell->line[i]) == REDIR_IN)
-			len++;
-		else
-			if (scan_toktype(tshell->line[i]) == REDIR_OUT)
-				len++;
+			if (scan_toktype(tshell->line[i + 1]) == REDIR_IN)
+				len = 2;
+		if (scan_toktype(tshell->line[i]) == REDIR_OUT)
+			if (scan_toktype(tshell->line[i + 1]) == REDIR_OUT)
+				len = 2;
+		if (scan_toktype(tshell->line[i]) == ENV)
+			len += len_of_content(tshell->line + 1);
 	}
 	content = ft_substr(tshell->line, pos, len);
 	if (!ft_strllen(content))

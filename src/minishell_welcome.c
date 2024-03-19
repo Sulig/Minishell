@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:57:47 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/01 15:58:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:34:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_minishell_welcome(char **env)
 	size_t	color;
 
 	logname = NULL;
-	logname = ft_search_str(env, "LOGNAME");
+	logname = env[ft_search_str(env, "LOGNAME")];
 	logname = logname + ft_cnttoch_in(logname, '=');
 	if (!logname)
 		logname = "(null)";

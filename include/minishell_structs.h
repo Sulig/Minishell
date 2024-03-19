@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/15 19:36:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:47:31 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_STRUCTS_H
 
 # include "minishell.h"
+
+# define TOKENS "$-\"\'|><"
 
 enum	e_toktype
 {
@@ -57,7 +59,9 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
+	int			exit_state;
 	char		**env;
+	//char		*path;
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;
