@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 19:47:52 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:13:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 char	*fline(void)
 {
-	return ("\'some text");
+	return ("$USER $LOGNAME");
 }
 
 void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		tshell->line = ft_readline();
-		//tshell->line = fline();
+		//tshell->line = ft_readline();
+		tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
+		//Reset Shell (exit_status to 0)
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens);
 		//parser \\> error handler case ...
 		split_intocomands(tshell);
+		print_tokens_st(tshell->tokens);
 		print_comands_st(tshell->comands);
-		tshell->line = ft_free_str(tshell->line);
-		free_tokens(tshell);
+		//tshell->line = ft_free_str(tshell->line);
+		//free_tokens(tshell);
 		//expand, split (echo " case "), quote removal
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution

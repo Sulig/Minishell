@@ -6,72 +6,53 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 15:52:53 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:37:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static t_list	*detect_doublequotes(t_list *tokens)
+static int	set_quote(enum e_toktype toktype, int quoted)
 {
-	t_list	*first;
-	t_token	*token;
-	int		quoted;
-
-	first = tokens;
-	while (tokens)
+	if (toktype == S_QUOTE)
 	{
-		quoted = 0;
-		token = (t_token *)tokens->content;
-		if (token->toktype == D_QUOTE)
-			quoted = 2;
-		while (quoted == 2 && tokens->next)
-		{
-			tokens = tokens->next;
-			token = (t_token *)tokens->content;
-			if (token->toktype != D_QUOTE)
-				token->location = IN_DOUBLE_Q;
-			else
-				quoted = 0;
-			tokens->content = token;
-		}
-		tokens = tokens->next;
+		if (!quoted)
+			return (1);
+		else if (quoted == 1)
+			return (0);
 	}
-	tokens = first;
-	return (first);
+	if (toktype == D_QUOTE)
+	{
+		if (!quoted)
+			return (2);
+		if (quoted == 2)
+			return (0);
+	}
+	return (quoted);
 }
 
-static t_list	*detect_singlequotes(t_list *tokens)
+static t_list	*detect_quotes(t_list *tokens)
 {
 	t_list	*first;
 	t_token	*token;
 	int		quoted;
 
 	first = tokens;
+	quoted = 0;
 	while (tokens)
 	{
-		quoted = 0;
 		token = (t_token *)tokens->content;
-		if (token->toktype == S_QUOTE)
-			quoted = 2;
-		while (quoted == 2 && tokens->next)
-		{
-			tokens = tokens->next;
-			token = (t_token *)tokens->content;
-			if (token->toktype != S_QUOTE)
-				token->location = IN_SINGLE_Q;
-			else
-				quoted = 0;
-			tokens->content = token;
-		}
+		quoted = set_quote(token->toktype, quoted);
+		if (quoted == 1 && token->toktype != S_QUOTE)
+			token->location = IN_SINGLE_Q;
+		if (quoted == 2 && token->toktype != D_QUOTE)
+			token->location = IN_DOUBLE_Q;
 		tokens = tokens->next;
 	}
-	tokens = first;
 	return (first);
 }
 
 void	fill_token_location(t_shell *tshell)
 {
-	tshell->tokens = detect_doublequotes(tshell->tokens);
-	tshell->tokens = detect_singlequotes(tshell->tokens);
+	tshell->tokens = detect_quotes(tshell->tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 17:32:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:24:21 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	is_valid(t_list *list, enum e_toktype mode)
 
 int	check_valid_syntax(t_shell *tshell)
 {
-	if (!tshell->tokens)
+	if (!tshell->tokens && !tshell->line)
 	{
 		tshell->exit_state = 1;
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 18:57:47 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:08:55 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*fill_content(t_shell *tshell, size_t pos)
 			if (scan_toktype(tshell->line[i + 1]) == REDIR_OUT)
 				len = 2;
 		if (scan_toktype(tshell->line[i]) == ENV)
-			len += len_of_content(tshell->line + 1);
+			len += len_of_content(tshell->line + pos + 1);
 	}
 	content = ft_substr(tshell->line, pos, len);
 	if (!ft_strllen(content))
