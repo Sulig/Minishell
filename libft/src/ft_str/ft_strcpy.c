@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:07:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 16:51:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:38:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ char	*ft_strdup(const char *s1)
 	}
 	cpy[len] = '\0';
 	return (cpy);
+}
+
+char	*ft_strremplace(char *dst, const char *str)
+{
+	dst = ft_free_str(dst);
+	if (!str)
+		return (dst);
+	dst = ft_strdup(str);
+	return (dst);
 }
 
 char	*ft_strcpyl(const char *s1, size_t len)

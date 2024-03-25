@@ -6,27 +6,37 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:12:32 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 16:53:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:18:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lenght.h"
 
-char	*ft_strcut(char *str, char cut, char mode, char inc)
+/*
+ * Cut the str on char cut.
+ * Modes ->
+ *		in mode '<', cut [0] to [cut]
+ *		in mode '>', cut [cut] to [len of str]
+ *
+ * Exclude ->
+ *		if 'y' || 'Y' exclude the cut char ([X] to [cut + 1])
+ *		else, include the cut char on the str ([X] to [cut])
+*/
+char	*ft_strcut(char *str, char cut, char mode, char exc)
 {
 	if (!str)
 		return (NULL);
 	if (mode == '<')
 	{
-		if (inc == 'y' || inc == 'Y')
+		if (exc == 'y' || exc == 'Y')
 			str[ft_cnttoch_in(str, cut)] = '\0';
 		else
 			str[ft_cnttoch_out(str, cut)] = '\0';
 	}
 	else if (mode == '>')
 	{
-		if (inc == 'y' || inc == 'Y')
-			return (str + ft_cnttoch_out(str, cut));
+		if (exc == 'y' || exc == 'Y')
+			return (str + ft_cnttoch_in(str, cut));
 		else
 			return (str + ft_cnttoch_out(str, cut));
 	}

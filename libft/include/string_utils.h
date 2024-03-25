@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:47:20 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 17:53:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:39:32 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* STRING UTILS */
 char	*ft_strdup(const char *s1);
+char	*ft_strremplace(char *dst, const char *str);
 char	*ft_strcpyl(const char *s1, size_t len);
 char	**ft_strarrdup(char **to_copy);
 
