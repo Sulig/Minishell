@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/21 20:13:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:07:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	print_comands_st(t_list *cmd)
 	ft_printf("\t----------------\n\t---- COMANDS ----\n");
 	while (cmd)
 	{
-		ft_printf(" ~ [%u] in list\t", size);
+		ft_printf(" [%u] in list -------->\n", size);
 		comand = (t_cmd *)cmd->content;
-		ft_printf("~ toktype = '%c'\t", comand->toktype);
+		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
 		ft_printf("~ comand '%s'\n", comand->comand);
 		ft_printf("~ options '%s'\n", comand->options);
 		ft_printf("~ input: '%s'\n", (char *)comand->input);

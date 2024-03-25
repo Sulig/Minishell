@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/21 20:12:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:07:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	start_signals(void);
 char	*ft_readline(void);
 void	split_intotokens(t_shell *tshell);
 void	fill_token_location(t_shell *tshell);
+void	expand_env_var(t_shell *tshell);
 
 /* TO TEST OR TESTING */
-void	split_intocomands(t_shell *tshell);
+void	split_intocomands(t_shell *tshell, t_list *tokens);
 
 /* CHECKERS */
 int		check_valid_syntax(t_shell *tshell);
