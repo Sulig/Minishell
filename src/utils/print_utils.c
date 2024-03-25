@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 14:07:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:29:14 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_tokens_st(t_list *tokens)
 	size = ft_lstsize(tokens);
 	ft_printf("\n\tNumber of tokens: %u\n", size);
 	size = 0;
-	ft_printf("\t----------------\n\t---- TOKENS ----\n");
+	ft_printf("\t------------------\n\t----- TOKENS -----\n");
 	while (tokens)
 	{
 		ft_printf(" ~ [%u] in list\t", size);
@@ -65,7 +65,7 @@ void	print_comands_st(t_list *cmd)
 	size = ft_lstsize(cmd);
 	ft_printf("\n\tNumber of comands: %u\n", size);
 	size = 0;
-	ft_printf("\t----------------\n\t---- COMANDS ----\n");
+	ft_printf("\t-------------------\n\t----- COMANDS -----\n");
 	while (cmd)
 	{
 		ft_printf(" [%u] in list -------->\n", size);
