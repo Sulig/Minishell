@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:47:20 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 19:54:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:59:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	**ft_strarrdup(char **to_copy);
 char	*ft_strcut(char *str, char cut, char mode, char inc);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_strtrim_s(const char *s1, const char *set);
+char	*ft_strtrim_inside(char *input, char trim);
 char	*ft_substr(const char*s, unsigned int start, size_t len);
 
 char	*ft_strjoin(const char *s1, const char *s2);

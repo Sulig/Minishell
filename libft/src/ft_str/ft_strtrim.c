@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 20:13:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:02:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,46 @@ char	*ft_strtrim_s(const char *s1, const char *set)
 	while (--cnt)
 		if (!ft_strchr(set, s1[cnt]))
 			break ;
-	return (ft_substr(s1, ln, (cnt - ln));
+	return (ft_substr(s1, ln, (cnt - ln) + 1));
+}
+
+static char	*trim_inside(char *input, size_t start, size_t end)
+{
+	while (input[end])
+	{
+		input[start] = input[end];
+		start++;
+		end++;
+	}
+	input[start] = '\0';
+	return (input);
+}
+
+/*
+ * Trim the extra char trim inside the input
+ * Do not trim if is inside of \"
+*/
+char	*ft_strtrim_inside(char *input, char trim)
+{
+	size_t	i;
+	size_t	pos;
+
+	i = 0;
+	if (!ft_strllen(input))
+		return (input);
+	else if (input[0] == '\"')
+		return (input);
+	while (input[i])
+	{
+		if (input[i] == trim)
+		{
+			pos = i;
+			while (input[i] && input[i] == ' ')
+				i++;
+			input = trim_inside(input, pos + 1, i);
+			i = pos;
+		}
+		i++;
+	}
+	return (input);
 }
