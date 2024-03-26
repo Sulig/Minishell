@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 19:29:14 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:20:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,16 @@ void	print_comands_st(t_list *cmd)
 	ft_printf("\t-------------------\n\t----- COMANDS -----\n");
 	while (cmd)
 	{
-		ft_printf(" [%u] in list -------->\n", size);
+		ft_printf("~ Previous node: %p ~\n", cmd->prev);
+		ft_printf("⎨---------------^---------------⎬\n");
+		ft_printf("    [%u] Node: %p\n", size, cmd);
 		comand = (t_cmd *)cmd->content;
 		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
 		ft_printf("~ comand '%s'\n", comand->comand);
 		ft_printf("~ options '%s'\n", comand->options);
-		ft_printf("~ input: '%s'\n", (char *)comand->input);
-		ft_printf("~ output is (null)?:\t");
-		if (comand->output)
-			ft_printf("no\n");
-		else
-			ft_printf("yes\n");
-		ft_printf("--------------------------------\n");
+		ft_printf("~ input: '%s'\n", comand->input);
+		ft_printf("~ output: '%p'\n", comand->output);
+		ft_printf("⎨---------------v---------------⎬\n");
 		cmd = cmd->next;
 		size++;
 	}

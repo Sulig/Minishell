@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 14:05:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:15:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 	else
 	{
 		if (token->toktype == PIPE || token->toktype == REDIR)
-			return (1);
+			if (token->location == NO_QUOTED)
+				return (2);
 		if (token->toktype == ARGS)
 			return (1);
 		if (token->toktype == SPACE && token->location == NO_QUOTED)
@@ -48,7 +49,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		*pos = *pos + 1;
 		tokens = tokens->next;
 		token = (t_token *)tokens->content;
-		if (token->toktype == PIPE || token->toktype == REDIR)
+		if (check_beforecreate(NULL, token) == 2)
 		{
 			*pos = *pos - 1;
 			break ;
@@ -69,6 +70,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 {
 	t_cmd	*cmd;
+	char	*trim;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
@@ -80,10 +82,36 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		*pos = *pos + 1;
 		cmd->cmdtype = CMD;
 		cmd = fill_command(cmd, tokens->next, pos);
-		cmd->input = ft_strremplace(cmd->input, ft_strtrim_s(cmd->input, " "));
-		cmd->input = ft_strtrim_inside(cmd->input, ' ');
+		trim = ft_strtrim_s(cmd->input, " ");
+		cmd->input = ft_strremplace(cmd->input, trim);
+		trim = ft_free_str(trim);
+		trim = ft_strtrim_inside(cmd->input, ' ');
+		cmd->input = ft_strremplace(cmd->input, trim);
 	}
 	return (cmd);
+}
+
+static t_cmd	*detect_filenames(t_list *comands)
+{
+	t_list	*first;
+	t_cmd	*cmd;
+
+	first = comands;
+	while (comands)
+	{
+		cmd = (t_cmd *)comands->content;
+		if (cmd->cmdtype == REDIR)
+		{
+			if (comands->next)
+			{
+				comands = comands->next;
+				cmd = (t_cmd *)comands->content;
+				if ()
+			}
+		}
+		comands = comands->next;
+	}
+	return (first);
 }
 
 void	split_intocomands(t_shell *tshell, t_list *tokens)
@@ -110,4 +138,5 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 			tokens = tokens->next;
 	}
 	tshell->cmd_size = ft_lstsize(tshell->comands);
+	tshell->comands = detect_filenames(tshell->comands);
 }

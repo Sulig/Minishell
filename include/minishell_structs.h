@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 14:05:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:16:08 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 enum	e_toktype
 {
 	TNULL,
-	ARGS = 'f',
+	ARGS = 'a',
 	CMD = '!',
 	ENV = '$',
+	FILENAME = 'f',
 	OPTION = '-',
 	D_QUOTE = 34,
 	S_QUOTE = 39,

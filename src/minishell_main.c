@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 14:05:45 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:15:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*fline(void)
 {
 	char	*ttp;
 
-	ttp = "echo -n testing  tttgg > test.txt";
+	ttp = "cat text.txt | \"\"";
 	return (ft_strdup(ttp));
 }
 
@@ -24,15 +24,14 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		//tshell->line = ft_readline();
-		tshell->line = fline();
+		tshell->line = ft_readline();
+		//tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		tshell->exit_state = 0;
 		split_intotokens(tshell);
 		split_intocomands(tshell, tshell->tokens);
 		print_tokens_st(tshell->tokens);
-		print_comands_st(tshell->comands);
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);

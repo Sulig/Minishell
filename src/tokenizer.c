@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 12:52:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:25:43 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static size_t	len_of_content(char *line)
 	while (line[len])
 	{
 		if (!ft_is_alphanumeric(line[len]))
-			return (len);
+			if (line[len] != '?')
+				return (len);
 		len++;
 	}
 	return (len);

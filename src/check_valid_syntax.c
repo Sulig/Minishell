@@ -6,37 +6,57 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/21 17:24:21 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:15:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	checkfor_prestuff(t_list *list, enum e_toktype mode, int tok)
+static int	check_toktype(t_token *token, t_list *next)
+{
+	if (token->toktype == REDIR || token->toktype == PIPE)
+		return (-1);
+	else if (token->toktype == ARGS)
+		return (1);
+	else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+	{
+		if (next)
+			return (1);
+		else if (!next)
+			return (-1);
+	}
+	else if (token->toktype != SPACE)
+		return (1);
+	return (0);
+}
+
+static int	checkfor_prestuff(t_list *list, enum e_toktype mode)
 {
 	t_token	*token;
 	t_list	*tmp;
+	size_t	finded;
 
+	finded = 0;
 	while (list)
 	{
 		token = (t_token *)list->content;
 		if (token->toktype == mode)
 		{
-			tok = 1;
-			tmp = list;
-			if (!tmp->prev)
+			finded++;
+			if (!list->prev)
 				return (0);
-			while (tmp->prev)
+			tmp = list->prev;
+			while (tmp)
 			{
-				tmp = tmp->prev;
 				token = (t_token *)tmp->content;
-				if (token->toktype == ARGS)
-					return (1);
+				if (check_toktype(token, NULL) != 0)
+					return (check_toktype(token, NULL));
+				tmp = tmp->prev;
 			}
 		}
 		list = list->next;
 	}
-	if (!tok)
+	if (!finded)
 		return (1);
 	return (0);
 }
@@ -44,28 +64,28 @@ static int	checkfor_prestuff(t_list *list, enum e_toktype mode, int tok)
 static int	checkfor_aftstuff(t_list *list, enum e_toktype mode)
 {
 	t_token	*token;
-	int		tok;
+	size_t	finded;
 
-	tok = 0;
+	finded = 0;
 	while (list)
 	{
 		token = (t_token *)list->content;
 		if (token->toktype == mode)
 		{
-			tok = 1;
+			finded++;
 			if (!list->next)
 				return (0);
 			while (list->next)
 			{
 				list = list->next;
 				token = (t_token *)list->content;
-				if (token->toktype == ARGS)
-					return (1);
+				if (check_toktype(token, list->next) != 0)
+					return (check_toktype(token, list->next));
 			}
 		}
 		list = list->next;
 	}
-	if (!tok)
+	if (!finded)
 		return (1);
 	return (0);
 }
@@ -73,15 +93,11 @@ static int	checkfor_aftstuff(t_list *list, enum e_toktype mode)
 static int	is_valid(t_list *list, enum e_toktype mode)
 {
 	if (mode == PIPE)
-		if (checkfor_prestuff(list, mode, 0))
-			if (checkfor_aftstuff(list, mode))
+		if (checkfor_prestuff(list, mode) > 0)
+			if (checkfor_aftstuff(list, mode) > 0)
 				return (1);
-	if (mode == REDIR_DEL)
-		if (checkfor_prestuff(list, mode, 0))
-			if (checkfor_aftstuff(list, mode))
-				return (1);
-	if (mode != PIPE && mode != REDIR_DEL)
-		if (checkfor_aftstuff(list, mode))
+	if (mode != PIPE)
+		if (checkfor_aftstuff(list, mode) > 0)
 			return (1);
 	return (0);
 }
