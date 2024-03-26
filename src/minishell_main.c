@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 20:14:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:05:45 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 char	*fline(void)
 {
-	return ("echo          helllo              i    > test.txt");
+	char	*ttp;
+
+	ttp = "echo -n testing  tttgg > test.txt";
+	return (ft_strdup(ttp));
 }
 
 void	minishell(t_shell *tshell)
@@ -27,15 +30,15 @@ void	minishell(t_shell *tshell)
 			exit_minishell(tshell);
 		tshell->exit_state = 0;
 		split_intotokens(tshell);
-		//parser \\> error handler case ...
 		split_intocomands(tshell, tshell->tokens);
 		print_tokens_st(tshell->tokens);
 		print_comands_st(tshell->comands);
-		//tshell->line = ft_free_str(tshell->line);
-		//free_tokens(tshell);
-		//expand, split (echo " case "), quote removal
+		tshell->line = ft_free_str(tshell->line);
+		free_tokens(tshell);
+		print_comands_st(tshell->comands);
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
+		free_comands(tshell);
 		//exit status or contiue in loop
 		rl_on_new_line();
 		break ;
@@ -55,7 +58,7 @@ int	main(int argc, char **args, char **env)
 	start_signals();
 	minishell(t_shell);
 	exit_state = t_shell->exit_state;
-	//t_shell = free_tshell(t_shell);
+	t_shell = free_tshell(t_shell);
 	exit(exit_state);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 20:13:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:05:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		print_err_syntax(char *content);
 
 /* STRUCTURE MEMORY MANAGER */
 void	free_tokens(t_shell *tshell);
+void	free_comands(t_shell *tshell);
 void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 

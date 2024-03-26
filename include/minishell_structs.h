@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/25 20:13:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:05:54 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 
+/* TOKENS */
 enum	e_toktype
 {
 	TNULL,
@@ -32,6 +33,7 @@ enum	e_toktype
 	REDIR_APP
 };
 
+/* The location of token */
 enum	e_location
 {
 	NO_QUOTED,
@@ -39,6 +41,7 @@ enum	e_location
 	IN_SINGLE_Q
 };
 
+/* TOKENS STRUCTURE */
 typedef struct s_token
 {
 	enum e_toktype	toktype;
@@ -46,6 +49,7 @@ typedef struct s_token
 	char			*content;
 }					t_token;
 
+/* COMANDS STRUCTURE */
 typedef struct s_cmd
 {
 	enum e_toktype	cmdtype;
@@ -55,6 +59,7 @@ typedef struct s_cmd
 	void			*output;
 }					t_cmd;
 
+/* MINISHELL STRUCTURE */
 typedef struct s_shell
 {
 	int			exit_state;
