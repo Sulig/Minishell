@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 20:15:33 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:49:29 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ static int	check_toktype(t_token *token, t_list *next)
 	return (0);
 }
 
-static int	checkfor_prestuff(t_list *list, enum e_toktype mode)
+static int	checkfor_prestuff(t_list *list, enum e_toktype mode, size_t finded)
 {
 	t_token	*token;
 	t_list	*tmp;
-	size_t	finded;
 
-	finded = 0;
 	while (list)
 	{
 		token = (t_token *)list->content;
@@ -93,7 +91,7 @@ static int	checkfor_aftstuff(t_list *list, enum e_toktype mode)
 static int	is_valid(t_list *list, enum e_toktype mode)
 {
 	if (mode == PIPE)
-		if (checkfor_prestuff(list, mode) > 0)
+		if (checkfor_prestuff(list, mode, 0) > 0)
 			if (checkfor_aftstuff(list, mode) > 0)
 				return (1);
 	if (mode != PIPE)

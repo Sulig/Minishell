@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 20:15:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:14:27 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*fline(void)
 {
 	char	*ttp;
 
-	ttp = "cat text.txt | \"\"";
+	ttp = "$USER$USER";
 	return (ft_strdup(ttp));
 }
 
@@ -35,6 +35,7 @@ void	minishell(t_shell *tshell)
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
+		print_all_arrstr(tshell->env);
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
 		free_comands(tshell);

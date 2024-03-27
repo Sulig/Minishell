@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 20:15:52 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:14:08 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 			if (token->location == NO_QUOTED)
 				return (2);
 		if (token->toktype == ARGS)
+			return (1);
+		if (token->toktype == ENV && token->location == IN_SINGLE_Q)
 			return (1);
 		if (token->toktype == SPACE && token->location == NO_QUOTED)
 			return (0);
@@ -61,7 +63,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 			token = (t_token *)tokens->content;
 			cmd->options = ft_strdup(token->content);
 		}
-		else
+		else if (check_beforecreate(NULL, token))
 			cmd->input = ft_strjoin_free_fst(cmd->input, token->content);
 	}
 	return (cmd);
@@ -76,12 +78,17 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (!cmd)
 		return (NULL);
 	cmd->cmdtype = token->toktype;
-	cmd->comand = ft_strdup(token->content);
+	while (tokens && token->toktype == ARGS)
+	{
+		token = (t_token *)tokens->content;
+		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
+		tokens = tokens->next;
+	}
 	if (token->toktype == ARGS)
 	{
 		*pos = *pos + 1;
 		cmd->cmdtype = CMD;
-		cmd = fill_command(cmd, tokens->next, pos);
+		cmd = fill_command(cmd, tokens, pos);
 		trim = ft_strtrim_s(cmd->input, " ");
 		cmd->input = ft_strremplace(cmd->input, trim);
 		trim = ft_free_str(trim);
@@ -91,22 +98,25 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	return (cmd);
 }
 
-static t_cmd	*detect_filenames(t_list *comands)
+static t_list	*detect_filenames(t_list *comands)
 {
 	t_list	*first;
 	t_cmd	*cmd;
+	char	*trim;;
 
 	first = comands;
 	while (comands)
 	{
 		cmd = (t_cmd *)comands->content;
+		trim = ft_strtrim_s(cmd->comand, " ");
+		cmd->comand = ft_strremplace(cmd->comand, trim);
+		trim = ft_free_str(trim);
 		if (cmd->cmdtype == REDIR)
 		{
 			if (comands->next)
 			{
-				comands = comands->next;
-				cmd = (t_cmd *)comands->content;
-				if ()
+				cmd = (t_cmd *)comands->next->content;
+				cmd->cmdtype = FILENAME;
 			}
 		}
 		comands = comands->next;

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 20:16:08 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:14:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ enum	e_toktype
 	REDIR = '~',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
-	REDIR_DEL,
-	REDIR_APP
+	REDIR_APP,
+	REDIR_DEL
 };
 
 /* The location of token */
