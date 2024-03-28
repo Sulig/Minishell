@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/27 20:14:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:58:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 int		ft_echo(char *n, char *message);
 
 /* UTILS */
+t_cmd	*asign_comandtype(t_cmd *cmd);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);

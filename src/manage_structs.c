@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 16:44:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:51:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	free_comands(t_shell *tshell)
 		cmd->comand = ft_free_str(cmd->comand);
 		cmd->options = ft_free_str(cmd->options);
 		cmd->input = ft_free_str(cmd->input);
+		if (cmd->output)
+			free(cmd->output);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&tshell->comands, free);

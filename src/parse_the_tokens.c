@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/27 20:14:08 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:52:37 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,32 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 			token = (t_token *)tokens->content;
 			cmd->options = ft_strdup(token->content);
 		}
-		else if (check_beforecreate(NULL, token))
+		else
 			cmd->input = ft_strjoin_free_fst(cmd->input, token->content);
 	}
+	return (cmd);
+}
+
+static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
+{
+	t_token	*token;
+
+	token = (t_token *)tokens->content;
+	if (token->toktype == PIPE ||token->toktype == REDIR)
+	{
+		cmd->comand = ft_strdup(token->content);
+		return (cmd);
+	}
+	while (tokens && token->toktype == ARGS)
+	{
+		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
+		tokens = tokens->next;
+		*pos = *pos + 1;
+		if (tokens)
+			token = (t_token *)tokens->content;
+	}
+	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
+		*pos = *pos -1;
 	return (cmd);
 }
 
@@ -78,50 +101,21 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (!cmd)
 		return (NULL);
 	cmd->cmdtype = token->toktype;
-	while (tokens && token->toktype == ARGS)
-	{
+	cmd = fill_comand_name(tokens, cmd, pos);
+	tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+	if (tokens)
 		token = (t_token *)tokens->content;
-		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
-		tokens = tokens->next;
-	}
-	if (token->toktype == ARGS)
+	if (token->toktype != PIPE)
 	{
-		*pos = *pos + 1;
-		cmd->cmdtype = CMD;
 		cmd = fill_command(cmd, tokens, pos);
 		trim = ft_strtrim_s(cmd->input, " ");
 		cmd->input = ft_strremplace(cmd->input, trim);
 		trim = ft_free_str(trim);
 		trim = ft_strtrim_inside(cmd->input, ' ');
 		cmd->input = ft_strremplace(cmd->input, trim);
+		cmd = asign_comandtype(cmd);
 	}
 	return (cmd);
-}
-
-static t_list	*detect_filenames(t_list *comands)
-{
-	t_list	*first;
-	t_cmd	*cmd;
-	char	*trim;;
-
-	first = comands;
-	while (comands)
-	{
-		cmd = (t_cmd *)comands->content;
-		trim = ft_strtrim_s(cmd->comand, " ");
-		cmd->comand = ft_strremplace(cmd->comand, trim);
-		trim = ft_free_str(trim);
-		if (cmd->cmdtype == REDIR)
-		{
-			if (comands->next)
-			{
-				cmd = (t_cmd *)comands->next->content;
-				cmd->cmdtype = FILENAME;
-			}
-		}
-		comands = comands->next;
-	}
-	return (first);
 }
 
 void	split_intocomands(t_shell *tshell, t_list *tokens)
@@ -138,7 +132,7 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 	{
 		pos = ft_lstpos_node(tshell->tokens, tokens);
 		token = (t_token *)tokens->content;
-		if (check_beforecreate(NULL, token))
+		if (check_beforecreate(NULL, token) > 0)
 		{
 			tmp = ft_lstnew(create_command(tokens, token, &pos));
 			ft_lstadd_back(&tshell->comands, tmp);
@@ -148,5 +142,4 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 			tokens = tokens->next;
 	}
 	tshell->cmd_size = ft_lstsize(tshell->comands);
-	tshell->comands = detect_filenames(tshell->comands);
 }

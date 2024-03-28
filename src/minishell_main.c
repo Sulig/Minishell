@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/27 20:14:27 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:57:56 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*fline(void)
 {
 	char	*ttp;
 
-	ttp = "$USER$USER";
+	ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
 	return (ft_strdup(ttp));
 }
 
@@ -24,8 +24,8 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		tshell->line = ft_readline();
-		//tshell->line = fline();
+		//tshell->line = ft_readline();
+		tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		tshell->exit_state = 0;
