@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:35:01 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/14 19:52:39 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:23:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last = *lst;
 	while (i < ft_lstsize(lst_d))
 	{
+		last->pos = i;
 		if (i > 0)
 		{
 			prev = ft_lstgetnode(*lst, i - 1);
