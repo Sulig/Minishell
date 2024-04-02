@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:59:11 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/21 19:51:58 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:49:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ int	checkfor_unclosedquotes(t_shell *tshell, t_list *tokens)
 		pos_of_error = ft_cnt_tostr(tshell->line, check_squotes);
 	if (pos_of_error)
 		pos_of_error--;
-	tshell->exit_state = 1;
+	tshell->exit_state = 258;
 	return (print_err_syntax(tshell->line + pos_of_error));
 }

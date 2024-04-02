@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/27 17:49:29 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:24:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	check_toktype(t_token *token, t_list *next)
 {
 	if (token->toktype == REDIR || token->toktype == PIPE)
-		return (-1);
-	else if (token->toktype == ARGS)
+		if (token->location == NO_QUOTED)
+			return (-1);
+	if (token->toktype == ARGS)
 		return (1);
 	else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
 	{
@@ -38,7 +39,7 @@ static int	checkfor_prestuff(t_list *list, enum e_toktype mode, size_t finded)
 	while (list)
 	{
 		token = (t_token *)list->content;
-		if (token->toktype == mode)
+		if (token->toktype == mode && token->location == NO_QUOTED)
 		{
 			finded++;
 			if (!list->prev)
@@ -68,7 +69,7 @@ static int	checkfor_aftstuff(t_list *list, enum e_toktype mode)
 	while (list)
 	{
 		token = (t_token *)list->content;
-		if (token->toktype == mode)
+		if (token->toktype == mode && token->location == NO_QUOTED)
 		{
 			finded++;
 			if (!list->next)
@@ -102,19 +103,16 @@ static int	is_valid(t_list *list, enum e_toktype mode)
 
 int	check_valid_syntax(t_shell *tshell)
 {
-	if (!tshell->tokens && !tshell->line)
-	{
-		tshell->exit_state = 1;
-		return (0);
-	}
+	if (!tshell->tokens)
+		return (1);
 	if (!is_valid(tshell->tokens, REDIR))
 	{
-		tshell->exit_state = 1;
-		return (print_err_syntax(NULL));
+		tshell->exit_state = 258;
+		return (print_err_syntax(">"));
 	}
 	if (!is_valid(tshell->tokens, PIPE))
 	{
-		tshell->exit_state = 1;
+		tshell->exit_state = 258;
 		return (print_err_syntax("|"));
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 19:58:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 20:03:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 /* PRINTING ERRORS */
 void	print_err_args(void);
 int		print_err_syntax(char *content);
+int		print_comandnotfound(char *comand);
 
 /* STRUCTURE MEMORY MANAGER */
 void	free_tokens(t_shell *tshell);

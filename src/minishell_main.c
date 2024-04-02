@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 19:57:56 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 20:03:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		//tshell->line = ft_readline();
-		tshell->line = fline();
+		tshell->line = ft_readline();
+		//tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
-		tshell->exit_state = 0;
 		split_intotokens(tshell);
 		split_intocomands(tshell, tshell->tokens);
 		print_tokens_st(tshell->tokens);
@@ -38,8 +37,8 @@ void	minishell(t_shell *tshell)
 		print_all_arrstr(tshell->env);
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
+		//tshell->exit_state = comand->exit
 		free_comands(tshell);
-		//exit status or contiue in loop
 		rl_on_new_line();
 		break ;
 	}

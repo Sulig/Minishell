@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 19:58:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:16:58 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 		return (cmd);
 	if (cmd->cmdtype == REDIR)
 	{
-		ft_printf("asign filename to output!\n");
 		cmd->output = ft_strdup(cmd->input);
 		cmd->input = ft_free_str(cmd->input);
 	}
@@ -32,5 +31,6 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 		cmd->cmdtype = REDIR_DEL;
 	else
 		cmd->cmdtype = CMD;
+	//quote removal if no content inside
 	return (cmd);
 }

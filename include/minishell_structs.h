@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 19:58:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 20:03:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_cmd
 	enum e_toktype	cmdtype;
 	char			*comand;
 	char			*options;
+	//char			**args;
 	char			*input;
 	void			*output;
 }					t_cmd;
@@ -69,6 +70,7 @@ typedef struct s_shell
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;
+	//t_cmd		*act_cmd;
 	size_t		tok_size;
 	size_t		cmd_size;
 }				t_shell;
