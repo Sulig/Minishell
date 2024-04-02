@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 19:45:32 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 17:45:14 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:52:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	my_strcmp(const char *str, const char *cmp)
 			return (1);
 		return (0);
 	}
-	if (ft_strlen(str) != ft_strlen(cmp))
+	if (ft_strlen((char *)str) != ft_strlen((char *)cmp))
 		return (0);
 	while (str[cnt])
 	{
