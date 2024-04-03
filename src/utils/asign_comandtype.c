@@ -6,11 +6,24 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 19:16:58 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:28:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+t_cmd	*quote_removal(t_cmd *cmd)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim_s(cmd->input, "\"");
+	cmd->input = ft_strremplace(cmd->input, tmp);
+	tmp = ft_free_str(tmp);
+	tmp = ft_strtrim_s(cmd->input, "\'");
+	cmd->input = ft_strremplace(cmd->input, tmp);
+	tmp = ft_free_str(tmp);
+	return (cmd);
+}
 
 t_cmd	*asign_comandtype(t_cmd *cmd)
 {
@@ -31,6 +44,6 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 		cmd->cmdtype = REDIR_DEL;
 	else
 		cmd->cmdtype = CMD;
-	//quote removal if no content inside
+	cmd = quote_removal(cmd);
 	return (cmd);
 }

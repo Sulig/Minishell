@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 19:46:39 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:46:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 	t_token	*token;
 
 	token = (t_token *)tokens->content;
-	if (token->toktype == PIPE ||token->toktype == REDIR)
+	if (token->toktype == PIPE || token->toktype == REDIR)
 	{
 		cmd->comand = ft_strdup(token->content);
 		return (cmd);
@@ -113,6 +113,7 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		trim = ft_free_str(trim);
 		trim = ft_strtrim_inside(cmd->input, ' ');
 		cmd->input = ft_strremplace(cmd->input, trim);
+		trim = ft_free_str(trim);
 		cmd = asign_comandtype(cmd);
 	}
 	return (cmd);

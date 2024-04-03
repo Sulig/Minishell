@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:07:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 14:05:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:44:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*ft_strdup(const char *s1)
 	while (s1[len])
 		len++;
 	cpy = malloc(len + 1);
-	if (cpy == 0)
-		return (0);
+	if (!cpy)
+		return (NULL);
 	len = 0;
 	while (s1[len])
 	{
@@ -39,8 +39,8 @@ char	*ft_strdup(const char *s1)
 char	*ft_strremplace(char *dst, const char *str)
 {
 	dst = ft_free_str(dst);
-	if (!str)
-		return (dst);
+	if (!ft_strllen(str))
+		return (NULL);
 	dst = ft_strdup(str);
 	return (dst);
 }

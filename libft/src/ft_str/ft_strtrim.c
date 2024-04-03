@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 13:02:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:45:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,5 @@ char	*ft_strtrim_inside(char *input, char trim)
 		}
 		i++;
 	}
-	return (input);
+	return (ft_strdup(input));
 }
