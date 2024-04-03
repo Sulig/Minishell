@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 17:28:20 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:07:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_cmd	*quote_removal(t_cmd *cmd)
 {
 	char	*tmp;
 	char	quote;
+	size_t	len;
 
 	tmp = NULL;
 	if (!ft_strllen(cmd->input))
@@ -23,12 +24,14 @@ t_cmd	*quote_removal(t_cmd *cmd)
 	quote = cmd->input[0];
 	if (quote == '"')
 	{
-		tmp = ft_substr(cmd->input, 1, ft_strlen(cmd->input) - 2);
+		len = ft_cnt_tostr_end(cmd->input, "\"") - 1;
+		tmp = ft_substr(cmd->input, 1, len);
 		cmd->input = ft_strremplace(cmd->input, tmp);
 	}
 	else if (quote == '\'')
 	{
-		tmp = ft_substr(cmd->input, 1, ft_strlen(cmd->input) - 2);
+		len = ft_cnt_tostr_end(cmd->input, "'") - 1;
+		tmp = ft_substr(cmd->input, 1, len);
 		cmd->input = ft_strremplace(cmd->input, tmp);
 	}
 	tmp = ft_free_str(tmp);

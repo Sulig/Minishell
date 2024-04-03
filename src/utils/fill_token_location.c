@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/26 19:20:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:13:44 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,16 @@ static t_list	*detect_quotes(t_list *tokens)
 		token = (t_token *)tokens->content;
 		quoted = set_quote(token->toktype, quoted);
 		if (quoted == 1 && token->toktype != S_QUOTE)
+		{
 			token->location = IN_SINGLE_Q;
+			token->toktype = ARGS;
+		}
 		if (quoted == 2 && token->toktype != D_QUOTE)
+		{
 			token->location = IN_DOUBLE_Q;
+			if (token->toktype != ENV)
+				token->toktype = ARGS;
+		}
 		tokens = tokens->next;
 	}
 	return (first);

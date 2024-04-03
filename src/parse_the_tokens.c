@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 17:28:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:13:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 				return (2);
 		if (token->toktype == ARGS)
 			return (1);
+		if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+			return (4);
 		if (token->toktype == ENV && token->location == IN_SINGLE_Q)
 			return (1);
 		if (token->toktype == SPACE && token->location == NO_QUOTED)
@@ -76,6 +78,7 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 	t_token	*token;
 
 	token = (t_token *)tokens->content;
+	cmd->comand = NULL;
 	if (token->toktype == PIPE || token->toktype == REDIR)
 	{
 		cmd->comand = ft_strdup(token->content);
