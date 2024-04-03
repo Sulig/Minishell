@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 17:57:36 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/21 18:38:10 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:13:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		cnt = cnt - cntn + 1;
 	}
 	return (NULL);
-}
-
-/*
- * Search where ocours needle in haystack
- * Example: "hi 0 len" "0" -> 3
- * if !haystack || !needle -> return 0
-*/
-size_t	ft_cnt_tostr(const char *haystack, const char *needle)
-{
-	size_t	cnt;
-	size_t	cntn;
-
-	if (!haystack || !needle)
-		return (0);
-	cnt = 0;
-	while (haystack[cnt] != '\0')
-	{
-		cntn = 0;
-		while (haystack[cnt] == needle[cntn] && haystack[cnt])
-		{
-			++cnt;
-			++cntn;
-		}
-		if (needle[cntn] == '\0')
-			return (cnt - cntn);
-		cnt = cnt - cntn + 1;
-	}
-	return (cnt);
 }
 
 /*
