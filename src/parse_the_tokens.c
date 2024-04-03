@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:28:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (1);
 		if (token->toktype == SPACE && token->location == NO_QUOTED)
 			return (0);
+		if (token->toktype == OPTION && token->location == NO_QUOTED)
+			return (3);
 		return (0);
 	}
 }
@@ -56,7 +58,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos - 1;
 			break ;
 		}
-		else if (token->toktype == OPTION && tokens->next)
+		else if (check_beforecreate(NULL, token) == 3 && tokens->next)
 		{
 			*pos = *pos + 1;
 			tokens = tokens->next;

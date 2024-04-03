@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 16:47:45 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:25:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ char	*ft_strtrim_inside(char *input, char trim)
 
 	i = 0;
 	if (!ft_strllen(input))
-		return (input);
+		return (NULL);
 	else if (input[0] == '\"')
-		return (input);
+		return (ft_strdup(input));
 	while (input[i])
 	{
 		if (input[i] == trim)

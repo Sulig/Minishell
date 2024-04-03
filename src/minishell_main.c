@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:28:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*fline(void)
 {
 	char	*ttp;
 
-	ttp = "echo hola";
+	ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
+	//ttp = "echo \"'<- don't remove that ->'\" > test | echo '\"<-->\"'";
 	return (ft_strdup(ttp));
 }
 
@@ -24,8 +25,8 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		//tshell->line = ft_readline();
-		tshell->line = fline();
+		tshell->line = ft_readline();
+		//tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -34,7 +35,7 @@ void	minishell(t_shell *tshell)
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
-		print_all_arrstr(tshell->env);
+		//print_all_arrstr(tshell->env);
 		//Redirect \\> error on filedescriptors
 		//execute \\> error execution
 		//tshell->exit_state = comand->exit
