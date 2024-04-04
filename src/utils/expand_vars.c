@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 18:00:25 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:47:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ enum e_toktype	env_var_newtoktype(t_token *token)
 {
 	if (my_strcmp("$?", token->content))
 		return (ARGS);
-	else if (ft_strchr(token->content, '$'))
-		return (ENV);
+	if (ft_strchr(token->content, '$'))
+		if (token->location != IN_SINGLE_Q)
+			return (ENV);
 	return (ARGS);
 }
 

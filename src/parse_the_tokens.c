@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 20:13:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:18:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 		cmd->comand = ft_strdup(token->content);
 		return (cmd);
 	}
+	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+		token->toktype = ARGS;
 	while (tokens && token->toktype == ARGS)
 	{
 		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);

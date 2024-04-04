@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 20:13:58 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:18:14 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*fline(void)
 	char	*ttp;
 
 	ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
-	ttp = "echo \"'<- don't remove that ->'\" > test | echo '\"<-->\"'";
+	ttp = "'some text' \"<-||->\"";
 	return (ft_strdup(ttp));
 }
 
@@ -30,8 +30,8 @@ void	minishell(t_shell *tshell)
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		split_intocomands(tshell, tshell->tokens);
 		print_tokens_st(tshell->tokens);
+		split_intocomands(tshell, tshell->tokens);
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
