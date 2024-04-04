@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 16:18:14 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:07:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	minishell(t_shell *tshell)
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
-		//Redirect \\> error on filedescriptors
-		//execute \\> error execution
-		//tshell->exit_state = comand->exit
+		find_comands(tshell, tshell->comands);
+		//redirect_and_execute(tshell);
 		free_comands(tshell);
 		rl_on_new_line();
 		break ;

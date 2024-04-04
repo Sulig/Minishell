@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 20:03:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:25:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	print_err_syntax(char *content)
 int	print_comandnotfound(char *comand)
 {
 	ft_printf_fd(2, "%s: %s: ", "minishell", comand);
-	ft_printf_fd(2, "comand not found");
+	ft_printf_fd(2, "comand not found\n");
 	return (127);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 17:28:22 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:07:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include "../libft/include/libft.h"
 # include "colors.h"
 # include "minishell_structs.h"
+# include "exec.h"
+# include "boolean.h"
+# include "builtins.h"
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -33,9 +36,13 @@ char	*ft_readline(void);
 void	split_intotokens(t_shell *tshell);
 void	fill_token_location(t_shell *tshell);
 void	expand_env_var(t_shell *tshell);
+void	split_intocomands(t_shell *tshell, t_list *tokens);
 
 /* TO TEST OR TESTING */
-void	split_intocomands(t_shell *tshell, t_list *tokens);
+void	find_comands(t_shell *tshell, t_list *comands);
+
+/* REDIRECT AND EXECUTE */
+void    redirect_and_execute(t_shell *tshell);
 
 /* CHECKERS */
 int		check_valid_syntax(t_shell *tshell);
@@ -51,9 +58,6 @@ void	free_tokens(t_shell *tshell);
 void	free_comands(t_shell *tshell);
 void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
-
-/* BUILTINS */
-int		ft_echo(char *n, char *message);
 
 /* UTILS */
 t_cmd	*asign_comandtype(t_cmd *cmd);
