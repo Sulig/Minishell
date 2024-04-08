@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/04 17:37:32 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/08 20:17:06 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ BLT_SRC = builtin_echo.c builtin_pwd.c builtin_utils.c
 PER_SRC = print_common_errors.c
 #EXE_SRC = execute_simple_cmd.c execute_builtin.c
 UTL_SRC = fill_token_location.c expand_vars.c print_utils.c signals.c\
-		  asign_comandtype.c
+		  asign_comandtype.c get-set_path.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))

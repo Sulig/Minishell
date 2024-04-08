@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 17:05:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:17:03 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,37 @@ static int	checkif_comandexist(t_cmd *cmd)
 			return (print_comandnotfound(""));
 		return (0);
 	}
-	if (find_in_builtin(cmd))
+	if (cmd->cmdtype == PIPE || cmd->cmdtype == REDIR)
+		return (0);
+	else if (find_in_builtin(cmd))
 		return (0);
 	while (cmd->comand[i])
 	{
-		if (cmd->cmdtype == PIPE)
-			return (0);
-		if (ft_strchr(cmd->comand, '>') || ft_strchr(cmd->comand, '<'))
-			return (0);
 		if (!ft_is_alphanumeric(cmd->comand[i]))
 			return (print_comandnotfound(cmd->comand));
 		i++;
 	}
-	//The comand it is searched in system??
-	//Search next day
+	if (access(cmd->input, X_OK) == 0 || access(cmd->input, W_OK))
+		return (0);
 	return (print_comandnotfound(cmd->comand));
 }
 
 void	find_comands(t_shell *tshell, t_list *comands)
 {
+	tshell->path = get_set_path(tshell);
+	if (!tshell->path)
+	{
+		tshell->exit_state = print_err_custom("No PATH finded");
+		return ;
+	}
+	if (access(tshell->path, R_OK) == -1)
+	{
+		tshell->exit_state = print_err_custom("Can't access to PATH");
+		return ;
+	}
 	while (comands)
 	{
 		tshell->exit_state = checkif_comandexist((t_cmd *)comands->content);
 		comands = comands->next;
 	}
-	ft_printf("Reached end of comands\n");
 }

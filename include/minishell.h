@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 20:07:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:16:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 /* PRINTING ERRORS */
 void	print_err_args(void);
 int		print_err_syntax(char *content);
+int		print_err_custom(char *error);
 int		print_comandnotfound(char *comand);
 
 /* STRUCTURE MEMORY MANAGER */
@@ -60,6 +61,7 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
+char	*get_set_path(t_shell *tshell);
 t_cmd	*asign_comandtype(t_cmd *cmd);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
