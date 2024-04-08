@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 20:06:47 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:05:34 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ static int	checkif_comandexist(t_cmd *cmd)
 
 	i = 0;
 	if (!ft_strllen(cmd->comand))
+	{
+		if (ft_strllen(cmd->input))
+			return (print_comandnotfound(""));
 		return (0);
+	}
 	if (find_in_builtin(cmd))
 		return (0);
 	while (cmd->comand[i])

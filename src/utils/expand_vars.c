@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 15:47:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:25:44 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	expand_env_var(t_shell *tshell)
 			token->content = ft_strjoin_free_fst(token->content, "=");
 			env_var = token->content + 1;
 			env_var = tshell->env[ft_search_str(tshell->env, env_var)];
-			if (env_var)
+			if (env_var && ft_strllen(token->content) > 2)
 			{
 				env_var = ft_strcut(env_var, '=', '>', 'y');
 				token->content = ft_strremplace(token->content, env_var);

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 20:07:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:13:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,16 @@ typedef struct s_cmd
 	enum e_toktype	cmdtype;
 	char			*comand;
 	char			*options;
-	//char			**args;
 	char			*input;
-	void			*output;
 }					t_cmd;
+
+/* SAVE THE OUTPUT AND FILE DESCRIPTOR */
+typedef struct s_fd 
+{
+	int			st_fd_in;
+	int			st_fd_out;
+	char		**args;
+}				t_fd;
 
 /* MINISHELL STRUCTURE */
 typedef struct s_shell

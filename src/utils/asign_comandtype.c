@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/04 16:18:06 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:22:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,14 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 {
 	if (cmd->cmdtype == PIPE)
 		return (cmd);
-	if (cmd->cmdtype == REDIR)
-	{
-		cmd->output = ft_strdup(cmd->input);
-		cmd->input = ft_free_str(cmd->input);
-	}
 	if (my_strcmp("<", cmd->comand))
-		cmd->cmdtype = REDIR_IN;
+		cmd->cmdtype = REDIR;
 	else if (my_strcmp(">", cmd->comand))
-		cmd->cmdtype = REDIR_OUT;
+		cmd->cmdtype = REDIR;
 	else if (my_strcmp(">>", cmd->comand))
-		cmd->cmdtype = REDIR_APP;
+		cmd->cmdtype = REDIR;
 	else if (my_strcmp("<<", cmd->comand))
-		cmd->cmdtype = REDIR_DEL;
+		cmd->cmdtype = REDIR;
 	else
 		cmd->cmdtype = CMD;
 	cmd = quote_removal_comand(cmd);
