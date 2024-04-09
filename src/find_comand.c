@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 20:17:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:35:01 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	checkif_comandexist(t_cmd *cmd)
 			return (print_comandnotfound(cmd->comand));
 		i++;
 	}
-	if (access(cmd->input, X_OK) == 0 || access(cmd->input, W_OK))
+	if (access(cmd->comand, X_OK) == 0 || access(cmd->comand, W_OK))
 		return (0);
 	return (print_comandnotfound(cmd->comand));
 }

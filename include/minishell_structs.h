@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 20:16:55 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:44:08 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;
+	t_list		*fds;
 	//t_cmd		*act_cmd;
 	size_t		tok_size;
 	size_t		cmd_size;

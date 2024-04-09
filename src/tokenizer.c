@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 20:03:27 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:27:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ static t_token	*create_token(t_shell *tshell, size_t pos)
 	if (!token)
 		return (NULL);
 	token->toktype = scan_toktype(tshell->line[pos]);
+	if (token->toktype == OPTION && pos > 0)
+		if (scan_toktype(tshell->line[pos - 1]) != SPACE)
+			token->toktype = ARGS;
 	if (token->toktype == OPTION)
 		if (scan_toktype(tshell->line[pos + 1]) == SPACE)
 			token->toktype = ARGS;

@@ -6,11 +6,12 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 17:25:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:22:07 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lenght.h"
+#include "../include/memory.h"
 #include "../include/searchers.h"
 #include "../include/string_utils.h"
 
@@ -72,14 +73,17 @@ char	*ft_strtrim_s(const char *s1, const char *set)
 
 static char	*trim_inside(char *input, size_t start, size_t end)
 {
-	while (input[end])
-	{
-		input[start] = input[end];
-		start++;
-		end++;
-	}
-	input[start] = '\0';
-	return (input);
+	char	*cut_st;
+	char	*cut_ed;
+	char	*result;
+
+	cut_st = ft_strcpyl(input, start);
+	cut_ed = ft_strdup(input + end);
+	result = ft_strjoin_s(cut_st, cut_ed);
+	cut_st = ft_free_str(cut_st);
+	cut_ed = ft_free_str(cut_ed);
+	input = ft_free_str(input);
+	return (result);
 }
 
 /*
@@ -90,23 +94,23 @@ char	*ft_strtrim_inside(char *input, char trim)
 {
 	size_t	i;
 	size_t	pos;
+	char	*result;
 
 	i = 0;
 	if (!ft_strllen(input))
 		return (NULL);
-	else if (input[0] == '\"')
-		return (ft_strdup(input));
-	while (input[i])
+	result = ft_strdup(input);
+	while (result[i])
 	{
-		if (input[i] == trim)
+		if (result[i] == trim)
 		{
 			pos = i;
-			while (input[i] && input[i] == ' ')
+			while (result[i] && result[i] == trim)
 				i++;
-			input = trim_inside(input, pos + 1, i);
-			i = pos;
+			result = trim_inside(result, pos, i);
+			i = 0;
 		}
 		i++;
 	}
-	return (ft_strdup(input));
+	return (ft_strdup(result));
 }

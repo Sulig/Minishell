@@ -6,114 +6,118 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/02 19:24:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:44:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	check_toktype(t_token *token, t_list *next)
+static int	check_toktype(t_token *token)
 {
+	if (!token)
+		return (0);
 	if (token->toktype == REDIR || token->toktype == PIPE)
 		if (token->location == NO_QUOTED)
 			return (-1);
-	if (token->toktype == ARGS)
-		return (1);
-	else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-	{
-		if (next)
-			return (1);
-		else if (!next)
-			return (-1);
-	}
-	else if (token->toktype != SPACE)
+	if (token->toktype != SPACE)
 		return (1);
 	return (0);
 }
 
-static int	checkfor_prestuff(t_list *list, enum e_toktype mode, size_t finded)
+static t_token	*return_type(t_token *act, t_token *ret)
+{
+	int	check;
+
+	check = check_toktype(act);
+	if (check == 1)
+		return (NULL);
+	if (check == -1)
+		return (ret);
+	return (ret);
+}
+
+static t_token	*checkfor_befstuff(t_list *list, enum e_toktype mode)
 {
 	t_token	*token;
+	t_token	*act;
 	t_list	*tmp;
 
+	act = NULL;
 	while (list)
 	{
 		token = (t_token *)list->content;
 		if (token->toktype == mode && token->location == NO_QUOTED)
 		{
-			finded++;
+			act = token;
 			if (!list->prev)
-				return (0);
+				return (act);
 			tmp = list->prev;
 			while (tmp)
 			{
 				token = (t_token *)tmp->content;
-				if (check_toktype(token, NULL) != 0)
-					return (check_toktype(token, NULL));
+				if (check_toktype(token) != 0)
+					return (return_type(token, act));
 				tmp = tmp->prev;
 			}
 		}
 		list = list->next;
 	}
-	if (!finded)
-		return (1);
-	return (0);
+	return (act);
 }
 
-static int	checkfor_aftstuff(t_list *list, enum e_toktype mode)
+static t_token	*checkfor_atfstuff(t_list *list, enum e_toktype mode)
 {
 	t_token	*token;
-	size_t	finded;
+	t_token	*act;
 
-	finded = 0;
+	act = NULL;
 	while (list)
 	{
 		token = (t_token *)list->content;
 		if (token->toktype == mode && token->location == NO_QUOTED)
 		{
-			finded++;
+			act = token;
 			if (!list->next)
-				return (0);
+				return (act);
 			while (list->next)
 			{
 				list = list->next;
 				token = (t_token *)list->content;
-				if (check_toktype(token, list->next) != 0)
-					return (check_toktype(token, list->next));
+				if (check_toktype(token) != 0)
+					return (return_type(token, act));
 			}
 		}
 		list = list->next;
 	}
-	if (!finded)
-		return (1);
-	return (0);
-}
-
-static int	is_valid(t_list *list, enum e_toktype mode)
-{
-	if (mode == PIPE)
-		if (checkfor_prestuff(list, mode, 0) > 0)
-			if (checkfor_aftstuff(list, mode) > 0)
-				return (1);
-	if (mode != PIPE)
-		if (checkfor_aftstuff(list, mode) > 0)
-			return (1);
-	return (0);
+	return (act);
 }
 
 int	check_valid_syntax(t_shell *tshell)
 {
+	t_list	*list;
+	t_token	*ch_bef;
+	t_token	*ch_aft;
+
 	if (!tshell->tokens)
+	{
+		tshell->exit_state = 0;
 		return (1);
-	if (!is_valid(tshell->tokens, REDIR))
-	{
-		tshell->exit_state = 258;
-		return (print_err_syntax(">"));
 	}
-	if (!is_valid(tshell->tokens, PIPE))
+	list = tshell->tokens;
+	ch_bef = checkfor_befstuff(list, PIPE);
+	ch_aft = checkfor_atfstuff(list, PIPE);
+	if (ch_aft || ch_bef)
 	{
 		tshell->exit_state = 258;
-		return (print_err_syntax("|"));
+		if (ch_bef)
+			return (print_err_syntax(ch_bef->content));
+		return (print_err_syntax(ch_aft->content));
+	}
+	ch_aft = checkfor_atfstuff(list, REDIR);
+	if (ch_aft)
+	{
+		tshell->exit_state = 258;
+		return (print_err_syntax(ch_aft->content));
 	}
 	return (1);
 }

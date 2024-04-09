@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 20:17:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:44:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*fline(void)
 	char	*ttp;
 
 	ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
-	ttp = "echo $$";
+	ttp = "<|°_°|>";
 	return (ft_strdup(ttp));
 }
 

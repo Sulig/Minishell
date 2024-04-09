@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 19:03:29 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:44:20 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	print_err_syntax(char *content)
 	ft_printf_fd(2, "%s: syntax error near token", "minishell");
 	if (!content)
 		ft_printf_fd(2, " %cnewline'\n", 96);
-	else if (my_strcmp(content, "|"))
-		ft_printf_fd(2, " %c%s'\n", 96, content);
 	else
 		ft_printf_fd(2, " %c%s'\n", 96, content);
 	return (0);
@@ -35,7 +33,7 @@ int	print_err_syntax(char *content)
 int	print_comandnotfound(char *comand)
 {
 	ft_printf_fd(2, "%s: %s: ", "minishell", comand);
-	ft_printf_fd(2, "comand not found\n");
+	ft_printf_fd(2, "command not found\n");
 	return (127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 18:47:04 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:34:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,24 @@
 t_cmd	*quote_removal_comand(t_cmd *cmd)
 {
 	char	*tmp;
+	size_t	dq_pos;
+	size_t	sq_pos;
 
 	tmp = NULL;
 	if (!ft_strllen(cmd->comand))
 			return (cmd);
-	if (cmd->comand[0] == '\"')
+	dq_pos = ft_cnttoch_out(cmd->comand, '\"');
+	sq_pos = ft_cnttoch_out(cmd->comand, '\'');
+	if (dq_pos == sq_pos)
+		return (cmd);
+	else if (dq_pos < sq_pos)
 	{
-		tmp = ft_strtrim_s(cmd->comand, "\"");
+		tmp = ft_strtrim_inside(cmd->comand, '\"');
 		cmd->comand = ft_strremplace(cmd->comand, tmp);
 	}
-	else if (cmd->comand[0] == '\'')
+	else if (sq_pos < dq_pos)
 	{
-		tmp = ft_strtrim_s(cmd->comand, "\'");
+		tmp = ft_strtrim_inside(cmd->comand, '\'');
 		cmd->comand = ft_strremplace(cmd->comand, tmp);
 	}
 	tmp = ft_free_str(tmp);
