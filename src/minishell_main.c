@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/09 19:44:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:04:36 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,19 @@ void	minishell(t_shell *tshell)
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
 		find_comands(tshell, tshell->comands);
+		/* Redirections 
+		 * Create file if don't exist
+		 * If exist, read from it if we can, and save it in **tmp
+		*/
 		//redirect_and_execute(tshell);
+		/* Executor
+		 * Ejecute the comand
+		 * if builtin, the output will be saved on a node of list
+		 * 	** that node contains a fd
+		 * 	** and the **args
+		 *
+		 * if comand, **unkownk
+		*/
 		free_comands(tshell);
 		rl_on_new_line();
 		break ;
