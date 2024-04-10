@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/08 17:04:28 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/10 19:49:28 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef REDIRECT_H
+# define REDIRECT_H
 
 # include "minishell.h"
 
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
+# define SAVE 1
+# define RESTORE 0
+# define OPEN_FILE_MODE 0644
+
+void	save_restore_stdio(t_shell *tshell, int std_in, int std_out, int mode);
+int		redirect(t_list *cmd, int n);
+int		link_output_file(const char *filename, int append);
+int		open_file(const char *filename, int flags);
 
 #endif

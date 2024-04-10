@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:45:42 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/03 18:54:19 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:18:56 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	builtin_pwd(void)
 		print_err_syntax("error getting pwd");
 		return (2);
 	}
-	write(1, buffer, ft_strlen(buffer));
-	write(1, "\n", 1);
+	ft_putendl_fd(buffer, STDOUT_FILENO);
 	free(buffer);
 	return (0);
 }

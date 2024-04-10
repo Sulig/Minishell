@@ -6,15 +6,15 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/09 19:56:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:54:36 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	find_in_builtin(t_cmd *cmd)
+int	is_builtin_name(t_cmd *cmd)
 {
-    if (my_strcmp("echo", cmd->comand))
+	if (my_strcmp("echo", cmd->comand))
 		return (1);
 	if (my_strcmp("cd", cmd->comand))
 		return (1);
@@ -44,11 +44,11 @@ static int	checkif_comandexist(t_cmd *cmd)
 	}
 	if (cmd->cmdtype == PIPE || cmd->cmdtype == REDIR)
 		return (0);
-	else if (find_in_builtin(cmd))
+	else if (is_builtin_name(cmd))
 		return (0);
 	while (cmd->comand[i])
 	{
-		if (!ft_is_alphanumeric(cmd->comand[i]))
+		if (!ft_isalnum(cmd->comand[i]))
 			return (print_comandnotfound(cmd->comand));
 		i++;
 	}

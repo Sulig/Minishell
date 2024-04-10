@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 17:25:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:47:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-enum e_toktype	env_var_newtoktype(t_token *token)
+static enum e_toktype	env_var_newtoktype(t_token *token)
 {
 	if (my_strcmp("$?", token->content))
 		return (ARGS);
@@ -22,6 +22,12 @@ enum e_toktype	env_var_newtoktype(t_token *token)
 	return (ARGS);
 }
 
+/*
+ * !Only for a list of tokens
+ * Expand the $var to corresponent in $ENV
+ * Do not expand if is inside 'single quotes'
+ * Do not expand $?, this will be expanded to the last comand exit_state
+*/
 void	expand_env_var(t_shell *tshell)
 {
 	t_list	*tokens;
@@ -49,3 +55,7 @@ void	expand_env_var(t_shell *tshell)
 		tokens = tokens->next;
 	}
 }
+
+/*
+ * Expand everithing $var to corresponent in $ENV
+*/

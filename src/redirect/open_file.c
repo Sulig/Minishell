@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/08 18:45:58 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/10 18:45:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "../../include/minishell.h"
 
-# include "minishell.h"
+/* 
+ * Opens the file 'filename' with the 'flags' and returns its file descriptor.
+ * On failure, prints an error message and returns -1 (setting errno).
+*/
+int	open_file(const char *filename, int flags)
+{
+	int	fd_file;
 
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
-
-#endif
+	fd_file = open(filename, flags, OPEN_FILE_MODE);
+	if (fd_file == -1)
+		print_err_custom("Can't open the file");
+	return (fd_file);
+}

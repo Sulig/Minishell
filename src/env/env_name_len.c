@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   env_name_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/03 22:29:53 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/03 22:31:02 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+# include "../../include/minishell.h"
 
-# include "minishell.h"
+// Given that 'str' points to the first character of a variable name,
+// returns its length.
+int	env_name_len(const char *str)
+{
+	int	i;
 
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
-
-#endif
+	i = 0;
+	if (str[i] && (ft_isalpha(str[i]) || str[i] == '_'))
+	{
+		++i;
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+			++i;
+	}
+	return (i);
+}

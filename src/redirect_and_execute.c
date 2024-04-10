@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 22:50:44 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/04 17:13:58 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:32:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void    redirect_and_execute(t_shell *tshell)
     t_list  *cmds;
     int     exit_status;
 
+	if (tshell->exit_state != 0)
+		return ;
     cmds = tshell->comands;
     if(ft_lstsize(cmds) == 1)
     {

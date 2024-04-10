@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   arr_2d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/06 21:02:30 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/10 19:52:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef ARR_2D_H
+# define ARR_2D_H
 
-# include "minishell.h"
-
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
+int		arr_2d_len(char **arr);
+void	free_arr_2d(char **arr);
+char	**remove_last_elem_arr2d(char **arr);
+char	**append_arr_2d(char **arr, char *s);
+char	**remove_elem_arr2d(char **arr, int i);
 
 #endif

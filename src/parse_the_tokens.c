@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/09 19:44:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:01:27 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,20 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 		expand_env_var(tshell);
 		return (1);
 	}
-	else
-	{
-		if (token->toktype == PIPE || token->toktype == REDIR)
-			if (token->location == NO_QUOTED)
-				return (2);
-		if (token->toktype == ARGS)
-			return (1);
-		if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-			return (4);
-		if (token->toktype == ENV && token->location == IN_SINGLE_Q)
-			return (1);
-		if (token->toktype == SPACE && token->location == NO_QUOTED)
-			return (0);
-		if (token->toktype == OPTION && token->location == NO_QUOTED)
-			return (3);
-		return (0);
-	}
+	if (token->toktype == PIPE || token->toktype == REDIR)
+		if (token->location == NO_QUOTED)
+			return (2);
+	if (token->toktype == ARGS)
+		return (1);
+	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+		return (4);
+	if (token->toktype == ENV && token->location == IN_SINGLE_Q)
+		return (1);
+	if (token->toktype == SPACE && token->location != NO_QUOTED)
+		return (1);
+	if (token->toktype == OPTION && token->location == NO_QUOTED)
+		return (3);
+	return (0);
 }
 
 static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
@@ -115,11 +112,14 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (token->toktype != PIPE)
 	{
 		cmd = fill_command(cmd, tokens, pos);
+		//trim input if no quoted, FIX THIS
+		/*
 		trim = ft_strtrim_s(cmd->input, " ");
 		cmd->input = ft_strremplace(cmd->input, trim);
 		trim = ft_free_str(trim);
 		trim = ft_strtrim_inside(cmd->input, ' ');
 		cmd->input = ft_strremplace(cmd->input, trim);
+		*/
 		trim = ft_free_str(trim);
 		cmd = asign_comandtype(cmd);
 	}

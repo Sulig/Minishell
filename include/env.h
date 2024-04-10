@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/03 22:16:12 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/10 19:51:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "minishell.h"
-
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
+char	*get_var_from_env(const char *varname, char **env);
+char	*find_var_line_from_env(const char *varname, char **env);
+int		env_name_len(const char *str);
+int		find_var_index_from_env(char *elem, char **env);
+char	*env_get_varname(const char *str);
+int		env_valid_varname(char *word);
+void	remove_env_var(char *varname, char **env);
 
 #endif

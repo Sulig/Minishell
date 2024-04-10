@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/08 20:17:06 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/10 20:02:20 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,10 @@ INC_DIR = ./include
 # Minishell SRC Directories:
 SRC_DIR = ./src
 BLT_DIR = $(SRC_DIR)/builtins
+ENV_DIR = $(SRC_DIR)/env
 EXE_DIR = $(SRC_DIR)/exec
 PER_DIR = $(SRC_DIR)/print_errors
-#RED_DIR = $(SRC_DIR)/redirections
+RED_DIR = $(SRC_DIR)/redirect
 UTL_DIR = $(SRC_DIR)/utils
 # ------------------- #
 # Sources:
@@ -51,14 +52,18 @@ HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
 		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
 		  checkfor_unclosedquotes.c find_comand.c
-BLT_SRC = builtin_echo.c builtin_pwd.c builtin_utils.c
-PER_SRC = print_common_errors.c
+#BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
+		  builtin_export.c builtin_pwd.c builtin_unset.c builtin_utils.c
+ENV_SRC = get_var_from_env.c find_var_line_from_env.c env_name_len.c\
+		  find_var_index_from_env.c env_get_varname.c remove_env_var.c
 #EXE_SRC = execute_simple_cmd.c execute_builtin.c
+PER_SRC = print_common_errors.c
 UTL_SRC = fill_token_location.c expand_vars.c print_utils.c signals.c\
-		  asign_comandtype.c get-set_path.c
+		  asign_comandtype.c get-set_path.c ft_arr_2d.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
+SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
 #SRC += $(addprefix $(EXE_DIR)/, $(EXE_SRC))
 SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))

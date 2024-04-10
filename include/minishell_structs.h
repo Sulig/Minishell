@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/09 20:04:38 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:02:27 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_cmd
 }					t_cmd;
 
 /* SAVE THE OUTPUT AND FILE DESCRIPTOR */
-typedef struct s_fd 
+typedef struct s_fd
 {
 	int			st_fd_in;
 	int			st_fd_out;

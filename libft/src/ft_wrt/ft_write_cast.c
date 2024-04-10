@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:55:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 16:13:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:22:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ int	ft_putstr(char *str)
 		ret++;
 	}
 	return (ret);
+}
+
+int	ft_putendl(char *s)
+{
+	int		len;
+
+	len = 0;
+	while (s[len])
+	{
+		if (write(1, &s[len], 1) == -1)
+			return (-1);
+		len++;
+	}
+	if (write(1, "\n", 1) == -1)
+		return (-1);
+	return (len + 1);
 }
 
 int	ft_putnbr(int nbr)

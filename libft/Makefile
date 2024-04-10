@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/19 12:00:39 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/03 16:49:46 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/10 19:13:55 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ INC_DIR = ./include
 
 # Libft SRC Directories:
 SRC_DIR = ./src/
+IS_DIR 	= $(SRC_DIR)ft_is
 GNL_DIR = $(SRC_DIR)ft_gnl
 CNV_DIR = $(SRC_DIR)ft_cnv
 MEM_DIR = $(SRC_DIR)ft_mem
@@ -41,6 +42,7 @@ MAK = Makefile #This Makefile
 HDR = $(INC_DIR)/
 
 GNL_SRC = get_next_line.c
+IS_SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscap.c ft_isdigit.c ft_isprint.c
 CNV_SRC = ft_atoi.c ft_atoi_base.c ft_itoa.c ft_strcapitalize.c ft_to_upplow.c
 WRT_SRC = ft_printf.c ft_printf_fd.c ft_write_cast.c ft_write_cast_fd.c
 MEM_SRC = ft_calloc.c ft_free.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c
@@ -52,6 +54,7 @@ LST_SRC = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c\
 		  ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstnodepos_bonus.c
 
 SRC = $(addprefix $(GNL_DIR)/, $(GNL_SRC))
+SRC += $(addprefix $(IS_DIR)/, $(IS_SRC))
 SRC += $(addprefix $(CNV_DIR)/, $(CNV_SRC))
 SRC += $(addprefix $(MEM_DIR)/, $(MEM_SRC))
 SRC += $(addprefix $(STR_DIR)/, $(STR_SRC))

@@ -6,12 +6,12 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:12:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/01 18:42:58 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:47:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_newline_redisplay(int signal)
 {

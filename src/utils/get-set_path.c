@@ -6,11 +6,11 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:52:25 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 20:16:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:47:34 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*get_set_path(t_shell *tshell)
 {

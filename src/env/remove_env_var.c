@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   remove_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:51:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/07 12:01:46 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/07 12:13:47 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+# include "../../include/minishell.h"
 
-# include "minishell.h"
+// Removes the environment variable 'varname'.
+void	remove_env_var(char *varname, char **env)
+{
+	int		var_index;
 
-int		execute_simple_cmd(t_cmd *cmd, char **env);
-int		execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child);
-
-#endif
+	var_index = find_var_index_from_env(varname, env);
+	if (var_index >= 0)
+		env = remove_elem_arr2d(env, var_index);
+}

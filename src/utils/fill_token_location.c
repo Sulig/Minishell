@@ -6,11 +6,11 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 20:13:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:47:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	set_quote(enum e_toktype toktype, int quoted)
 {

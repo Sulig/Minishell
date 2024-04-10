@@ -6,11 +6,11 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:40:25 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/21 19:48:43 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:07:31 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_cap(char c)
+static int	ft_is_cap(char c)
 {
 	if (c > '/' && c < ':')
 		return (1);
@@ -19,7 +19,7 @@ int	ft_is_cap(char c)
 	return (0);
 }
 
-int	ft_is_alphanumeric(char c)
+static int	ft_is_alphanumeric(char c)
 {
 	if (c < '0')
 		return (0);
@@ -32,7 +32,7 @@ int	ft_is_alphanumeric(char c)
 	return (1);
 }
 
-char	*ft_no_cap_behind(char *str)
+static char	*ft_no_cap_behind(char *str)
 {
 	int		cap;
 	int		counter;
@@ -57,7 +57,7 @@ char	*ft_no_cap_behind(char *str)
 	return (str);
 }
 
-char	*ft_capitalize(char *str)
+static char	*ft_capitalize(char *str)
 {
 	int		other;
 	int		cap;

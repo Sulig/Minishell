@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:05:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/03 19:02:18 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:09:18 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int	builtin_echo(t_cmd *cmd)
             printf(" ");
     }
     if (cmd->input)
-        printf("%s", cmd->input);
+        //printf("%s", cmd->input);
+        ft_putstr_fd(cmd->input, STDOUT_FILENO);
 	if (flag == FALSE)
-		printf("\n");
+		//printf("\n");
+        ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
