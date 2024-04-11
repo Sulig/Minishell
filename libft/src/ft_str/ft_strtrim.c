@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/09 17:22:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:25:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static char	*trim_inside(char *input, size_t start, size_t end)
 
 /*
  * Trim the extra char trim inside the input
- * Do not trim if is inside of \"
 */
 char	*ft_strtrim_inside(char *input, char trim)
 {

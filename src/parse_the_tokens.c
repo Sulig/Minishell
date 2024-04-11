@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 20:01:27 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:08:37 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 {
 	t_cmd	*cmd;
-	char	*trim;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
@@ -112,15 +111,7 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (token->toktype != PIPE)
 	{
 		cmd = fill_command(cmd, tokens, pos);
-		//trim input if no quoted, FIX THIS
-		/*
-		trim = ft_strtrim_s(cmd->input, " ");
-		cmd->input = ft_strremplace(cmd->input, trim);
-		trim = ft_free_str(trim);
-		trim = ft_strtrim_inside(cmd->input, ' ');
-		cmd->input = ft_strremplace(cmd->input, trim);
-		*/
-		trim = ft_free_str(trim);
+		cmd = trim_input(cmd);
 		cmd = asign_comandtype(cmd);
 	}
 	return (cmd);

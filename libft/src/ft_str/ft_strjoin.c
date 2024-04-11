@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 19:11:30 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 16:59:12 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:48:14 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ char	*ft_strjoin_free_fst(char *s1, const char *s2)
 		while (s2[cnt])
 			join[len++] = s2[cnt++];
 	join[len] = '\0';
-	free(s1);
+	if (s1)
+		free(s1);
 	s1 = NULL;
 	return (join);
 }
@@ -120,7 +121,8 @@ char	*ft_strjoin_free_sec(const char *s1, char *s2)
 		while (s2[cnt])
 			join[len++] = s2[cnt++];
 	join[len] = '\0';
-	free(s2);
+	if (s2)
+		free(s2);
 	s2 = NULL;
 	return (join);
 }

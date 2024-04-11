@@ -6,43 +6,48 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/09 22:56:41 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:35:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Performs the redirection defined by 'redir', taking 'next' as the following 
-// token, knowing it's the 'n'-th command.
-// In the case of here documents, quote-removal is performed.
-// Returns the appropriate exit code after printing any error message.
+/*
+ * Performs the redirection defined by 'redir', 
+ * taking 'next' as the following token, knowing it's the 'n'-th command.
+ * In the case of here documents, quote-removal is performed.
+ * Returns the appropriate exit code after printing any error message.
+*/
 static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
 {
 	char	*str;
 
-	if (redir->output == NULL)
+	if (redir->input == NULL)
 	{
-		print_err_syntax("ambiguous redirect");
+		print_err_custom("ambiguous redirect");
         return (EXIT_FAILURE);
 	}
-	str = redir->output;
+	str = redir->input;
 	if (!ft_strncmp(redir->comand, ">", 2))
 		return (link_output_file(str, FALSE));
     else if (!ft_strncmp(redir->comand, ">>", 3))
 		return (link_output_file(str, TRUE));
-		/*
-	else if (!ft_strncmp(redir, "<", 2))
+	else if (!ft_strncmp(redir->comand, "<", 2))
 		return (link_input_file(str));
+	/*
 	else if (!ft_strncmp(redir, "<<", 3))
 		return (link_heredoc(n));
-        */
+    */
 	return (EXIT_FAILURE);
 }
 
-// Performs all redirections of 'cmd', from left-to-right, removing the
-// redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
-// If a redirection error ocurrs, prints an error message.
-int	redirect(t_list *cmd, int n)
+/*
+ * Performs all redirections of 'cmd', from left-to-right, 
+ * removing the redirection tokens, knowing it's the 'n'-th command. 
+ * Returns the exit status.
+ * If a redirection error ocurrs, prints an error message.
+*/
+int	redirect(t_list *cmd)
 {
 	int		exit_status;
 	t_cmd	*node;
@@ -60,8 +65,7 @@ int	redirect(t_list *cmd, int n)
 			lst = lst->next;
 		}
 		else
-            lst = lst->next;
+			lst = lst->next;
 	}
-
 	return (exit_status);
 }

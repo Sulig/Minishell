@@ -6,13 +6,22 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 19:25:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:07:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_cmd	*quote_removal_comand(t_cmd *cmd)
+/*
+ * Remove the quotes of the comand name
+ * if the first type of quote is \"
+ * remove only \"
+ * if the first type of quote is \'
+ * remove only \'
+ * So, in case of "''" -> ''
+ * in case of '""' -> ""
+*/
+static t_cmd	*quote_removal_comand(t_cmd *cmd)
 {
 	char	*tmp;
 	size_t	dq_pos;
@@ -20,7 +29,7 @@ t_cmd	*quote_removal_comand(t_cmd *cmd)
 
 	tmp = NULL;
 	if (!ft_strllen(cmd->comand))
-			return (cmd);
+		return (cmd);
 	dq_pos = ft_cnttoch_out(cmd->comand, '\"');
 	sq_pos = ft_cnttoch_out(cmd->comand, '\'');
 	if (dq_pos == sq_pos)
@@ -41,13 +50,22 @@ t_cmd	*quote_removal_comand(t_cmd *cmd)
 	return (cmd);
 }
 
-t_cmd	*quote_removal_input(t_cmd *cmd)
+/*
+ * Remove the quotes of the comand name
+ * if the first type of quote is \"
+ * remove only \"
+ * if the first type of quote is \'
+ * remove only \'
+ * So, in case of "''" -> ''
+ * in case of '""' -> ""
+*/
+static t_cmd	*quote_removal_input(t_cmd *cmd)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strllen(cmd->input))
-			return (cmd);
+		return (cmd);
 	if (cmd->input[0] == '\"')
 	{
 		tmp = ft_strtrim_s(cmd->input, "\"");
@@ -64,6 +82,16 @@ t_cmd	*quote_removal_input(t_cmd *cmd)
 	return (cmd);
 }
 
+/*
+ * Asing comand type:
+ * - REDIR	< << > >>
+ * - PIPE	|
+ * - CMD	the rest...
+ *
+ * And do:
+ * * Quote removal of comand
+ * * Trim the input & quote removal
+*/
 t_cmd	*asign_comandtype(t_cmd *cmd)
 {
 	if (cmd->cmdtype == PIPE)

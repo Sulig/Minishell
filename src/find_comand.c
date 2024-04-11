@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 19:54:36 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:14:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	checkif_comandexist(t_cmd *cmd)
 		return (0);
 	else if (is_builtin_name(cmd))
 		return (0);
+	else if (ft_strstr(cmd->comand, "./"))
+		return (0);
 	while (cmd->comand[i])
 	{
 		if (!ft_isalnum(cmd->comand[i]))
@@ -59,6 +61,8 @@ static int	checkif_comandexist(t_cmd *cmd)
 
 void	find_comands(t_shell *tshell, t_list *comands)
 {
+	t_cmd	*cmd;
+
 	tshell->path = get_set_path(tshell);
 	if (!tshell->path)
 	{
@@ -72,7 +76,10 @@ void	find_comands(t_shell *tshell, t_list *comands)
 	}
 	while (comands)
 	{
-		tshell->exit_state = checkif_comandexist((t_cmd *)comands->content);
+		cmd = (t_cmd *)comands->content;
+		tshell->exit_state = checkif_comandexist(cmd);
+		if (tshell->exit_state != 0)
+			cmd->comand = ft_free_str(cmd->comand);
 		comands = comands->next;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/19 12:00:39 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/10 19:13:55 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/11 17:27:29 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,16 +42,20 @@ MAK = Makefile #This Makefile
 HDR = $(INC_DIR)/
 
 GNL_SRC = get_next_line.c
-IS_SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscap.c ft_isdigit.c ft_isprint.c
+IS_SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscap.c ft_isdigit.c\
+		 ft_isprint.c ft_isnumeric.c
 CNV_SRC = ft_atoi.c ft_atoi_base.c ft_itoa.c ft_strcapitalize.c ft_to_upplow.c
 WRT_SRC = ft_printf.c ft_printf_fd.c ft_write_cast.c ft_write_cast_fd.c
-MEM_SRC = ft_calloc.c ft_free.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c
-STR_SRC = ft_split.c ft_strchr.c ft_strcmp.c ft_strcpy.c ft_strcut.c ft_strinter.c\
-		  ft_strjoin.c ft_strlen.c ft_strstr.c ft_strtrim.c ft_substr.c
+MEM_SRC = ft_calloc.c ft_free.c ft_memchr.c ft_memcmp.c ft_memcpy.c\
+		  ft_memmove.c ft_memset.c
+STR_SRC = ft_split.c ft_strchr.c ft_strcmp.c ft_strcpy.c ft_strcut.c\
+		  ft_strinter.c ft_strjoin.c ft_strlen.c ft_strstr.c ft_strtrim.c\
+		  ft_substr.c
 
 LST_SRC = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c\
 		  ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c\
-		  ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstnodepos_bonus.c
+		  ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c\
+		  ft_lstnodepos_bonus.c
 
 SRC = $(addprefix $(GNL_DIR)/, $(GNL_SRC))
 SRC += $(addprefix $(IS_DIR)/, $(IS_SRC))

@@ -6,17 +6,19 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/09 21:08:48 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:30:21 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Executes the builtin defined by 'cmd' assuming there are no redirections and
-// modifying the 'env' if required.
-// The 'child' flag indicates if we're on a child process.
-// Returns the exit status.
-int	execute_builtin(t_cmd *cmd, int exit_status, char **env, int is_child)
+/*
+* Executes the builtin defined by 'cmd' 
+* assuming there are no redirections and modifying the 'env' if required.
+* The 'child' flag indicates if we're on a child process.
+* Returns the exit status.
+*/
+int	execute_builtin(t_cmd *cmd, int exit_status, char **env)
 {
     if (!ft_strncmp(cmd->comand, "cd", 3))
 		exit_status = builtin_cd(cmd, env);

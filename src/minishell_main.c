@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 20:02:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:14:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*fline(void)
 {
 	char	*ttp;
 
-	ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
-	ttp = "<|°_°|>";
+	ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
+	//ttp = "<|°_°|>";
 	return (ft_strdup(ttp));
 }
 
@@ -30,17 +30,13 @@ void	minishell(t_shell *tshell)
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens);
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
-		print_comands_st(tshell->comands);
 		find_comands(tshell, tshell->comands);
-		/* Redirections 
-		 * Create file if don't exist
-		 * If exist, read from it if we can, and save it in **tmp
-		*/
-		//redirect_and_execute(tshell);
+		print_comands_st(tshell->comands);
+		redirect_and_execute(tshell);
 		/* Executor
 		 * Ejecute the comand
 		 * if builtin, the output will be saved on a node of list

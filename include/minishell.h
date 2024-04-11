@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 19:50:14 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:15:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	split_intocomands(t_shell *tshell, t_list *tokens);
 
 /* TO TEST OR TESTING */
 void	find_comands(t_shell *tshell, t_list *comands);
+void	heredoc(t_shell *tshell, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -64,7 +65,9 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
+int		is_builtin_name(t_cmd *cmd);
 char	*get_set_path(t_shell *tshell);
+t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
