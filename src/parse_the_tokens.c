@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 17:08:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:05:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
+	tshell->comands = polish_comands(tshell->comands, tshell->comands);
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

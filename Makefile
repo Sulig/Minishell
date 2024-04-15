@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/11 19:46:23 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/15 18:29:43 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ PER_SRC = print_common_errors.c
 RED_SRC = link_input_file.c link_output_file.c open_file.c redirect.c\
 		  save_restore_stdio.c
 UTL_SRC = fill_token_location.c expand_vars.c print_utils.c signals.c\
-		  trim_input.c asign_comandtype.c get-set_path.c ft_arr_2d.c
+		  trim_input.c polish_comands.c get-set_path.c ft_arr_2d.c\
+		  
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))

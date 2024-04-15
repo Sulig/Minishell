@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 20:15:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:09:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
 int		is_builtin_name(t_cmd *cmd);
-char	*get_set_path(t_shell *tshell);
+void	get_set_path(t_shell *tshell);
 t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
+t_list	*polish_comands(t_list *first, t_list *comands);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);

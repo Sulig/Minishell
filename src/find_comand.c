@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:47:46 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 20:14:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:09:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	find_comands(t_shell *tshell, t_list *comands)
 {
 	t_cmd	*cmd;
 
-	tshell->path = get_set_path(tshell);
+	get_set_path(tshell);
 	if (!tshell->path)
 	{
 		tshell->exit_state = print_err_custom("No PATH finded");

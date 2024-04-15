@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 20:14:30 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:09:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_shell
 {
 	int			exit_state;
 	char		**env;
-	char		*path;
+	char		**path;
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;

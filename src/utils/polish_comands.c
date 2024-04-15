@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asign_comandtype.c                                 :+:      :+:    :+:   */
+/*   polish_comands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:31:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 17:19:34 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
+/*   Updated: 2024/04/15 20:09:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,10 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 	return (cmd);
 }
 
-t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
+static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 {
 	t_list	*new_comand;
 	t_cmd	*comand;
-	size_t	pos;
 
 	comand = NULL;
 	if (!ft_strllen(cmd->input))
@@ -125,11 +124,11 @@ t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	comand = ft_calloc(sizeof(t_cmd), 1);
 	if (!comand)
 		return (comands);
-	comand->options = cmd->options;
+	comand->options = ft_strdup(cmd->options);
 	cmd->options = ft_free_str(cmd->options);
-	pos = ft_cnt_tostr(cmd->input, " ");
-	comand->input = ft_strcpyl(cmd->input, pos);
-	comand->input = ft_strdup(cmd->input + pos);
+	comand->comand = ft_strdup(ft_strchr(cmd->input, ' ') + 1);
+	comand->input = ft_strdup(ft_strchr(comand->comand, ' ') + 1);
+	comand->comand = ft_strcut(comand->comand, ' ', '<', 'y');
 	new_comand = ft_lstnew(comand);
 	if (!new_comand)
 		return (comands);
@@ -138,19 +137,30 @@ t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	return (comands);
 }
 
-void	polish_comands(t_shell *tshell)
+t_list	*polish_comands(t_list *first, t_list *comands)
 {
 	t_cmd	*cmd;
-	t_list	*comands;
 
-	comands = tshell->comands;
 	while (comands)
 	{
 		cmd = (t_cmd *)comands->content;
 		if (cmd->cmdtype == REDIR)
+		{
 			comands = create_comand_behind(comands, cmd);
+			if (ft_strllen(cmd->input))
+				if (!(cmd->input[0] == '\'' || cmd->input[0] == '\"'))
+					cmd->input = ft_strcut(cmd->input, ' ', '<', 'y');
+			if (comands->next)
+			{
+				cmd = (t_cmd *)comands->next->content;
+				if (!ft_strllen(cmd->input))
+					cmd->input = ft_free_str(cmd->input);
+				cmd = asign_comandtype(cmd);
+			}
+		}
 		cmd = quote_removal_comand(cmd);
 		cmd = quote_removal_input(cmd);
 		comands = comands->next;
 	}
+	return (first);
 }

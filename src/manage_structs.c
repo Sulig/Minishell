@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 16:22:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:05:36 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ void	free_tokens(t_shell *tshell)
 	t_token	*token;
 
 	tmp = tshell->tokens;
-	while (tshell->tok_size--)
+	if (tshell->tokens)
 	{
-		token = (t_token *)tmp->content;
-		token->content = ft_free_str(token->content);
-		tmp = tmp->next;
+		while (tshell->tok_size--)
+		{
+			token = (t_token *)tmp->content;
+			token->content = ft_free_str(token->content);
+			tmp = tmp->next;
+		}
 	}
 	ft_lstclear(&tshell->tokens, free);
 }
@@ -33,13 +36,16 @@ void	free_comands(t_shell *tshell)
 	t_cmd	*cmd;
 
 	tmp = tshell->comands;
-	while (tshell->cmd_size--)
+	if (tshell->cmd_size)
 	{
-		cmd = (t_cmd *)tmp->content;
-		cmd->comand = ft_free_str(cmd->comand);
-		cmd->options = ft_free_str(cmd->options);
-		cmd->input = ft_free_str(cmd->input);
-		tmp = tmp->next;
+		while (tshell->cmd_size--)
+		{
+			cmd = (t_cmd *)tmp->content;
+			cmd->comand = ft_free_str(cmd->comand);
+			cmd->options = ft_free_str(cmd->options);
+			cmd->input = ft_free_str(cmd->input);
+			tmp = tmp->next;
+		}
 	}
 	ft_lstclear(&tshell->comands, free);
 }
@@ -71,6 +77,7 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 		return (free_tshell(tshell));
 	}
 	tshell->line = NULL;
+	tshell->path = NULL;
 	tshell->tokens = NULL;
 	tshell->comands = NULL;
 	tshell->tok_size = 0;
