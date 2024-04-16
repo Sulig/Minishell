@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:18:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "../libft/include/libft.h"
 # include "colors.h"
+# include "constants.h"
 # include "minishell_structs.h"
 # include "exec.h"
 # include "boolean.h"
@@ -28,6 +29,8 @@
 
 # include <fcntl.h>
 # include <stdio.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 
 /* STARTER THINGS */
 void	print_minishell_welcome(char **env);
@@ -55,7 +58,7 @@ void	redirect_and_execute(t_shell *tshell);
 /* PRINTING ERRORS */
 void	print_err_args(void);
 int		print_err_syntax(char *content);
-int		print_err_custom(char *error);
+int		print_err_custom(char *error, int error_n);
 int		print_comandnotfound(char *comand);
 
 /* STRUCTURE MEMORY MANAGER */
@@ -66,9 +69,10 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
 int		is_builtin_name(t_cmd *cmd);
-void	get_set_path(t_shell *tshell);
+void	set_path(t_shell *tshell);
 t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
+t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_list *first, t_list *comands);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);

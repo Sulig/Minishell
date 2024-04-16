@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:38 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:59:26 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	print_comandnotfound(char *comand)
 
 int	print_err_custom(char *error, int error_n)
 {
-	ft_printf_fd(2, R);
 	ft_printf_fd(2, "%s: An error ocurred!\n", "minishell");
 	ft_printf_fd(2, "~ Info: %s\n", error);
 	ft_printf_fd(2, D);

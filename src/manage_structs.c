@@ -6,11 +6,24 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:05:36 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:44:31 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	mini_get_pid()
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		exit(print_err_custom(MERR_FORK, 1));
+	if (!pid)
+		exit(1);
+	waitpid(pid, NULL, 0);
+	return (pid - 1);
+}
 
 void	free_tokens(t_shell *tshell)
 {
@@ -55,6 +68,7 @@ void	*free_tshell(t_shell *tshell)
 	if (!tshell)
 		return (NULL);
 	tshell->env = ft_auto_free_arr(tshell->env);
+	tshell->path = ft_auto_free_arr(tshell->path);
 	tshell->line = ft_free_str(tshell->line);
 	if (tshell->tokens && tshell->tok_size)
 		free_tokens(tshell);
@@ -72,12 +86,11 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 	tshell->exit_state = 0;
 	tshell->env = ft_strarrdup(env);
 	if (!tshell->env)
-	{
-		tshell->exit_state = 1;
 		return (free_tshell(tshell));
-	}
+	set_path(tshell);
+	if (!ft_arr_strlen(tshell->path))
+		return (free_tshell(tshell));
 	tshell->line = NULL;
-	tshell->path = NULL;
 	tshell->tokens = NULL;
 	tshell->comands = NULL;
 	tshell->tok_size = 0;

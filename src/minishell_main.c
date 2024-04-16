@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:18:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*fline(void)
 	ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
 	ttp = "echo hole > test1 > test2";
 	ttp = "< file cat -e \"file\" ";
-	ttp = "";
+	ttp = "\"\"";
 	return (ft_strdup(ttp));
 }
 
@@ -27,8 +27,8 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		//tshell->line = ft_readline();
-		tshell->line = fline();
+		tshell->line = ft_readline();
+		//tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -37,9 +37,9 @@ void	minishell(t_shell *tshell)
 		tshell->line = ft_free_str(tshell->line);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
-		//find_comands(tshell, tshell->comands);
 		//Check if comand exist && execute
-		redirect_and_execute(tshell);
+		if (tshell->cmd_size)
+			redirect_and_execute(tshell);
 		/* Executor
 		 * Ejecute the comand
 		 * if builtin, the output will be saved on a node of list
@@ -50,7 +50,7 @@ void	minishell(t_shell *tshell)
 		*/
 		free_comands(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 
@@ -65,7 +65,7 @@ int	main(int argc, char **args, char **env)
 	print_minishell_welcome(env);
 	t_shell = init_tshell(t_shell, env);
 	if (!t_shell)
-		return (print_err_custom("Malloc error"));
+		return (print_err_custom(MERR_MALLOC, 1));
 	start_signals();
 	minishell(t_shell);
 	exit_state = t_shell->exit_state;

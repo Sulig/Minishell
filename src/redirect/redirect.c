@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/11 18:35:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:42:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
 
 	if (redir->input == NULL)
 	{
-		print_err_custom("ambiguous redirect");
+		print_err_syntax("ambiguous redirect");
         return (EXIT_FAILURE);
 	}
 	str = redir->input;
@@ -43,16 +43,17 @@ static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
 
 /*
  * Performs all redirections of 'cmd', from left-to-right, 
- * removing the redirection tokens, knowing it's the 'n'-th command. 
+ * removing the redirection tokens, knowing it's the 'n'-th command.
  * Returns the exit status.
  * If a redirection error ocurrs, prints an error message.
 */
-int	redirect(t_list *cmd)
+int	redirect(t_list *cmd, int n)
 {
 	int		exit_status;
 	t_cmd	*node;
-	t_list *lst;
+	t_list	*lst;
 
+	n = 0;
 	exit_status = 0;
 	lst = cmd;
 	node = lst->content;
@@ -65,7 +66,8 @@ int	redirect(t_list *cmd)
 			lst = lst->next;
 		}
 		else
-			lst = lst->next;
+            lst = lst->next;
 	}
+
 	return (exit_status);
 }

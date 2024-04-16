@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:17:59 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,18 @@
 static t_cmd	*quote_removal_comand(t_cmd *cmd)
 {
 	char	*tmp;
-	size_t	dq_pos;
-	size_t	sq_pos;
 
 	tmp = NULL;
 	if (!ft_strllen(cmd->comand))
 		return (cmd);
-	dq_pos = ft_cnttoch_out(cmd->comand, '\"');
-	sq_pos = ft_cnttoch_out(cmd->comand, '\'');
-	if (dq_pos == sq_pos)
-		return (cmd);
-	else if (dq_pos < sq_pos)
+	if (cmd->comand[0] == '\"')
 	{
-		tmp = ft_strtrim_inside(cmd->comand, '\"');
+		tmp = ft_strtrim_s(cmd->comand, "\"");
 		cmd->comand = ft_strremplace(cmd->comand, tmp);
 	}
-	else if (sq_pos < dq_pos)
+	else if (cmd->comand[0] == '\'')
 	{
-		tmp = ft_strtrim_inside(cmd->comand, '\'');
+		tmp = ft_strtrim_s(cmd->comand, "'");
 		cmd->comand = ft_strremplace(cmd->comand, tmp);
 	}
 	tmp = ft_free_str(tmp);
@@ -109,6 +103,11 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 	return (cmd);
 }
 
+/*
+ * If a REDIR_CMD has an input with spaces && is not quoted
+ * Create a comand with this and put it behind the REDIR_CMD
+ * Fill the new comand with options && input (if encounters a ' ')
+*/
 static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 {
 	t_list	*new_comand;
@@ -137,6 +136,10 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	return (comands);
 }
 
+/*
+ * Remove quotes, asign corresponent CMDTYPE (CMD, REDIR || PIPE)
+ * Call for create_comand_behind if REDIR->input has ' '
+*/
 t_list	*polish_comands(t_list *first, t_list *comands)
 {
 	t_cmd	*cmd;
@@ -162,5 +165,6 @@ t_list	*polish_comands(t_list *first, t_list *comands)
 		cmd = quote_removal_input(cmd);
 		comands = comands->next;
 	}
-	return (first);
+	//return (first);
+	return (del_nullcomand(first, first));
 }

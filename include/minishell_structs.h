@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:53 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:15:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_shell
 	t_list		*tokens;
 	t_list		*comands;
 	t_list		*fds;
+	pid_t		pid;
 	//t_cmd		*act_cmd;
 	size_t		tok_size;
 	size_t		cmd_size;

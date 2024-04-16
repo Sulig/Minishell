@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:16:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 16:25:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:09:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ static char	*trim_inside(char *input, size_t start, size_t end)
 	char	*cut_ed;
 	char	*result;
 
+	result = NULL;
 	cut_st = ft_strcpyl(input, start);
 	cut_ed = ft_strdup(input + end);
 	result = ft_strjoin_s(cut_st, cut_ed);
+	if (!ft_strllen(result))
+		result = ft_free_str(result);
 	cut_st = ft_free_str(cut_st);
 	cut_ed = ft_free_str(cut_ed);
 	input = ft_free_str(input);

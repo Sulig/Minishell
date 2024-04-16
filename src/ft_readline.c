@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/11 20:14:08 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:53:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	exit_minishell(t_shell *tshell)
 char	*ft_readline(void)
 {
 	char	*line;
-	char	*prompt;
 
-	prompt = "minishell$: ";
-	line = readline(prompt);
+	line = readline(PROMPT);
 	if (ft_strllen(line))
 		add_history(line);
 	return (line);
@@ -38,13 +36,11 @@ char	*ft_readline(void)
 void	heredoc(t_shell *tshell, char *end, int fd)
 {
 	char	*tmp;
-	char	*prompt;
 
 	tmp = NULL;
-	prompt = "heredoc> ";
 	while (4)
 	{
-		tmp = readline(prompt);
+		tmp = readline(HEREDOC);
 		if (!tmp)
 			break ;
 		if (my_strcmp(end, tmp))

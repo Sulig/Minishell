@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 16:42:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 19:20:39 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/16 16:04:37 by sadoming          #+#    #+#             */
+/*   Updated: 2024/04/16 18:39:15 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/list.h"
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	(*del)(lst->content);
-	free(lst);
-}
+/*	PROMPTS	*/
+# define PROMPT "minishell: "
+# define HEREDOC "heredoc> "
+
+/*	MENSAGE ERRORS	*/
+# define MERR_MALLOC "Insuficient Memory or Malloc Error"
+# define MERR_NOPATH "PATH not finded!"
+# define MERR_FORK "Fork failed"
+# define MERR_FILE "Can't open the file"
+# define MERR_UNSET "unset: error getting env var"
+
+#endif

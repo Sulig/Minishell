@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:37:01 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/11 17:56:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:30:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	builtin_unset(t_cmd *cmd, char **env)
             if (env_valid_varname(args[i]))
 			    remove_env_var(args[i], env);
             else
-			    exit_status = print_err_custom("unset: error getting env var");
+			    exit_status = print_err_custom(MERR_UNSET, 127);
             i++;
         }
     }

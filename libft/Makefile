@@ -15,7 +15,7 @@ NAME = libft.a
 # Flags:
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 CPPFLAGS = -MMD -MP
 INCLUDE = -I $(INC_DIR)/
 # ------------------ #
