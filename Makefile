@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/16 20:18:01 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/17 19:12:05 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ RED_SRC = link_input_file.c link_output_file.c open_file.c redirect.c\
 		  save_restore_stdio.c
 UTL_SRC = fill_token_location.c expand_vars.c print_utils.c signals.c\
 		  trim_input.c polish_comands.c ft_arr_2d.c is_builtin.c set_path.c\
-		  del_nullcomand.c
+		  quote_removal.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))

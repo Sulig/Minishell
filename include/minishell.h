@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 20:18:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:02:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
 int		is_builtin_name(t_cmd *cmd);
+int		set_quote(char ch, int quoted);
 void	set_path(t_shell *tshell);
 t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
+t_cmd	*quote_removal_comand(t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_list *first, t_list *comands);
 /* UTILS FOR DEBBUG */

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:41:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/07 12:07:35 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:59:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**change_pwd_absolute(char *path, char **env)
 	if (!temp)
 		return (NULL);
 	pwd_index = find_var_index_from_env("PWD", env);
-	new_pwd = ft_strjoin("PWD=", path);
+	new_pwd = ft_strjoin_s("PWD=", path);
 	while (env[i])
 	{
 		if (i == pwd_index)
@@ -81,7 +81,7 @@ char	**change_oldpwd(char *pwd, char **env)
 	int		old_env_index;
 
 	old_env_index = find_var_index_from_env("OLDPWD", env);
-	new_old_pwd = ft_strjoin("OLDPWD=", pwd);
+	new_old_pwd = ft_strjoin_s("OLDPWD=", pwd);
 	free(env[old_env_index]);
 	env[old_env_index] = ft_strdup(new_old_pwd);
 	free(new_old_pwd);
@@ -100,7 +100,7 @@ char	**change_pwd_home(char **env)
 
 	home = get_var_from_env("HOME", env);
 	pwd_index = find_var_index_from_env("PWD", env);
-	new_pwd = ft_strjoin("PWD=", home);
+	new_pwd = ft_strjoin_s("PWD=", home);
 	free(env[pwd_index]);
 	env[pwd_index] = ft_strdup(new_pwd);
 	free(new_pwd);

@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/10 19:47:25 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:14:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	set_quote(enum e_toktype toktype, int quoted)
+static int	set_quote_type(enum e_toktype toktype, int quoted)
 {
 	if (toktype == S_QUOTE)
 	{
@@ -42,7 +42,7 @@ static t_list	*detect_quotes(t_list *tokens)
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		quoted = set_quote(token->toktype, quoted);
+		quoted = set_quote_type(token->toktype, quoted);
 		if (quoted == 1 && token->toktype != S_QUOTE)
 		{
 			token->location = IN_SINGLE_Q;

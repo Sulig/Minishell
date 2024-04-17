@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:10:09 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/07 11:18:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:56:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*env_get_varname(const char *str)
 	if (!str)
 		return (NULL);
 	if (!ft_strchr(str, '='))
-		len = ft_strlen(str);
+		len = ft_strllen(str);
 	else
-		len = ft_strlen(str) - ft_strlen(ft_strchr(str, '='));
+		len = ft_strllen(str) - ft_strllen(ft_strchr(str, '='));
 	varname = ft_strdup(str);
 	varname[len] = '\0';
 	if (!env_valid_varname(varname))

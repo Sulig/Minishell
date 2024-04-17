@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:43:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 18:10:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:14:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	set_quote(char ch, int quoted)
+int	set_quote(char ch, int quoted)
 {
 	if (ch == '\'')
 	{

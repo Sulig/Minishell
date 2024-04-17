@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 20:18:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:02:07 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 char	*fline(void)
 {
-	char	*ttp;
+	static int	bruh;
+	char		*ttp;
 
-	ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
-	ttp = "echo hole > test1 > test2";
-	ttp = "< file cat -e \"file\" ";
-	ttp = "\"\"";
+	if (!bruh)
+		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
+	if (bruh == 1)
+		ttp = "echo hole > test1 > test2";
+	if (bruh == 2)
+		ttp = "< file cat -e \"file\" ";
+	if (bruh == 3)
+		ttp = "<|°_°|>";
+	bruh++;
 	return (ft_strdup(ttp));
 }
 
@@ -38,8 +44,8 @@ void	minishell(t_shell *tshell)
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
 		//Check if comand exist && execute
-		if (tshell->cmd_size)
-			redirect_and_execute(tshell);
+		//if (tshell->cmd_size)
+			//redirect_and_execute(tshell);
 		/* Executor
 		 * Ejecute the comand
 		 * if builtin, the output will be saved on a node of list
@@ -50,7 +56,7 @@ void	minishell(t_shell *tshell)
 		*/
 		free_comands(tshell);
 		rl_on_new_line();
-		break ;
+		//break ;
 	}
 }
 

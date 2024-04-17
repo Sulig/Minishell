@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 19:44:31 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:14:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_tokens(t_shell *tshell)
 			token->content = ft_free_str(token->content);
 			tmp = tmp->next;
 		}
+		tshell->tok_size = 0;
 	}
 	ft_lstclear(&tshell->tokens, free);
 }
@@ -59,6 +60,7 @@ void	free_comands(t_shell *tshell)
 			cmd->input = ft_free_str(cmd->input);
 			tmp = tmp->next;
 		}
+		tshell->cmd_size = 0;
 	}
 	ft_lstclear(&tshell->comands, free);
 }

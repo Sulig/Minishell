@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:25:51 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/06 21:39:37 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:59:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ char	*concat_path(char **env, char *str)
 	free(s);
 	while (env[i])
 	{
-		s = ft_strjoin(temp, "/");
+		s = ft_strjoin_s(temp, "/");
 		free(temp);
 		temp = ft_strdup(s);
 		free(s);
-		s = ft_strjoin(temp, env[i]);
+		s = ft_strjoin_s(temp, env[i]);
 		free(temp);
 		temp = ft_strdup(s);
 		free(s);

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:31:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/16 07:57:18 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:00:32 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static char	*get_full_path(const char *dir, const char *file)
 	char	*tmp;
 	char	*full_path;
 
-	tmp = ft_strjoin(dir, "/");
-	full_path = ft_strjoin(tmp, file);
+	tmp = ft_strjoin_s(dir, "/");
+	full_path = ft_strjoin_s(tmp, file);
 	free(tmp);
 	return (full_path);
 }

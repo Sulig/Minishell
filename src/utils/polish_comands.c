@@ -6,78 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 20:17:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:02:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
- * Remove the quotes of the comand name
- * if the first type of quote is \"
- * remove only \"
- * if the first type of quote is \'
- * remove only \'
- * So, in case of "''" -> ''
- * in case of '""' -> ""
-*/
-static t_cmd	*quote_removal_comand(t_cmd *cmd)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (!ft_strllen(cmd->comand))
-		return (cmd);
-	if (cmd->comand[0] == '\"')
-	{
-		tmp = ft_strtrim_s(cmd->comand, "\"");
-		cmd->comand = ft_strremplace(cmd->comand, tmp);
-	}
-	else if (cmd->comand[0] == '\'')
-	{
-		tmp = ft_strtrim_s(cmd->comand, "'");
-		cmd->comand = ft_strremplace(cmd->comand, tmp);
-	}
-	tmp = ft_free_str(tmp);
-	if (!ft_strllen(cmd->comand))
-		cmd->comand = ft_free_str(cmd->comand);
-	return (cmd);
-}
-
-/*
- * Remove the quotes of the comand name
- * if the first type of quote is \"
- * remove only \"
- * if the first type of quote is \'
- * remove only \'
- * So, in case of "''" -> ''
- * in case of '""' -> ""
-*/
-static t_cmd	*quote_removal_input(t_cmd *cmd)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (!ft_strllen(cmd->input))
-		return (cmd);
-	if (cmd->input[0] == '\"')
-	{
-		tmp = ft_strtrim_s(cmd->input, "\"");
-		cmd->input = ft_strremplace(cmd->input, tmp);
-	}
-	else if (cmd->input[0] == '\'')
-	{
-		tmp = ft_strtrim_s(cmd->input, "'");
-		cmd->input = ft_strremplace(cmd->input, tmp);
-	}
-	tmp = ft_free_str(tmp);
-	if (!ft_strllen(cmd->input))
-		cmd->input = ft_free_str(cmd->input);
-	return (cmd);
-}
-
-/*
- * Asing comand type:
+/* Asing comand type:
  * - REDIR	< << > >>
  * - PIPE	|
  * - CMD	the rest...
@@ -162,9 +97,8 @@ t_list	*polish_comands(t_list *first, t_list *comands)
 			}
 		}
 		cmd = quote_removal_comand(cmd);
-		cmd = quote_removal_input(cmd);
+		//cmd = quote_removal_input(cmd);
 		comands = comands->next;
 	}
-	//return (first);
-	return (del_nullcomand(first, first));
+	return (first);
 }
