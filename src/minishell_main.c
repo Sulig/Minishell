@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/17 20:02:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:04:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*fline(void)
 	static int	bruh;
 	char		*ttp;
 
+	bruh = 4;
 	if (!bruh)
 		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
 	if (bruh == 1)
@@ -25,6 +26,8 @@ char	*fline(void)
 		ttp = "< file cat -e \"file\" ";
 	if (bruh == 3)
 		ttp = "<|°_°|>";
+	if (bruh == 4)
+		ttp = "bruh'0\"a'b\"c\"d'e\"f'";
 	bruh++;
 	return (ft_strdup(ttp));
 }
@@ -33,8 +36,8 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		tshell->line = ft_readline();
-		//tshell->line = fline();
+		//tshell->line = ft_readline();
+		tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -56,7 +59,7 @@ void	minishell(t_shell *tshell)
 		*/
 		free_comands(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 

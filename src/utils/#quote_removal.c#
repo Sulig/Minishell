@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/18 20:04:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:53:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ static char	*create_strgroup(char *str, size_t *pos, int *quote)
 			break ;
 		i++;
 	}
-	tmp = ft_substr(str, *pos + 1, i - 1 - *pos);
+	tmp = ft_substr(str, *pos, i);
 	if (!ft_strllen(tmp))
 		tmp = ft_free_str(tmp);
-	*pos = i - 1;
+	if (i >= ft_strllen(str))
+		i = ft_strllen(str) - 1;
+	*pos = i;
 	return (tmp);
 }
 
-void	create_first_noqgroup(char *str, t_list **noq_groups, size_t *pos)
+static void	create_first_noqgroup(char *str, t_list **noq_groups, size_t *pos)
 {
 	size_t	dq_pos;
 	size_t	sq_pos;
@@ -53,7 +55,7 @@ void	create_first_noqgroup(char *str, t_list **noq_groups, size_t *pos)
 	{
 		tmp = ft_substr(str, 0, sq_pos);
 		*pos = sq_pos;
-	}
+	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 	if (!ft_strllen(tmp))
 		tmp = ft_free_str(tmp);
 	if (tmp)
@@ -71,13 +73,16 @@ static t_list	*create_noqgroups(char *str)
 	quoted = 0;
 	tmp = NULL;
 	unquoted_groups = NULL;
-	if (ft_cnttoch_out(str, '\'') != 0 || ft_cnttoch_out(str, '\"') != 0)
+	if (!ft_cnttoch_out(str, '\'') || !ft_cnttoch_out(str, '\"'))
 		create_first_noqgroup(str, &unquoted_groups, &i);
 	while (str[i])
 	{
 		quoted = set_quote(str[i], quoted);
-		tmp = ft_lstnew(create_strgroup(str, &i, &quoted));
-		ft_lstadd_back(&unquoted_groups, tmp);
+		if (quoted > 0)
+		{
+			tmp = ft_lstnew(create_strgroup(str, &i, &quoted));
+			ft_lstadd_back(&unquoted_groups, tmp);
+		}
 		i++;
 	}
 	return (unquoted_groups);
