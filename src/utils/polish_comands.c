@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/18 20:04:26 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:34:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	comand->options = ft_strdup(cmd->options);
 	cmd->options = ft_free_str(cmd->options);
 	comand->comand = ft_strdup(ft_strchr(cmd->input, ' ') + 1);
-	comand->input = ft_strdup(ft_strchr(comand->comand, ' ') + 1);
+	if (ft_strchr(comand->comand, ' '))
+		comand->input = ft_strdup(ft_strchr(comand->comand, ' ') + 1);
 	comand->comand = ft_strcut(comand->comand, ' ', '<', 'y');
 	new_comand = ft_lstnew(comand);
 	if (!new_comand)
@@ -75,7 +76,7 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
  * Remove quotes, asign corresponent CMDTYPE (CMD, REDIR || PIPE)
  * Call for create_comand_behind if REDIR->input has ' '
 */
-t_list	*polish_comands(t_list *first, t_list *comands)
+t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 {
 	t_cmd	*cmd;
 
@@ -96,8 +97,7 @@ t_list	*polish_comands(t_list *first, t_list *comands)
 				cmd = asign_comandtype(cmd);
 			}
 		}
-		cmd = quote_removal_comand(cmd);
-		//cmd = quote_removal_input(cmd);
+		cmd = quote_removal(tshell, cmd);
 		comands = comands->next;
 	}
 	return (first);

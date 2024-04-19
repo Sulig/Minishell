@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/17 18:20:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:34:37 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_beforecreate(t_shell *tshell, t_token *token)
 	}
 	if (token->toktype == PIPE || token->toktype == REDIR)
 		if (token->location == NO_QUOTED)
-			return (2);
+			return (-1);
 	if (token->toktype == ARGS)
 		return (1);
 	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
@@ -52,7 +52,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		*pos = *pos + 1;
 		tokens = tokens->next;
 		token = (t_token *)tokens->content;
-		if (check_beforecreate(NULL, token) == 2)
+		if (check_beforecreate(NULL, token) == -1)
 		{
 			*pos = *pos - 1;
 			break ;
@@ -83,7 +83,7 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 	}
 	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
 		token->toktype = ARGS;
-	while (tokens && check_beforecreate(NULL, token))
+	while (tokens && check_beforecreate(NULL, token) > 0)
 	{
 		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
 		tokens = tokens->next;
@@ -122,6 +122,7 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 	t_list	*tmp;
 	t_token	*token;
 	size_t	pos;
+	int		checker;
 
 	pos = 0;
 	tmp = NULL;
@@ -131,7 +132,8 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 	{
 		pos = ft_lstpos_node(tshell->tokens, tokens);
 		token = (t_token *)tokens->content;
-		if (check_beforecreate(NULL, token) > 0)
+		checker = check_beforecreate(NULL, token);
+		if (checker > 0 || checker == -1)
 		{
 			tmp = ft_lstnew(create_command(tokens, token, &pos));
 			ft_lstadd_back(&tshell->comands, tmp);
@@ -140,6 +142,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
-	tshell->comands = polish_comands(tshell->comands, tshell->comands);
+	tshell->comands = polish_comands(tshell, tshell->comands, tshell->comands);
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

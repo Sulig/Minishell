@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:07:49 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 16:44:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:54:55 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 
 	len = 0;
-	if (!s1)
+	if (!ft_strllen(s1))
 		return (NULL);
 	while (s1[len])
 		len++;

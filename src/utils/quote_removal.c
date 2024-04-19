@@ -6,101 +6,52 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/18 20:04:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:51:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*create_strgroup(char *str, size_t *pos, int *quote)
+static char	*convert_tokens_instr(t_list *tokens)
 {
-	char	*tmp;
-	size_t	i;
-	int		saved;
+	char	*result;
+	t_token	*token;
 
-	i = *pos + 1;
-	saved = *quote;
-	tmp = NULL;
-	while (str[i] && *quote == saved)
+	result = NULL;
+	while (tokens)
 	{
-		*quote = set_quote(str[i], *quote);
-		if (*quote != saved)
-			break ;
-		i++;
+		token = (t_token *)tokens->content;
+		if (token->toktype == ARGS)
+			result = ft_strjoin_free_fst(result, token->content);
+		else if (token->toktype == SPACE)
+			result = ft_strjoin_free_fst(result, token->content);
+		else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+			if (token->location != NO_QUOTED)
+				result = ft_strjoin_free_fst(result, token->content);
+		tokens = tokens->next;
 	}
-	tmp = ft_substr(str, *pos + 1, i - 1 - *pos);
-	if (!ft_strllen(tmp))
-		tmp = ft_free_str(tmp);
-	*pos = i - 1;
-	return (tmp);
+	return (result);
 }
 
-void	create_first_noqgroup(char *str, t_list **noq_groups, size_t *pos)
+t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd)
 {
-	size_t	dq_pos;
-	size_t	sq_pos;
-	char	*tmp;
-
-	tmp = NULL;
-	dq_pos = ft_cnttoch_out(str, '\"');
-	sq_pos = ft_cnttoch_out(str, '\'');
-	if (dq_pos < sq_pos)
+	tshell->line = ft_free_str(tshell->line);
+	if (ft_strchr(cmd->comand, '\"') || ft_strchr(cmd->comand, '\''))
 	{
-		tmp = ft_substr(str, 0, dq_pos);
-		*pos = dq_pos;
+		free_tokens(tshell);
+		tshell->line = cmd->comand;
+		split_intotokens(tshell);
+		cmd->comand = ft_free_str(cmd->comand);
+		cmd->comand = convert_tokens_instr(tshell->tokens);
 	}
-	if (sq_pos < dq_pos)
+	if (ft_strchr(cmd->input, '\"') || ft_strchr(cmd->input, '\''))
 	{
-		tmp = ft_substr(str, 0, sq_pos);
-		*pos = sq_pos;
+		free_tokens(tshell);
+		tshell->line = cmd->input;
+		split_intotokens(tshell);
+		cmd->input = ft_free_str(cmd->input);
+		cmd->input = convert_tokens_instr(tshell->tokens);
 	}
-	if (!ft_strllen(tmp))
-		tmp = ft_free_str(tmp);
-	if (tmp)
-		*noq_groups = ft_lstnew(tmp);
-}
-
-static t_list	*create_noqgroups(char *str)
-{
-	t_list	*unquoted_groups;
-	t_list	*tmp;
-	size_t	i;
-	int		quoted;
-
-	i = 0;
-	quoted = 0;
-	tmp = NULL;
-	unquoted_groups = NULL;
-	if (ft_cnttoch_out(str, '\'') != 0 || ft_cnttoch_out(str, '\"') != 0)
-		create_first_noqgroup(str, &unquoted_groups, &i);
-	while (str[i])
-	{
-		quoted = set_quote(str[i], quoted);
-		tmp = ft_lstnew(create_strgroup(str, &i, &quoted));
-		ft_lstadd_back(&unquoted_groups, tmp);
-		i++;
-	}
-	return (unquoted_groups);
-}
-
-t_cmd	*quote_removal_comand(t_cmd *cmd)
-{
-	t_list	*unquoted_groups;
-	t_list	*iterate;
-	char	*tmp;
-
-	unquoted_groups = NULL;
-	if (!ft_strllen(cmd->comand))
-		return (cmd);
-	if (!ft_strchr(cmd->comand, '\"') && !ft_strchr(cmd->comand, '\''))
-		return (cmd);
-	unquoted_groups = create_noqgroups(cmd->comand);
-	iterate = unquoted_groups;
-	while (iterate)
-	{
-		tmp = (char *)iterate->content;
-		ft_printf("Content: %s\n", tmp);
-		iterate = iterate->next;
-	}
+	tshell->line = NULL;
 	return (cmd);
 }

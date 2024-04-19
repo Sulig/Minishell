@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barc...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 18:15:53 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/19 17:40:45 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:58:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ size_t	ft_strllen(const char *s)
 	size_t	counter;
 
 	counter = 0;
-	if (!s)
+	if (!s || s == NULL)
 		return (0);
 	while (s[counter])
 		counter++;

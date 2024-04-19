@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/18 20:04:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:34:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	expand_env_var(t_shell *tshell);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 
 /* TO TEST OR TESTING */
-void	find_comands(t_shell *tshell, t_list *comands);
+t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 void	heredoc(t_shell *tshell, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
@@ -73,9 +73,8 @@ int		set_quote(char ch, int quoted);
 void	set_path(t_shell *tshell);
 t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
-t_cmd	*quote_removal_comand(t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
-t_list	*polish_comands(t_list *first, t_list *comands);
+t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);
