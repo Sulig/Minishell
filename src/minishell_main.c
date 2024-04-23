@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/23 17:47:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/23 20:03:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	minishell(t_shell *tshell)
 		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		tshell->line = ft_free_str(tshell->line);
+		split_intodoublelist(tshell);
 		free_tokens(tshell);
 		print_comands_st(tshell->comands);
 		//Check if comand exist && execute
