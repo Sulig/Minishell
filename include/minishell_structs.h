@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 19:34:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:29:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;
+	t_list		**tree_cmd;
 	t_list		*fds;
 	pid_t		pid;
 	//t_cmd		*act_cmd;

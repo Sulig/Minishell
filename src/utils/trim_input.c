@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:43:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/17 19:14:05 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:47:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ t_cmd	*trim_input(t_cmd *cmd)
 	if (!ft_strllen(cmd->input))
 		return (cmd);
 	trim = ft_strtrim_s(cmd->input, " ");
+	cmd->input = ft_strremplace(cmd->input, trim);
+	trim = ft_free_str(trim);
+	trim = ft_strtrim_s(cmd->input, "- ");
 	cmd->input = ft_strremplace(cmd->input, trim);
 	trim = ft_free_str(trim);
 	cmd->input = trim_inside(cmd->input);

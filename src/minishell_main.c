@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 19:34:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:47:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,29 @@ char	*fline(void)
 	static int	bruh;
 	char		*ttp;
 
-	bruh = 4;
+	bruh = 9;
 	if (!bruh)
 		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
-	if (bruh == 1)
+	else if (bruh == 1)
 		ttp = "echo hole > test1 > test2";
-	if (bruh == 2)
+	else if (bruh == 2)
 		ttp = "< file cat -e \"file\" ";
-	if (bruh == 3)
+	else if (bruh == 3)
 		ttp = "<|°_°|>";
-	if (bruh == 4)
+	else if (bruh == 4)
 		ttp = "cat|ls bruh";
-	if (bruh == 5)
+	else if (bruh == 5)
 		ttp = "< file cat -e";
+	else if (bruh == 6)
+		ttp = "comand name\" -option ";
+	else if (bruh == 7)
+		ttp = "\"i will don't close";
+	else if (bruh == 8)
+		ttp = "sometext \"i will don't close";
+	else if (bruh == 9)
+		ttp = "echo -  heloo";
+	else 
+		ttp = NULL;
 	bruh++;
 	return (ft_strdup(ttp));
 }
@@ -38,8 +48,8 @@ void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		tshell->line = ft_readline();
-		//tshell->line = fline();
+		//tshell->line = ft_readline();
+		tshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -61,7 +71,7 @@ void	minishell(t_shell *tshell)
 		*/
 		free_comands(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 

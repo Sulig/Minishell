@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 19:34:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:47:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (token->toktype != PIPE)
 	{
 		cmd = fill_command(cmd, tokens, pos);
+		cmd->options = ft_strjoin_free_sec("-", cmd->options);
 		cmd = trim_input(cmd);
 		cmd = asign_comandtype(cmd);
 	}
