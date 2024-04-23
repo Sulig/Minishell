@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/04/23 17:29:19 by sadoming         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/29 19:53:01 by jguillot         ###   ########.fr       */
->>>>>>> Add files via upload
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +56,6 @@ typedef struct s_cmd
 	enum e_toktype	cmdtype;
 	char			*comand;
 	char			*options;
-<<<<<<< HEAD
 	char			*input;
 }					t_cmd;
 
@@ -72,15 +67,6 @@ typedef struct s_fd
 	char		**args;
 }				t_fd;
 
-=======
-	void			*input;
-	void			*output;
-	int				build;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}					t_cmd;
-
->>>>>>> Add files via upload
 /* MINISHELL STRUCTURE */
 typedef struct s_shell
 {
@@ -90,14 +76,10 @@ typedef struct s_shell
 	char		*line;
 	t_list		*tokens;
 	t_list		*comands;
-<<<<<<< HEAD
 	t_list		**tree_cmd;
 	t_list		*fds;
 	pid_t		pid;
 	//t_cmd		*act_cmd;
-=======
-	t_cmd       *cmds;
->>>>>>> Add files via upload
 	size_t		tok_size;
 	size_t		cmd_size;
 }				t_shell;
