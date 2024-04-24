@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/14 11:53:28 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:27:00 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # define SAVE 1			// Save mode for save_restore_stdio()
 # define RESTORE 0		// Restore mode for save_restore_stdio()
 # define OPEN_FILE_MODE 0644
+# define READ_END		0				// pipe's read end index
+# define WRITE_END		1				// pipe's write end index
 
-void	save_restore_stdio(t_shell *tshell, int std_in, int std_out, int mode);
-int     redirect(t_list *cmd, int n);
-int	    link_output_file(const char *filename, int append);
-int     link_input_file(const char *filename);
-int     open_file(const char *filename, int flags);
+void	save_restore_stdio(int std_in, int std_out, int mode);
+int		redirect(t_list *cmds);
+int		link_output_file(const char *filename, int append);
+int		link_input_file(const char *filename);
+int		open_file(const char *filename, int flags);
+void	pipe_or_die(int fd_pipe[2]);
+pid_t	fork_or_die(void);
+void	link_read_end(int *fd_pipe);
+void	link_write_end(int *fd_pipe);
+int		wait_children(pid_t last_pid, size_t n);
 
 #endif

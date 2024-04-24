@@ -6,24 +6,11 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/23 20:03:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:10:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	mini_get_pid()
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-		exit(print_err_custom(MERR_FORK, 1));
-	if (!pid)
-		exit(1);
-	waitpid(pid, NULL, 0);
-	return (pid - 1);
-}
 
 void	free_tokens(t_shell *tshell)
 {
@@ -65,6 +52,23 @@ void	free_comands(t_shell *tshell)
 	ft_lstclear(&tshell->comands, free);
 }
 
+void	free_tree_cmds(t_shell *tshell)
+{
+	size_t	pos;
+
+	pos = 0;
+	if (!tshell->tree_cmd)
+		return ;
+	while (tshell->tree_cmd[pos])
+	{
+		ft_lstclear(&tshell->tree_cmd[pos], donothing);
+		tshell->tree_cmd[pos] = NULL;
+		pos++;
+	}
+	free(tshell->tree_cmd);
+	tshell->tree_cmd = NULL;
+}
+
 void	*free_tshell(t_shell *tshell)
 {
 	if (!tshell)
@@ -76,6 +80,8 @@ void	*free_tshell(t_shell *tshell)
 		free_tokens(tshell);
 	if (tshell->comands && tshell->cmd_size)
 		free_comands(tshell);
+	if (tshell->tree_cmd)
+		ft_lstclear(tshell->tree_cmd, free);
 	free(tshell);
 	return (NULL);
 }

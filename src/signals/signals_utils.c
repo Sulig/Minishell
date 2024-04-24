@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_simple_cmd.c                               :+:      :+:    :+:   */
+/*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:07:51 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/16 16:48:50 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/24 15:37:52 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/24 16:46:37 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+# include "../../include/minishell.h"
 
-int	execute_simple_cmd(t_cmd *cmd, char **args)
+// Stops listening to SIGINT and SIGQUIT signals.
+void	stop_signals(void)
 {
-    int exit_status;
-
-	exit_status = 0;
-    if (!cmd)
-        return (1);
-    if (is_builtin_name(cmd))
-        exit_status = execute_builtin(cmd, exit_status, args, FALSE);
-    return (exit_status);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

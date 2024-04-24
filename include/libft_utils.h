@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   libft_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 17:46:26 by jguillot         ###   ########.fr       */
+/*   Created: 2024/04/24 07:48:18 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/24 16:52:17 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
-
 # include "minishell.h"
 
-int     execute_builtin(t_list *cmd, int exit_status, char **env, int is_child);
-int     path_exists(const char *path);
-int     is_directory(const char *path);
-int     can_execute(const char *path);
-void	execute_command(t_list *cmds, int exit_status, char **env);
-void	exec_cmd(t_cmd *cmd, char **env);
-char	*get_executable(const char *file, char **env);
+#ifndef LIBFT_UTILS_H
+# define LIBFT_UTILS_H
 
-# endif
+size_t	arr_size(const void **arr);
+size_t	arrstr_size(char **arr);
+char	**arrstr_dup(char **arr);
+void	arrstr_free(char **arr);
+/* 2 */
+void	*p_malloc(size_t size);
+void	restore_exit(int exit_status);
+
+#endif

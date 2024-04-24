@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:40:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/14 17:46:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:45:03 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		t_free = *lst;
 		ft_nexttonull(t_free, cnt);
 		t_free = ft_lstlast(t_free);
-		(*del)(t_free->content);
+		if (t_free->content)
+			(*del)(t_free->content);
+		t_free->content = NULL;
 		free(t_free);
 		cnt--;
 	}

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/23 20:03:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:41:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@
 # include "env.h"
 # include "arr_2d.h"
 # include "redirect.h"
+# include "signals.h"
 
 # include <fcntl.h>
 # include <stdio.h>
+# include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 /* STARTER THINGS */
 void	print_minishell_welcome(char **env);
@@ -51,6 +54,7 @@ void	split_intocomands(t_shell *tshell, t_list *tokens);
 /* TO TEST OR TESTING */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 void	heredoc(t_shell *tshell, char *end, int fd);
+void	split_intodoublelist(t_shell *tshell);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -64,6 +68,7 @@ int		print_comandnotfound(char *comand);
 /* STRUCTURE MEMORY MANAGER */
 void	free_tokens(t_shell *tshell);
 void	free_comands(t_shell *tshell);
+void	free_tree_cmds(t_shell *tshell);
 void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
@@ -79,5 +84,6 @@ t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);
 void	print_comands_st(t_list *cmd);
+void	print_multiple_cmds_st(t_list **cmds);
 
 #endif

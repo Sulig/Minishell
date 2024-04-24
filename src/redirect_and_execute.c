@@ -5,86 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 22:50:44 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/16 16:48:21 by sadoming         ###   ########.fr       */
+/*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/24 19:53:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
 
-int check_if_pipe(t_list *cmds)
+// Redirects and executes the command 'cmd' in a subshell, taking into account
+// it is the i-th command of the pipeline.
+// It exits with the appropriate exit status, or returns with a non-zero value.
+static int	process_command(t_pipe *p, t_list *cmds, int e_stat, char **env)
 {
-    t_cmd   *cmd;
+	int		exit_stat;
 
-    while (cmds)
-    {
-        cmd = cmds->content;
-        if (cmd->cmdtype == PIPE)     
-            return (TRUE);       
-        cmds = cmds->next;
-    }
-    return (FALSE);
+	if (p->i > 0)
+		link_read_end(p->prev_fds);
+	if (p->i < p->cmds_amount - 1)
+		link_write_end(p->next_fds);
+	exit_stat = redirect(cmds);
+	if (exit_stat != 0)
+		exit(exit_stat);
+	if (ft_lstsize(cmds) == 0)
+		exit(EXIT_SUCCESS);
+	execute_command(cmds, e_stat, env);
+	return (EXIT_FAILURE);
 }
 
-/*
- * Redirects and executes the given command 'cmd' 
- * on the current shell environment, returning the exit status.
-*/
-static int	process_builtin_here(t_list *cmds, t_shell *tshell)
+// Updates the pipe's file descriptor updates from the parent process for the
+// i-th command, closing previous file descriptors and preparing for next.
+static void	parent_pipe_update(t_pipe *p, int i)
 {
-	int		exit_status;
-    t_list	*lst;
-
-    lst = cmds;
-	save_restore_stdio(tshell, STDIN_FILENO, STDOUT_FILENO, SAVE);
-	exit_status = 0;//read_heredocs(cmd, 0, tshell->env);
-	if (exit_status)
-		return (exit_status);
-	exit_status = redirect(cmds, 0);
-	if (exit_status != 0)
+	if (i > 0)
 	{
-		save_restore_stdio(tshell, STDIN_FILENO, STDOUT_FILENO, RESTORE);
-		return (exit_status);
+		close(p->prev_fds[READ_END]);
+		close(p->prev_fds[WRITE_END]);
 	}
-	if (ft_lstsize(cmds) > 0)
-		exit_status = execute_builtin((t_cmd*)cmds->content, tshell->exit_state, tshell->env, FALSE);
-	save_restore_stdio(tshell, STDIN_FILENO, STDOUT_FILENO, RESTORE);
-	return (exit_status);
+	if (i < p->cmds_amount - 1)
+	{
+		p->prev_fds[READ_END] = p->next_fds[READ_END];
+		p->prev_fds[WRITE_END] = p->next_fds[WRITE_END];
+	}
 }
 
-/*
- * Iterate throught commands and check if that command is a builtin command
- * If there is only one command execute_simple_cmd
-*/
-void	redirect_and_execute(t_shell *tshell)
+// Redirects and executes the commands defined by the array of commands 'cmds',
+// assuming p->cmds_amount is already initialized. All commands are executed in
+// subprocesses. Returns the exit status of the last command.
+static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **env)
 {
-    t_list	*cmds;
-    int		exit_status;
-    t_cmd	*cmd;
+	int		exit_stat;
+	int		i;
+	pid_t	pid;
+	pid_t	last_child;
 
-    cmds = tshell->comands;
-	exit_status = tshell->exit_state;
-    if (check_if_pipe(cmds) == FALSE)
-    {
-        if (ft_lstsize(cmds) == 1)
-        {
-            cmd = cmds->content;
-            if (is_builtin_name(cmd))
-                exit_status = execute_simple_cmd(cmd, tshell->env);
-            else
-                execute_cmd(cmd, tshell->env);
-        }   
-        else
-            exit_status = process_builtin_here(cmds, tshell);
-    }
-    else
-    {
-        //HAY QUE SEPARAR LA LISTA DE COMANDOS
-    }
-    tshell->exit_state = exit_status;
-    
-    //si el primer comando es builting -> miramos si el siguiente existe y es redir o pipe.
-    //Si no hay nada, ejecutamos builting
-    //Si hay redir, antes ejecutamos redireccionamiento y despues builting
-    //Si hay pipe, redireccionamos la salida del comando a la entrada del comando que haya despues del pipe
+	exit_stat = 0;// read_all_heredocs(piped_cmds, p->cmds_amount, env);
+	if (exit_stat)
+		return (exit_stat);
+	stop_signals();
+	i = -1;
+	while (++i < p->cmds_amount)
+	{
+		p->i = i;
+		if (i < p->cmds_amount - 1)
+			pipe_or_die(p->next_fds);
+		pid = fork_or_die();
+		//if (pid == 0)
+			return (process_command(p, piped_cmds[i], e_stat, env));
+		parent_pipe_update(p, i);
+		last_child = pid;
+	}
+	exit_stat = wait_children(last_child, p->cmds_amount);
+	//clear_heredocs(p->cmds_amount);
+	return (exit_stat);
+}
+
+// Redirects and executes the given command 'cmd' on the current shell
+// environment, returning the exit status.
+static int	process_builtin_here(t_list *piped_cmds, int exit_status, char **env)
+{
+	int	exit_stat;
+
+	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, SAVE);
+	exit_stat = 0;//read_heredocs(*cmd, 0, *env);
+	if (exit_stat)
+		return (exit_stat);
+	exit_stat = redirect(piped_cmds);
+	if (exit_stat != 0)
+	{
+		save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
+		return (exit_stat);
+	}
+	if (ft_lstsize(piped_cmds) > 0)
+		exit_stat = execute_builtin(piped_cmds, exit_status, env, FALSE);
+	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
+	return (exit_stat);
+}
+
+// Performs all redirections and command/builtin executions defined by the array
+// of lists 'commands', updating the 'exit_status' and environment 'env'
+// accordingly.
+void	redirect_and_execute(t_list **piped_cmds, int *exit_status, char **env)
+{
+	t_pipe	p;
+
+	p.cmds_amount = arr_size((void *)piped_cmds);
+	if (p.cmds_amount == 0)
+		*exit_status = 0;
+	else if (p.cmds_amount == 1 && is_builtin_cmd(piped_cmds[0]))
+		*exit_status = process_builtin_here(piped_cmds[0], *exit_status, env);
+	else
+		*exit_status = process_commands(piped_cmds, &p, *exit_status, env);
 }

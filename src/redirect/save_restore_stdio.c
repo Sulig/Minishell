@@ -6,22 +6,19 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:01:56 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/11 18:37:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:54:24 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
 
-/*
- * If 'mode' = SAVE: Saves the standard input and output.
- * If 'mode' = RESTORE: Restores the previously saved standard input and output.
-*/
-void	save_restore_stdio(t_shell *tshell, int std_in, int std_out, int mode)
+// If 'mode' = SAVE: Saves the standard input and output.
+// If 'mode' = RESTORE: Restores the previously saved standard input and output.
+void	save_restore_stdio(int std_in, int std_out, int mode)
 {
-    static int	saved_stdin;
+	static int	saved_stdin;
 	static int	saved_stdout;
 
-	tshell->fds = NULL;
 	if (mode == SAVE)
 	{
 		saved_stdin = dup(std_in);
