@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 15:58:45 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:51:04 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	check_flag(char *word)
 {
@@ -28,11 +28,11 @@ int	builtin_echo(t_cmd *cmd)
 	int	flag;
 
 	flag = FALSE;
-	if(cmd->options)
+	if (cmd->options)
 		flag = check_flag(cmd->options);
-	if(!flag && cmd->options)
+	if (!flag && cmd->options)
 	{
-		printf("%s",cmd->options);
+		printf("%s", cmd->options);
 		if (cmd->input != NULL)
 			printf(" ");
 	}

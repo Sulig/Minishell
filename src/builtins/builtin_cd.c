@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/06 21:56:03 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:38:58 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_absolutepath(char *str)
 
 /*
 **	change env (oldpwd and pwd) depending on if it's absolute or relativ path
-** Simply running cd without any arguments is equivalent 
+** Simply running cd without any arguments is equivalent
 ** to cd ~ which goes to the $HOME directory.
 */
 char	**change_my_env(t_cmd *cmd, char **env)
@@ -61,19 +61,19 @@ int	change_dir(t_cmd *cmd, char **env)
 	if (cmd->input == NULL)
 	{
 		if (chdir(home) == -1)
-	        return (print_err_syntax("minishell: cd: HOME not set"));				
+			return (print_err_syntax("minishell: cd: HOME not set"));
 	}
 	else if (chdir(cmd->input) == -1)
-        return (print_err_syntax("minishell: unable to get path"));	
+		return (print_err_syntax("minishell: unable to get path"));
 	return (1);
 }
 
 int	builtin_cd(t_cmd *cmd, char **env)
 {
-    if (change_dir(cmd, env))
-    {
-        env = change_my_env(cmd, env);
-        return(0);
-    }
-    return (1);
+	if (change_dir(cmd, env))
+	{
+		env = change_my_env(cmd, env);
+		return (0);
+	}
+	return (1);
 }
