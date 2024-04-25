@@ -6,11 +6,16 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:30:11 by sadoming          #+#    #+#             */
-/*   Updated: 2024/02/22 16:44:31 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:57:10 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lenght.h"
+
+void	donothing(void *ptr)
+{
+	ptr = NULL;
+}
 
 void	*ft_free_str(char *str)
 {

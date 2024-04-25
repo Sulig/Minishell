@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 16:53:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:44:20 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ char	*ft_readline(void)
 	return (line);
 }
 
-void	heredoc(t_shell *tshell, char *end, int fd)
+void	heredoc(char **env, char *end, int fd)
 {
 	char	*tmp;
+	char	*joined;
 
-	tmp = NULL;
+	(void)env;
+	joined = NULL;
 	while (4)
 	{
 		tmp = readline(HEREDOC);
@@ -49,10 +51,10 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 			break ;
 		}
 		//Expand env_vars
-		tshell->line = ft_strjoin_free_fst(tshell->line, tmp);
+		joined = ft_strjoin_free_fst(joined, tmp);
 		tmp = ft_free_str(tmp);
 	}
 	if (fd > 2)
-		ft_printf_fd(fd, tshell->line);
-	tshell->line = ft_free_str(tshell->line);
+		ft_printf_fd(fd, joined);
+	joined = ft_free_str(joined);
 }

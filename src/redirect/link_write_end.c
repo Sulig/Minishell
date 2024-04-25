@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   link_write_end.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:20:06 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 16:20:27 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:14:39 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Links the standard output to the write end of a pipe, closing the read end.
 void	link_write_end(int *fd_pipe)

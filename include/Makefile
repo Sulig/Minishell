@@ -3,22 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
+#    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/25 18:11:19 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/25 12:51:41 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 # ------------------ #
 # Flags:
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
-CPPFLAGS = -MMD -MP
-LDFLAGS = $(addprefix -L, $(dir $(LIBFT)))
-INCLUDE = -I ./readline/ -I $(INC_DIR)/ -I $(LIB_DIR)/include/ 
+CC			:=	gcc
+FLAGS		:=	-lreadline -Llibft -lft #-fsanitize=address
+CFLAGS		:=	-Wall -Wextra -g
 # ------------------ #
 # Directories:
 
@@ -34,8 +33,10 @@ ENV_DIR = $(SRC_DIR)/env
 EXE_DIR = $(SRC_DIR)/exec
 PER_DIR = $(SRC_DIR)/print_errors
 RED_DIR = $(SRC_DIR)/redirect
-SIG_DIR = $(SRC_DIR)/signals
 UTL_DIR = $(SRC_DIR)/utils
+LST_DIR = $(SRC_DIR)/lst
+SIG_DIR = $(SRC_DIR)/signals
+
 # ------------------- #
 # Sources:
 MAK = Makefile # This Makefile
@@ -43,8 +44,7 @@ MAK = Makefile # This Makefile
 LIBFT = $(LIB_DIR)/libft.a # The Libft
 
 # Readline libraries ->
-READLINE = ./readline/libreadline.a
-HISTORY = ./readline/libhistory.a
+RL_FLAGS = -lreadline -Llibft -lft
 
 # HEADERS
 HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
@@ -52,35 +52,24 @@ HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
 # MINISHELL SRC ->
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
 		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
-		  checkfor_unclosedquotes.c split_intodoublelist.c
-
-#SRC_SRC += redirect_and_execute.c
-
-#BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
+		  checkfor_unclosedquotes.c redirect_and_execute.c
+BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
 		  cd_utils2.c
-
-#ENV_SRC = env_get_varname.c env_name_len.c find_var_index_from_env.c\
-		  find_var_line_from_env.c get_var_from_env.c get_vars_from_env.c\
-		  remove_env_var.c
-
-#EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
+ENV_SRC = get_var_from_env.c find_var_line_from_env.c env_name_len.c\
+		  find_var_index_from_env.c env_get_varname.c remove_env_var.c\
+		  get_vars_from_env.c env_set_var.c
+EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
 		  exec_cmd.c get_executable.c
-
 PER_SRC = print_common_errors.c
-
-#RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
-		  link_write_end.c open_file.c pipe_or_die.c redirect.c\
-		  save_restore_stdio.c wait_children.c
-
-SIG_SRC = signals.c #signals_utils.c
-
-#UTL_SRC = expand_vars.c fill_token_location.c ft_arr_2d.c is_builtin.c\
-		  libft_utils.c libft_utils2.c polish_comands.c print_utils.c\
-		  quote_removal.c set_path.c trim_input.c
-
-UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
-		  quote_removal.c set_path.c trim_input.c is_builtin.c
+RED_SRC = link_input_file.c link_output_file.c open_file.c redirect.c\
+		  save_restore_stdio.c pipe_or_die.c fork_or_die.c link_read_end.c\
+		  link_write_end.c wait_children.c
+UTL_SRC = fill_token_location.c expand_vars.c print_utils.c signals.c\
+		  trim_input.c polish_comands.c ft_arr_2d.c builtin_utils.c set_path.c\
+		  quote_removal.c libft_utils.c libft_utils2.c
+LST_SRC = lst_size.c
+SIG_SRC = signals_utils.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
@@ -88,8 +77,9 @@ SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
 SRC += $(addprefix $(EXE_DIR)/, $(EXE_SRC))
 SRC += $(addprefix $(RED_DIR)/, $(RED_SRC))
 SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
-SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
+SRC += $(addprefix $(LST_DIR)/, $(LST_SRC))
+SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
@@ -98,7 +88,7 @@ DEPS = $(OBJS:%.o=%d)
 -include $(DEPS)
 # **************************************************************************** #
 #-------------------------------------------------------------#
-all: $(LIBFT) $(NAME) 
+all: $(LIBFT) $(NAME)
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
 help:
@@ -139,31 +129,25 @@ run: $(NAME)
 	@./$(NAME)
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
-# ***************************************************************************** 
+# *****************************************************************************
 # Compiling Region:
 
 # LIBFT ->
-$(LIBFT): 
+$(LIBFT):
 	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
 	@make -s -C $(LIB_DIR)
 	@echo "\033[1;37m~ **************************************** ~\n"
 # ----------------------------------------
-# READLINE ->
-$(READLINE):
-	@echo "\033[0;33m * Compiling Readline -->\033[0;37m\n"
-	@echo " Plesase wait a bit\n"
-	@make -s -C $(RDL_DIR)
-	@echo "\033[1;37m~ **************************************** ~\n"
-# ----------------------------------------
+
 # MINISHELL ->
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HEADERS)
 	@echo "\033[0;37m Compiling...: $<"
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -D READLINE_LIBRARY=1 -c $< -o $@ $(INCLUDE)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(RL_FLAGS) -c $< -o $@ $(INCLUDE)
 
 $(NAME): $(MAK) $(HEADERS) $(LIBFT) $(READLINE) $(OBJS)
 	@echo "\033[1;93m\n * Making $(NAME) -->\033[0;37m\n"
-	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) -l ft $(READLINE) $(HISTORY) -ltermcap -lreadline -o $(NAME)
+	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) -l ft $(RL_FLAGS) -ltermcap -o $(NAME)
 	@echo "\033[1;32m\n $(NAME) Compiled Successfully\033[0;37m\n"
 
 # **************************************************************************** #

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 17:51:20 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:45:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	execute_command(t_list *cmds, int exit_status, char **env)
 {
 	int		exit_stat;
-	char	*args;
+	//char	*args;
 	char	**e;
 	t_cmd 	*cmd;
 
@@ -26,10 +26,10 @@ void	execute_command(t_list *cmds, int exit_status, char **env)
 
 	if (cmd->cmdtype == TNULL)
 		exit(EXIT_SUCCESS);
-	if (is_builtin_name(cmd->comand))
+	if (is_builtin_name(cmd))
 	{
 		e = arrstr_dup(env);
-		exit_stat = execute_builtin(cmds, exit_status, &e, TRUE);
+		exit_stat = execute_builtin(cmds, exit_status, e, TRUE);
 		arrstr_free(e);
 		exit(exit_stat);
 	}
