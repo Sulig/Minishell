@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 12:19:17 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:15:55 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
 	if (redir->input == NULL)
 	{
 		print_err_syntax("ambiguous redirect");
-        return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	str = redir->input;
 	if (!ft_strncmp(redir->comand, ">", 2))
 		return (link_output_file(str, FALSE));
-    else if (!ft_strncmp(redir->comand, ">>", 3))
+	else if (!ft_strncmp(redir->comand, ">>", 3))
 		return (link_output_file(str, TRUE));
 	else if (!ft_strncmp(redir->comand, "<", 2))
 		return (link_input_file(str));
@@ -40,6 +40,7 @@ static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
     */
 	return (EXIT_FAILURE);
 }
+
 // Performs all redirections of 'cmd', from left-to-right, removing the
 // redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
 // If a redirection error ocurrs, prints an error message.

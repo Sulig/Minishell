@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:44:53 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/16 16:32:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:09:46 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*
  * Returns TRUE if 'path' is an executable file. Otherwise, returns FALSE.

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 19:37:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:39:54 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ typedef struct s_fd
 	char		**args;
 }				t_fd;
 
+/* FOR PIPE CONTROL */
+typedef struct s_pipe
+{
+	int			cmds_amount;
+	int			prev_fds[2];
+	int			next_fds[2];
+	int			i;
+}				t_pipe;
+
 /* MINISHELL STRUCTURE */
 typedef struct s_shell
 {
@@ -78,7 +87,6 @@ typedef struct s_shell
 	t_list		*comands;
 	t_list		**tree_cmd;
 	t_list		*fds;
-	pid_t		pid;
 	//t_cmd		*act_cmd;
 	size_t		tok_size;
 	size_t		cmd_size;

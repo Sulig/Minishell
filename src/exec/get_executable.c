@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_executable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:23:50 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 17:28:35 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:12:31 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Allocates and returns a string containing the full path of 'file' in 'dir'.
 // Example: if 'dir' is /folder and 'file' is myfile, returns "/folder/myfile".

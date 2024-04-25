@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:46:41 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 16:49:13 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:19:30 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Returns the size of the given NULL-terminated array 'arr'.
 size_t	arr_size(const void **arr)
@@ -59,3 +59,23 @@ void	arrstr_free(char **arr)
 	}
 	free(arr);
 }
+
+// with the string 'str' added at the end of it.
+// The original array 'arr' is freed. Exits properly if memory allocation fails.
+char	**arrstr_add(char **arr, const char *str)
+{
+	char	**new_arr;
+	int		orig_arr_size;
+	int		i;
+
+	orig_arr_size = arrstr_size(arr);
+	new_arr = (char **)p_malloc(sizeof(char *) * (orig_arr_size + 2));
+	i = -1;
+	while (++i < orig_arr_size)
+		new_arr[i] = ft_strdup(arr[i]);
+	new_arr[i] = ft_strdup(str);
+	new_arr[i + 1] = NULL;
+	arrstr_free(arr);
+	return (new_arr);
+}
+

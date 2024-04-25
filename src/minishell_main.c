@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 19:46:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:39:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*fline(void)
 	static int	bruh;
 	char		*ttp;
 
-	bruh = 10;
+	bruh = 9;
 	if (!bruh)
 		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
 	else if (bruh == 1)
@@ -37,7 +37,7 @@ char	*fline(void)
 	else if (bruh == 8)
 		ttp = "sometext \"i will don't close";
 	else if (bruh == 9)
-		ttp = "echo -  heloo";
+		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
 		ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
 	else 
@@ -60,7 +60,7 @@ void	minishell(t_shell *tshell)
 		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
-		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//Check if comand exist && execute
 		//if (tshell->cmd_size && tshell->tree_cmd)

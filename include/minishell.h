@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 19:41:49 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:11:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 # include "../readline/history.h"
 
 # include "../libft/include/libft.h"
+# include "boolean.h"
 # include "colors.h"
 # include "constants.h"
 # include "minishell_structs.h"
-# include "exec.h"
-# include "boolean.h"
 # include "builtins.h"
+# include "exec.h"
 # include "env.h"
 # include "arr_2d.h"
+# include "libft_utils.h"
 # include "redirect.h"
 # include "signals.h"
 
@@ -38,7 +39,6 @@
 /* STARTER THINGS */
 void	print_minishell_welcome(char **env);
 void	exit_minishell(t_shell *tshell);
-void	start_signals(void);
 
 /* CHECKERS */
 int		check_valid_syntax(t_shell *tshell);
@@ -50,14 +50,14 @@ void	split_intotokens(t_shell *tshell);
 void	fill_token_location(t_shell *tshell);
 void	expand_env_var(t_shell *tshell);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
+void	split_intodoublelist(t_shell *tshell);
 
 /* TO TEST OR TESTING */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
-void	heredoc(t_shell *tshell, char *end, int fd);
-void	split_intodoublelist(t_shell *tshell);
+void	heredoc(char **env, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
-void	redirect_and_execute(t_shell *tshell);
+void	redirect_and_execute(t_list **piped_cmds, int *exit_status, char **env);
 
 /* PRINTING ERRORS */
 void	print_err_args(void);

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 17:00:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:13:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos + 1;
 			tokens = tokens->next;
 			token = (t_token *)tokens->content;
-			cmd->options = ft_strdup(token->content);
+			cmd->options = ft_strjoin_free_fst(cmd->options, token->content);
 		}
 		else
 			cmd->input = ft_strjoin_free_fst(cmd->input, token->content);

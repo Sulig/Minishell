@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 19:53:17 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:13:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **e
 	pid_t	pid;
 	pid_t	last_child;
 
+	last_child = 0;
 	exit_stat = 0;// read_all_heredocs(piped_cmds, p->cmds_amount, env);
 	if (exit_stat)
 		return (exit_stat);

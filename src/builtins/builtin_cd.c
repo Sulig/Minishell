@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 13:38:58 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:18:58 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int	change_dir(t_cmd *cmd, char **env)
 	if (cmd->input == NULL)
 	{
 		if (chdir(home) == -1)
-			return (print_err_syntax("minishell: cd: HOME not set"));
+			return (print_err_syntax ("minishell: cd: HOME not set"));
 	}
 	else if (chdir(cmd->input) == -1)
-		return (print_err_syntax("minishell: unable to get path"));
+		return (print_err_syntax ("minishell: unable to get path"));
 	return (1);
 }
 
