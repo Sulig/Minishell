@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/23 17:47:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:39:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ char	*fline(void)
 	else if (bruh == 8)
 		ttp = "sometext \"i will don't close";
 	else if (bruh == 9)
-		ttp = "echo -  heloo";
+		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
+	else if (bruh == 10)
+		ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
 	else 
 		ttp = NULL;
 	bruh++;
@@ -55,11 +57,13 @@ void	minishell(t_shell *tshell)
 		split_intotokens(tshell);
 		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
+		split_intodoublelist(tshell); //split into dll
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		print_comands_st(tshell->comands);
 		//Check if comand exist && execute
-		//if (tshell->cmd_size)
+		//if (tshell->cmd_size && tshell->tree_cmd)
 			//redirect_and_execute(tshell);
 		/* Executor
 		 * Ejecute the comand
@@ -70,6 +74,7 @@ void	minishell(t_shell *tshell)
 		 * if comand, **unkownk
 		*/
 		free_comands(tshell);
+		free_tree_cmds(tshell);
 		rl_on_new_line();
 		break ;
 	}

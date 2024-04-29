@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   remove_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:01:46 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/07 12:13:47 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:07:09 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Removes the environment variable 'varname'.
 void	remove_env_var(char *varname, char **env)

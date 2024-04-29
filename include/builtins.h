@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:25:38 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:52:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:32:22 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		builtin_unset(t_cmd *cmd, char **env);
 int		builtin_exit(t_cmd *cmd);
 
 /* UTILS */
+int		is_builtin_cmd(t_list *cmd_lst);
 char	**change_pwd_home(char **env);
 char	**change_oldpwd(char *pwd, char **my_env);
 char	**change_pwd_absolute(char *path, char **env);

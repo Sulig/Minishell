@@ -1,0 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_set_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 22:29:53 by jguillot          #+#    #+#             */
+/*   Updated: 2024/04/25 19:39:09 by sadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+// Allocates and returns a string consisting of 'varname' + "=" + 'value'.
+static char	*join_varline(const char *varname, const char *value)
+{
+	char	*varline;
+	size_t	varline_len;
+	int		i;
+
+	varline_len = ft_strlen(varname) + ft_strlen(value) + 1;
+	varline = (char *)p_malloc(sizeof(char) * (varline_len + 1));
+	i = 0;
+	while (*varname)
+		varline[i++] = *varname++;
+	varline[i++] = '=';
+	while (*value)
+		varline[i++] = *value++;
+	varline[i] = '\0';
+	return (varline);
+}
+
+// Sets the environment variable 'varname' to 'value', creating it if needed.
+void	env_set_var(const char *varname, const char *value, char **env)
+{
+	int		var_index;
+	char	*varline;
+
+	varline = join_varline(varname, value);
+	var_index = find_var_index_from_env((char *)varname, (char **)env);
+	if (var_index == -1)
+		env = arrstr_add(env, varline);
+	else
+		env = arrstr_set(env, varline, var_index);
+	free(varline);
+}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_var_from_env.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 21:55:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/10 19:36:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:06:35 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Given that 'varname' points to the first character of a variable name,
 // returns its value. If 'varname' does not exist, returns NULL.

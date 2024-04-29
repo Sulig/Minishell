@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_var_index_from_env.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:34:19 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/17 16:56:56 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:05:38 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*
 	Return the len of an str array (that is 0-terminated)

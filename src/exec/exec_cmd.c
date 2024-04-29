@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 17:54:13 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:38:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // If the given 'path' is not executable, prints an error message and exits.
 static void	check_path(const char *path)
@@ -23,19 +23,13 @@ static void	check_path(const char *path)
 		exit(print_err_custom("Permission denied", 126));
 }
 
-char **parse_args(char *path, char *args)
+char	**parse_args(char *path, char *args)
 {
-    char **arg;
-    char *aux;
+	char	*arg[2];
 
-    aux = ft_strdup(path);
-    if (args)
-    {
-        aux = ft_strjoin_free_fst(aux,"|");
-        aux = ft_strjoin_free_fst(aux, args);
-    }
-    arg = ft_split(aux,'|');
-    return (arg);
+	arg[0] = path;
+	arg[1] = args;
+	return (ft_strarrdup(arg));
 }
 
 // Executes the shell command 'cmd' and exits, assuming 'cmd' is a non-empty
@@ -48,8 +42,7 @@ void	exec_cmd(t_cmd *cmd, char **env)
 	char	*path;
 
 	path = cmd->comand;
-    args = parse_args(path, cmd->options);
-
+	args = parse_args(path, cmd->options);
 	if (!ft_strchr(path, '/'))
 		path = get_executable(path, env);
 	else

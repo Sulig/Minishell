@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_get_varname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:10:09 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/17 16:56:33 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:04:30 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Checks and returns TRUE if the given 'word' us a valid variable name.
 // A valid name consists only of alphanumeric characters and underscores, and

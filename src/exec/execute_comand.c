@@ -3,33 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   execute_comand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 17:51:20 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:35:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Executes the command 'cmd' (which might be a builtin) assuming there are no
 // redirections and exits with the appropriate exit status.
 void	execute_command(t_list *cmds, int exit_status, char **env)
 {
 	int		exit_stat;
-	char	*args;
+	//char	*args;
 	char	**e;
-	t_cmd 	*cmd;
+	t_cmd	*cmd;
 
 	cmd = cmds->content;
 	//set_signals(NON_INTER);
-
 	if (cmd->cmdtype == TNULL)
 		exit(EXIT_SUCCESS);
-	if (is_builtin_name(cmd->comand))
+	if (is_builtin_name(cmd))
 	{
 		e = arrstr_dup(env);
-		exit_stat = execute_builtin(cmds, exit_status, &e, TRUE);
+		exit_stat = execute_builtin(cmds, exit_status, e, TRUE);
 		arrstr_free(e);
 		exit(exit_stat);
 	}

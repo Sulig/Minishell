@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   link_output_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:43:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/09 21:12:56 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:14:31 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 // Opens the file 'filename' and links it to the standard output.
 // If 'append' is not zero, it opens the file with the O_APPEND flag.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var_line_from_env.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:22:18 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/16 07:38:50 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:06:18 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*find_var_line_from_env(const char *varname, char **env)
 		return (NULL);
 	while (*env)
 	{
-		//printf("ENV-> %s\n",env);
 		if (!ft_strncmp(*env, varname, name_len)
 			&& (*env)[name_len] && (*env)[name_len] == '=')
 			return ((char *)*env);

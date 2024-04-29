@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/15 19:52:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:11:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,21 @@ void	print_comands_st(t_list *cmd)
 		cmd = cmd->next;
 		size++;
 	}
+}
+
+void	print_multiple_cmds_st(t_list **cmds)
+{
+	size_t	size;
+
+	size = 0;
+	while (cmds[size])
+	{
+		ft_printf("~~~~~~~~~~~~ ~ Double linked list node pos: %u", size);
+		ft_printf("\t~ Content: \033[38;5;%um\n", (size + 2) * 7);
+		print_comands_st(cmds[size]);
+		ft_printf(D);
+		ft_printf("~~~~~~~~~~~~~ ~ ~~~~~~~~~~~~~~\n\n");
+		size++;
+	}
+	ft_printf("Total size of double linked list: %u\n", size);
 }
