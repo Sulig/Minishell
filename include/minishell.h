@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/25 19:11:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:29:53 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include "../readline/readline.h"
 # include "../readline/history.h"
 
@@ -30,7 +31,6 @@
 # include "signals.h"
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
