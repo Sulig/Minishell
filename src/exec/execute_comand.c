@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 19:35:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:17:16 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void	execute_command(t_list *cmds, int exit_status, char **env)
 {
 	int		exit_stat;
-	//char	*args;
 	char	**e;
 	t_cmd	*cmd;
 

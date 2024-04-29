@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arr_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:57:31 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/07 13:06:08 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:15:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	arr_2d_len(char **arr)
 {
