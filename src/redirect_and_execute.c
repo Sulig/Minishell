@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 16:47:50 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:26:51 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **e
 		if (i < p->cmds_amount - 1)
 			pipe_or_die(p->next_fds);
 		pid = fork_or_die();
-		//if (pid == 0)
+		if (pid == 0)
 			return (process_command(p, piped_cmds[i], e_stat, env));
 		parent_pipe_update(p, i);
 		last_child = pid;
