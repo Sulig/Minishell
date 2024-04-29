@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 16:29:53 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:47:17 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 void	heredoc(char **env, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
-void	redirect_and_execute(t_list **piped_cmds, int *exit_status, char **env);
+void	redirect_and_execute(t_shell *tshell);
 
 /* PRINTING ERRORS */
 void	print_err_args(void);

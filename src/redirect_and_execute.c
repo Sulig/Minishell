@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 17:13:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:47:50 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,26 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **e
 
 // Redirects and executes the given command 'cmd' on the current shell
 // environment, returning the exit status.
-static int	process_builtin_here(t_list *piped_cmds, int exit_status, char **env)
+static int	process_builtin_here(t_shell *tshell)
 {
-	int	exit_stat;
+	int		exit_stat;
+	t_list	*cmds;
+	char	**env;
 
+	cmds = tshell->tree_cmd[0];
+	env = tshell->env;
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, SAVE);
 	exit_stat = 0;//read_heredocs(*cmd, 0, *env);
 	if (exit_stat)
 		return (exit_stat);
-	exit_stat = redirect(piped_cmds);
+	exit_stat = redirect(cmds);
 	if (exit_stat != 0)
 	{
 		save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
 		return (exit_stat);
 	}
-	if (ft_lstsize(piped_cmds) > 0)
-		exit_stat = execute_builtin(piped_cmds, exit_status, env, FALSE);
+	if (ft_lstsize(cmds) > 0)
+		exit_stat = execute_builtin(cmds, tshell->exit_state, env, FALSE);
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
 	return (exit_stat);
 }
@@ -105,15 +109,16 @@ static int	process_builtin_here(t_list *piped_cmds, int exit_status, char **env)
 // Performs all redirections and command/builtin executions defined by the array
 // of lists 'commands', updating the 'exit_status' and environment 'env'
 // accordingly.
-void	redirect_and_execute(t_list **piped_cmds, int *exit_status, char **env)
+void	redirect_and_execute(t_shell *tshell)
 {
 	t_pipe	p;
 
-	p.cmds_amount = arr_size((void *)piped_cmds);
+	p.cmds_amount = arr_size((void *)tshell->tree_cmd);
 	if (p.cmds_amount == 0)
-		*exit_status = 0;
-	else if (p.cmds_amount == 1 && is_builtin_cmd(piped_cmds[0]))
-		*exit_status = process_builtin_here(piped_cmds[0], *exit_status, env);
+		tshell->exit_state = 0;
+	else if (p.cmds_amount == 1 && is_builtin_cmd(tshell->tree_cmd[0]))
+		tshell->exit_state = process_builtin_here(tshell);//->tree_cmd[0], tshell->exit_state, tshell->env);
 	else
-		*exit_status = process_commands(piped_cmds, &p, *exit_status, env);
+		tshell->exit_state = process_commands(tshell->tree_cmd, &p,
+			tshell->exit_state, tshell->env);
 }

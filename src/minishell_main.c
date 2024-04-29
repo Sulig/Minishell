@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 16:31:47 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:46:52 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	minishell(t_shell *tshell)
 		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//Check if comand exist && execute
-		//if (tshell->cmd_size && tshell->tree_cmd)
-			//redirect_and_execute(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		/* Executor
 		 * Ejecute the comand
 		 * if builtin, the output will be saved on a node of list
