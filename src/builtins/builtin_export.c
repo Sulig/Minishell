@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 09:58:05 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:00:08 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:46:13 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	args_export(char **args, char **env)
 	int		i;
 
 	exit_status = 0;
-	if (!*args)
+	if (args == NULL)
 		return (export_noargs(env));
 	--args;
 	while (++args && *args)
@@ -86,6 +86,10 @@ int	builtin_export(t_cmd *cmd, char **env)
 {
 	char	**args;
 
-	args = ft_split(cmd->input, ' ');
-	return (args_export(args, env));
+	if (cmd->input != NULL)
+	{
+		args = ft_split(cmd->input, ' ');
+		return (args_export(args, env));
+	}
+	return (args_export(NULL, env));
 }
