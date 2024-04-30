@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 09:58:05 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 18:46:13 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:11:18 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	args_export(char **args, char **env)
 		varname = env_get_varname(*args);
 		if (!env_valid_varname(varname))
 		{
-			exit_status = print_err_custom("not a valid identifier", 1);
+			exit_status = print_comun_error("not a valid identifier", 1);
 			free(varname);
 			continue ;
 		}

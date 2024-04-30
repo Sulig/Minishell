@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 18:21:32 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:27:50 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	builtin_exit(t_cmd *cmd)
 		exit_status = 0;
 	else
 	{
-		if (ft_strchr(cmd->input, ' ') == NULL)
-			return (print_err_syntax("exit: too many arguments"));
+		if (ft_strchr(cmd->input, ' ') != NULL)
+			return (print_comun_error("too many arguments", 1));
 		else if (!ft_isnumeric(cmd->input))
-			return (print_err_syntax("exit: numeric argument required"));
+			return (print_comun_error("numeric argument required", 255));
 		else
 			exit_status = ft_atoi(cmd->input);
 	}
