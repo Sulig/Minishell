@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 16:10:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:31:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	check_valid_syntax(t_shell *tshell)
 	t_token	*ch_bef;
 	t_token	*ch_aft;
 
+	if (!tshell)
+		return (0);
 	if (!tshell->tokens)
 		return (1);
 	list = tshell->tokens;

@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/25 18:13:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:56:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	check_beforecreate(t_shell *tshell, t_token *token)
+int	check_beforecreate(t_shell *tshell, t_token *token)
 {
 	if (!token)
 	{
@@ -59,10 +59,8 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		}
 		else if (check_beforecreate(NULL, token) == 3 && tokens->next)
 		{
-			*pos = *pos + 1;
-			tokens = tokens->next;
-			token = (t_token *)tokens->content;
-			cmd->options = ft_strjoin_free_fst(cmd->options, token->content);
+			cmd = fill_comand_options(cmd, tokens, pos);
+			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 		}
 		else
 			cmd->input = ft_strjoin_free_fst(cmd->input, token->content);
@@ -99,6 +97,7 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 {
 	t_cmd	*cmd;
+	char	*trimed;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
@@ -111,7 +110,9 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (token->toktype != PIPE)
 	{
 		cmd = fill_command(cmd, tokens, pos);
-		cmd->options = ft_strjoin_free_sec("-", cmd->options);
+		trimed = ft_strtrim_s(cmd->options, " ");
+		cmd->options = ft_strremplace(cmd->options, trimed);
+		trimed = ft_free_str(trimed);
 		cmd = trim_input(cmd);
 		cmd = asign_comandtype(cmd);
 	}

@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/29 15:24:01 by jguillot         ###   ########.fr        #
+#    Updated: 2024/04/30 16:59:41 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,8 @@ RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
-		  quote_removal.c set_path.c trim_input.c is_builtin.c
+		  quote_removal.c set_path.c trim_input.c is_builtin.c\
+		  fill_comand_options.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
 
@@ -221,7 +222,9 @@ val-strict: $(NAME)
 
 clean:
 	@make -s clean -C $(LIB_DIR)
-	@make -s clean -C $(RDL_DIR)
+	@if [ -d $(RDL_DIR) ]; then \
+		make -s clean -C $(RDL_DIR); \
+	fi
 	@/bin/rm -frd $(OBJ_DIR)
 	@echo "\033[1;34m\n All obj removed\033[1;97m\n"
 
