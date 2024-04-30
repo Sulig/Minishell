@@ -187,3 +187,10 @@ minishell_tester1/test_files/invalid_permission
 minishell_tester1/test_files/loop
 minishell_tester1/test_files/loop.c
 minishell_test.log
+test_files/empty
+test_files/file name with spaces
+test_files/infile
+test_files/infile_big
+test_files/invalid_permission
+test_files/loop
+test_files/loop.c

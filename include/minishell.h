@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 16:47:17 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:46:35 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	print_err_args(void);
 int		print_err_syntax(char *content);
 int		print_err_custom(char *error, int error_n);
 int		print_comandnotfound(char *comand);
+int		print_comun_error(char *error, int error_n);
 
 /* STRUCTURE MEMORY MANAGER */
 void	free_tokens(t_shell *tshell);
@@ -80,6 +81,7 @@ t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
+
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
 void	print_tokens_st(t_list *tokens);
