@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/25 17:44:20 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:06:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	exit_minishell(t_shell *tshell)
 	exit_state = tshell->exit_state;
 	rl_clear_history();
 	tshell = free_tshell(tshell);
+	ft_printf_fd(2, "\033[2J\033[H");
 	ft_printf_fd(2, "minishell$: exit\n");
 	exit(exit_state);
 }

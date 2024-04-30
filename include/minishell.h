@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 19:56:36 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 20:14:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include "../readline/readline.h"
 # include "../readline/history.h"
 
@@ -30,7 +31,6 @@
 # include "signals.h"
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -55,10 +55,11 @@ void	split_intodoublelist(t_shell *tshell);
 /* TO TEST OR TESTING */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
+t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 void	heredoc(char **env, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
-void	redirect_and_execute(t_list **piped_cmds, int *exit_status, char **env);
+void	redirect_and_execute(t_shell *tshell);
 
 /* PRINTING ERRORS */
 void	print_err_args(void);

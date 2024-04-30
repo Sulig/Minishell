@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
+#    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/04/29 17:19:06 by sadoming         ###   ########.fr        #
+#    Updated: 2024/04/30 16:59:41 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,8 @@ NAME = minishell
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
-CPPFLAGS = -MMD -MP
 LDFLAGS = $(addprefix -L, $(dir $(LIBFT)))
-INCLUDE = -I ./readline/ -I $(INC_DIR)/ -I $(LIB_DIR)/include/ 
+INCFLAG = -I $(INC_DIR)/ -I $(LIB_DIR)/include/
 # ------------------ #
 # Directories:
 
@@ -43,8 +42,23 @@ MAK = Makefile # This Makefile
 LIBFT = $(LIB_DIR)/libft.a # The Libft
 
 # Readline libraries ->
-READLINE = ./readline/libreadline.a
-HISTORY = ./readline/libhistory.a
+#READLINE = ./readline/libreadline.a
+#HISTORY = ./readline/libhistory.a
+
+#READLINE
+RL_DIR		= readline/
+INCFLAG		+= -I $(RL_DIR)
+READLINE	:= $(RL_DIR)libreadline.a $(RL_DIR)libhistory.a
+RL_FILE		= readline.tar.gz
+RL_URL		= http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-bfe9c573a9e376323929c80b2b71c59727fab0cc.tar.gz
+
+LIBS		= -lreadline -ltermcap
+RM			= rm -fr
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror -g
+DEFS		= -DREADLINE_LIBRARY
+DFLAGS		= -MT $@ -MMD -MP
+#XFLAGS		= -fsanitize=address
 
 # HEADERS
 HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
@@ -77,7 +91,8 @@ RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
-		  quote_removal.c set_path.c trim_input.c is_builtin.c fill_comand_options.c
+		  quote_removal.c set_path.c trim_input.c is_builtin.c\
+		  fill_comand_options.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
 
@@ -95,9 +110,17 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 # DEPENDENCIES ->
 DEPS = $(OBJS:%.o=%d)
 -include $(DEPS)
+
 # **************************************************************************** #
 #-------------------------------------------------------------#
-all: $(LIBFT) $(NAME) 
+all: $(LIBFT) $(READINE) $(NAME)
+#-------------------------------------------------------------#
+#-------------------------------------------------------------#
+$(RL_DIR):
+			@curl -k $(RL_URL) > $(RL_FILE)
+			@tar -xf $(RL_FILE) && mv readline-* readline
+			@rm -rf $(RL_FILE)
+
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
 help:
@@ -138,31 +161,36 @@ run: $(NAME)
 	@./$(NAME)
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
-# ***************************************************************************** 
+# *****************************************************************************
 # Compiling Region:
 
 # LIBFT ->
-$(LIBFT): 
+$(LIBFT):
 	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
 	@make -s -C $(LIB_DIR)
 	@echo "\033[1;37m~ **************************************** ~\n"
 # ----------------------------------------
 # READLINE ->
-$(READLINE):
-	@echo "\033[0;33m * Compiling Readline -->\033[0;37m\n"
-	@echo " Plesase wait a bit\n"
-	@make -s -C $(RDL_DIR)
-	@echo "\033[1;37m~ **************************************** ~\n"
+$(READLINE): $(RL_DIR)
+			@if [ ! -f $(RL_DIR)config.status ] ; then \
+				printf "\t$(YELLOW)Configuring READLINE...$(DEFAULT)" && \
+				cd ./$(RL_DIR) && \
+				./configure &> /dev/null && \
+				echo ✅; \
+			fi
+			@printf "\t$(YELLOW)Making READLINE...$(DEFAULT)"
+			@cd ./$(RL_DIR) && make &> /dev/null
+			@echo ✅
 # ----------------------------------------
 # MINISHELL ->
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HEADERS)
-	@echo "\033[0;37m Compiling...: $<"
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -D READLINE_LIBRARY=1 -c $< -o $@ $(INCLUDE)
+			@mkdir -p $(@D)
+			@$(CC) $(CFLAGS) $(XFLAGS) $(DEFS) $(DFLAGS) $(INCFLAG) -c $< -o $@
+			@printf "\t$(YELLOW)$< $(GREEN)compiled$(DEFAULT)\n"
 
 $(NAME): $(MAK) $(HEADERS) $(LIBFT) $(READLINE) $(OBJS)
 	@echo "\033[1;93m\n * Making $(NAME) -->\033[0;37m\n"
-	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) -l ft $(READLINE) $(HISTORY) -ltermcap -lreadline -o $(NAME)
+	@$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) -l ft $(XFLAGS) $(DEFS) $(LIBS) $(READLINE) -o $(NAME)
 	@echo "\033[1;32m\n $(NAME) Compiled Successfully\033[0;37m\n"
 
 # **************************************************************************** #
@@ -194,7 +222,9 @@ val-strict: $(NAME)
 
 clean:
 	@make -s clean -C $(LIB_DIR)
-	@make -s clean -C $(RDL_DIR)
+	@if [ -d $(RDL_DIR) ]; then \
+		make -s clean -C $(RDL_DIR); \
+	fi
 	@/bin/rm -frd $(OBJ_DIR)
 	@echo "\033[1;34m\n All obj removed\033[1;97m\n"
 

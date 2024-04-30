@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 19:38:05 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:24:25 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static void	check_path(const char *path)
 
 char	**parse_args(char *path, char *args)
 {
-	char	*arg[2];
+	char	*arg[3];
 
 	arg[0] = path;
 	arg[1] = args;
+	arg[2] = NULL;
 	return (ft_strarrdup(arg));
 }
 
@@ -42,11 +43,11 @@ void	exec_cmd(t_cmd *cmd, char **env)
 	char	*path;
 
 	path = cmd->comand;
-	args = parse_args(path, cmd->options);
 	if (!ft_strchr(path, '/'))
 		path = get_executable(path, env);
 	else
 		check_path(path);
+	args = parse_args(path, cmd->options);
 	execve(path, args, env);
 	print_err_custom("command not found", 127);
 	exit(EXIT_FAILURE);

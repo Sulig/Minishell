@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:46:41 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:19:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:16:25 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ char	**arrstr_add(char **arr, const char *str)
 	arrstr_free(arr);
 	return (new_arr);
 }
-

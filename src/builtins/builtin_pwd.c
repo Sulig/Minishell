@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:45:42 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/09 21:18:56 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:36:37 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  */
 
 /* external function that we may use :
- * - char *getcwd(char *buf, size_t size) : this function return a 
+ * - char *getcwd(char *buf, size_t size) : this function return a
  * null-terminated string containing an absolute pathname that is the current
  * working directory of the calling process. The pathname is returned
  * as the function result and via the argument 'buf', which is of length 'size'.
@@ -36,7 +36,7 @@ int	builtin_pwd(void)
 	char	*buffer;
 
 	buffer = NULL;
-	buffer = getcwd(buffer, 42);
+	buffer = getcwd(buffer, 1024);
 	if (!buffer)
 	{
 		print_err_syntax("error getting pwd");
