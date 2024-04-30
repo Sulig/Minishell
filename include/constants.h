@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:04:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 18:39:15 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:00:32 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define MERR_MALLOC "Insuficient Memory or Malloc Error"
 # define MERR_NOPATH "PATH not finded!"
 # define MERR_FORK "Fork failed"
-# define MERR_FILE "Can't open the file"
+# define MERR_FILE "No such file or directory"
 # define MERR_UNSET "unset: error getting env var"
-
+# define MSG_CMD_NOT_FOUND	"command not found"
 #endif

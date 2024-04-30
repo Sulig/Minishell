@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:12:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/25 16:59:04 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:31:14 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,4 @@ void	ft_newline_redisplay(int signal)
 	}
 }
 
-/*
- * Capt signals
- * If mode == 0 -> Normal mode
- * If mode == 1 -> Heredoc mode
-*/
-void	start_signals(void)
-{
-	//struct sigaction	s_sig;
 
-	//s_sig.flags = SA_SIGINFO;
-	//s_sig.sa_sigaction = kill;
-	signal(SIGQUIT, SIG_IGN);
-	//if (mode == 0)
-		signal(SIGINT, ft_newline_redisplay);
-	//CONTROL + C IN HEREDOC
-}

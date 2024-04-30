@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 18:24:25 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:57:47 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 static void	check_path(const char *path)
 {
 	if (!path_exists(path))
-		exit(print_err_custom("No such file or directory", 127));
+		exit(print_comun_error("No such file or directory", 127));
 	if (is_directory(path))
-		exit(print_err_custom("is a directory", 126));
+		exit(print_comun_error("is a directory", 126));
 	if (!can_execute(path))
-		exit(print_err_custom("Permission denied", 126));
+		exit(print_comun_error("Permission denied", 126));
 }
 
 char	**parse_args(char *path, char *args)
@@ -49,6 +49,6 @@ void	exec_cmd(t_cmd *cmd, char **env)
 		check_path(path);
 	args = parse_args(path, cmd->options);
 	execve(path, args, env);
-	print_err_custom("command not found", 127);
+	print_comun_error("command not found", 127);
 	exit(EXIT_FAILURE);
 }

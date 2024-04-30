@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:02:04 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:21:32 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ int	builtin_exit(t_cmd *cmd)
 		else
 			exit_status = ft_atoi(cmd->input);
 	}
-	while (exit_status >= 256)
-		exit_status = exit_status - 256;
 	printf("exit\n");
-	exit(exit_status);
+	exit(exit_status % 256);
 	return (exit_status);
 }

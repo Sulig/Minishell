@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_common_errors.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/16 16:59:26 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:55:45 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,12 @@ int	print_err_custom(char *error, int error_n)
 	ft_printf_fd(2, "%s: An error ocurred!\n", "minishell");
 	ft_printf_fd(2, "~ Info: %s\n", error);
 	ft_printf_fd(2, D);
+	return (error_n);
+}
+
+int print_comun_error(char *error, int error_n)
+{
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(error, STDERR_FILENO);
 	return (error_n);
 }

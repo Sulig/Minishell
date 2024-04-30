@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 18:34:41 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:06:32 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,31 @@ char	*fline(void)
 	return (ft_strdup(ttp));
 }
 
+static int	control_and_c(int exit_status)
+{
+	if (g_signal == SIGINT)
+		exit_status = EXIT_FAILURE;
+	signal(SIGINT, SIG_IGN);
+	return (exit_status);
+}
+
 void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
+		set_signals(INTER);
 		tshell->line = ft_readline();
+		tshell->exit_state = control_and_c(tshell->exit_state);
 		//abtshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
-		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//Check if comand exist && execute
 		if (tshell->cmd_size && tshell->tree_cmd)
@@ -88,11 +98,10 @@ int	main(int argc, char **args, char **env)
 	t_shell = NULL;
 	if (argc != 1 || (ft_arr_strlen(args) > 2))
 		print_err_args();
-	print_minishell_welcome(env);
+	//print_minishell_welcome(env);
 	t_shell = init_tshell(t_shell, env);
 	if (!t_shell)
 		return (print_err_custom(MERR_MALLOC, 1));
-	start_signals();
 	minishell(t_shell);
 	exit_state = t_shell->exit_state;
 	t_shell = free_tshell(t_shell);

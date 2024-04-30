@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:38:41 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 16:24:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:30:43 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@
 # define SIGSEGV		11	/* Invalid access to storage.  */
 # define SIGTERM		15	/* Termination request.  */
 
-// MODES OF SETTING SIGNALS
-
+/* MODES OF SETTING SIGNALS */
 # define INTER 1
 # define NON_INTER -1
+# define HERE 0
 
+// Number of the received signal.
+int		g_signal;
+
+void	set_signals(int mode);
 void	start_signals(void);
 void	stop_signals(void);
 void	signals_print_handler(int print);
