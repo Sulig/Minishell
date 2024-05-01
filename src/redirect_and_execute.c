@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 18:26:51 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:28:48 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	process_command(t_pipe *p, t_list *cmds, int e_stat, char **env)
 		link_read_end(p->prev_fds);
 	if (p->i < p->cmds_amount - 1)
 		link_write_end(p->next_fds);
-	exit_stat = redirect(cmds);
+	exit_stat = redirect(cmds, p->i);
 	if (exit_stat != 0)
 		exit(exit_stat);
 	if (ft_lstsize(cmds) == 0)
@@ -91,10 +91,10 @@ static int	process_builtin_here(t_shell *tshell)
 	cmds = tshell->tree_cmd[0];
 	env = tshell->env;
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, SAVE);
-	exit_stat = 0;//read_heredocs(*cmd, 0, *env);
+	exit_stat = read_heredocs(cmds, 0);
 	if (exit_stat)
 		return (exit_stat);
-	exit_stat = redirect(cmds);
+	exit_stat = redirect(cmds, 0);
 	if (exit_stat != 0)
 	{
 		save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
@@ -117,7 +117,7 @@ void	redirect_and_execute(t_shell *tshell)
 	if (p.cmds_amount == 0)
 		tshell->exit_state = 0;
 	else if (p.cmds_amount == 1 && is_builtin_cmd(tshell->tree_cmd[0]))
-		tshell->exit_state = process_builtin_here(tshell);//->tree_cmd[0], tshell->exit_state, tshell->env);
+		tshell->exit_state = process_builtin_here(tshell);
 	else
 		tshell->exit_state = process_commands(tshell->tree_cmd, &p,
 			tshell->exit_state, tshell->env);
