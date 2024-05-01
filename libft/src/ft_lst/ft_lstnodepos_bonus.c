@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:50:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/03/28 17:20:45 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:05:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_list	*ft_lstgetnode(t_list *lst, size_t pos)
 	size_t	i;
 
 	i = 0;
+	if (!lst)
+		return (NULL);
+	if (pos > ft_lstsize(lst))
+		return (lst);
 	while (i < pos)
 	{
 		if (lst)

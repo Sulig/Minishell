@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 20:11:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:24:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*fline(void)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "$ \"$\" '$' | $ -$ $- | export a- | echo n-n";
+		ttp = "$-$'<$-$>'|echo n-n";
 	else
 		ttp = NULL;
 	bruh++;
