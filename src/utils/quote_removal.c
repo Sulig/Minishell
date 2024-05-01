@@ -6,11 +6,24 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 18:51:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:02:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char	*consider_envcase(char *result, t_token *token)
+{
+	if (ft_strstr(token->content, "$?") && token->location != IN_SINGLE_Q)
+	{
+		result = ft_strjoin_free_fst(result, "\1");
+		result = ft_strjoin_free_fst(result, token->content);
+		result = ft_strjoin_free_fst(result, "\1");
+	}
+	else
+		result = ft_strjoin_free_fst(result, token->content);
+	return (result);
+}
 
 static char	*convert_tokens_instr(t_list *tokens)
 {
@@ -21,10 +34,12 @@ static char	*convert_tokens_instr(t_list *tokens)
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		if (token->toktype == ARGS)
+		if (token->toktype == ARGS || token->toktype == OPTION)
 			result = ft_strjoin_free_fst(result, token->content);
 		else if (token->toktype == SPACE)
 			result = ft_strjoin_free_fst(result, token->content);
+		else if (token->toktype == ENV)
+			result = consider_envcase(result, token);
 		else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
 			if (token->location != NO_QUOTED)
 				result = ft_strjoin_free_fst(result, token->content);

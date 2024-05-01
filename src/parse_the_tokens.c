@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_the_tokens.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 18:31:22 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:24:36 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 	if (token->toktype == PIPE || token->toktype == REDIR)
 		if (token->location == NO_QUOTED)
 			return (-1);
-	if (token->toktype == ARGS)
+	if (token->toktype == ARGS || token->toktype == ENV)
 		return (1);
 	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
 		return (4);
-	if (token->toktype == ENV && token->location == IN_SINGLE_Q)
-		return (1);
 	if (token->toktype == SPACE && token->location != NO_QUOTED)
 		return (1);
 	if (token->toktype == OPTION && token->location == NO_QUOTED)
@@ -57,13 +55,13 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos - 1;
 			break ;
 		}
-		else if (check_beforecreate(NULL, token) == 3 && tokens->next)
+		else
 		{
 			cmd = fill_comand_options(cmd, tokens, pos);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+			cmd = fill_comand_input(cmd, tokens, pos);
+			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 		}
-		else
-			cmd->input = ft_strjoin_free_fst(cmd->input, token->content);
 	}
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 18:06:32 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:04:21 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*fline(void)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "echo \"hello  $USER \" > file | grep h | cat << eof | cat >> file | echo 'done'";
+		ttp = "$-$ '<$-$>'|echo -nn-n ";
 	else
 		ttp = NULL;
 	bruh++;
@@ -72,17 +72,8 @@ void	minishell(t_shell *tshell)
 		split_intodoublelist(tshell); //split into dll
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		//Check if comand exist && execute
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
-		/* Executor
-		 * Ejecute the comand
-		 * if builtin, the output will be saved on a node of list
-		 * 	** that node contains a fd
-		 * 	** and the **args
-		 *
-		 * if comand, **unkownk
-		*/
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
