@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/01 21:17:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:04:32 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,8 @@ int		wait_children(pid_t last_pid, size_t n);
 int		read_heredocs(t_list *cmd, int n);
 char	*heredoc_filename(int n);
 int		read_heredoc(const char *delim, const char *file);
+void	clear_heredoc(const char *file);
+void	clear_heredocs(int n);
+int		read_all_heredocs(t_list **cmds, int cmds_amount);
 
 #endif
