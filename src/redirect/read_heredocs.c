@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:59:06 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/01 21:00:26 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:07:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,23 @@ int	read_heredocs(t_list *cmds, int n)
 		node = node->next;
 	}
 	return (EXIT_SUCCESS);
+}
+
+// Reads all the here documents from the array of commands 'cmds', from left
+// to right, into the appropriate temp files to be read afterwards.
+// Returns 0 on success. Otherwise, returns a non-zero value.
+int	read_all_heredocs(t_list **cmds, int cmds_amount)
+{
+	int		i;
+	int		exit_status;
+
+	stop_signals();
+	i = -1;
+	while (++i < cmds_amount)
+	{
+		exit_status = read_heredocs(cmds[i], i);
+		if (exit_status)
+			return (exit_status);
+	}
+	return (0);
 }
