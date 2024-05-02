@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:25:38 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/24 08:32:22 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:19:50 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# define LLINT_MIN_STR "9223372036854775808"
+# define LLINT_MAX_STR "9223372036854775807"
 
 /* BUILTINS */
 int		builtin_echo(t_cmd *cmd);

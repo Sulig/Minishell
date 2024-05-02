@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 14:24:47 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:04:21 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*fline(void)
 	static int	bruh;
 	char		*ttp;
 
-	bruh = 10;
+	bruh = 9;
 	if (!bruh)
 		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
 	else if (bruh == 1)
@@ -39,31 +39,41 @@ char	*fline(void)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "$-$'<$-$>'|echo n-n";
+		ttp = "$-$ '<$-$>'|echo -nn-n ";
 	else
 		ttp = NULL;
 	bruh++;
 	return (ft_strdup(ttp));
 }
 
+static int	control_and_c(int exit_status)
+{
+	if (g_signal == SIGINT)
+		exit_status = EXIT_FAILURE;
+	signal(SIGINT, SIG_IGN);
+	return (exit_status);
+}
+
 void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
-		//tshell->line = ft_readline();
-		tshell->line = fline();
+		set_signals(INTER);
+		tshell->line = ft_readline();
+		tshell->exit_state = control_and_c(tshell->exit_state);
+		//abtshell->line = fline();
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
-		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		//if (tshell->cmd_size && tshell->tree_cmd)
-			//redirect_and_execute(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
@@ -79,11 +89,10 @@ int	main(int argc, char **args, char **env)
 	t_shell = NULL;
 	if (argc != 1 || (ft_arr_strlen(args) > 2))
 		print_err_args();
-	print_minishell_welcome(env);
+	//print_minishell_welcome(env);
 	t_shell = init_tshell(t_shell, env);
 	if (!t_shell)
 		return (print_err_custom(MERR_MALLOC, 1));
-	start_signals();
 	minishell(t_shell);
 	exit_state = t_shell->exit_state;
 	t_shell = free_tshell(t_shell);

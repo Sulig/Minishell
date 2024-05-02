@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 17:17:16 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:28:50 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	execute_command(t_list *cmds, int exit_status, char **env)
 	t_cmd	*cmd;
 
 	cmd = cmds->content;
-	//set_signals(NON_INTER);
+	set_signals(NON_INTER);
 	if (cmd->cmdtype == TNULL)
 		exit(EXIT_SUCCESS);
 	if (is_builtin_name(cmd))
