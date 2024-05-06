@@ -194,3 +194,4 @@ test_files/infile_big
 test_files/invalid_permission
 test_files/loop
 test_files/loop.c
+.DS_Store
