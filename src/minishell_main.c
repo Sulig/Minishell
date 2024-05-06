@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 18:40:45 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:15:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	minishell(t_shell *tshell)
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		//tshell->line = ft_readline();
-		tshell->line = fline(4); //to test: 2, 4, 9 (-- as input, not option), 10
+		tshell->line = fline(2); //testing: 2, 4, 9 (-- as input, not option), 10
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -77,8 +77,8 @@ void	minishell(t_shell *tshell)
 		split_intodoublelist(tshell); //split into dll
 		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		if (tshell->cmd_size && tshell->tree_cmd)
-			redirect_and_execute(tshell);
+		//if (tshell->cmd_size && tshell->tree_cmd)
+		//	redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

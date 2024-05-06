@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:03:35 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 17:14:15 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:14:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,23 @@ static t_cmd	*join_option(t_cmd *cmd, t_list *tokens, size_t *pos)
 
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
-	t_token	*tk;
+	t_token	*token;
+	int		checker;
 
 	if (!tokens)
 		return (cmd);
 	while (tokens)
 	{
-		tk = (t_token *)tokens->content;
-		if (tk->toktype == SPACE)
-			cmd->options = ft_strjoin_free_fst(cmd->options, tk->content);
-		else if (check_beforecreate(0, tk) == -1 || check_beforecreate(0, tk) == 1)
+		token = (t_token *)tokens->content;
+		checker = check_beforecreate(0, token);
+		if (token->toktype == SPACE)
+			cmd->options = ft_strjoin_free_fst(cmd->options, token->content);
+		else if (checker == -1 || checker == 1)
 		{
 			*pos = *pos - 1;
 			break ;
 		}
-		else if (check_beforecreate(NULL, tk) == 3)
+		else if (checker == 3)
 		{
 			cmd = join_option(cmd, tokens, pos);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);

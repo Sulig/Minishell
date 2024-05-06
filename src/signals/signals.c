@@ -6,13 +6,13 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:12:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 17:31:14 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:59:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	mini_get_pid()
+int	mini_get_pid(void)
 {
 	pid_t	pid;
 
@@ -49,5 +49,3 @@ void	ft_newline_redisplay(int signal)
 		rl_redisplay();
 	}
 }
-
-

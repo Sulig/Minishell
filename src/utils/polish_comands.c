@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 18:30:08 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:15:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,40 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 	return (cmd);
 }
 
+static t_list	*free_cmd_error(t_list *comands, t_cmd *cmd)
+{
+	if (!cmd)
+		return (comands);
+	cmd->comand = ft_free_str(cmd->comand);
+	cmd->input = ft_free_str(cmd->input);
+	cmd->options = ft_free_str(cmd->options);
+	free(cmd);
+	return (comands);
+}
+
+static t_cmd	*revise_cmd(t_cmd *cmd)
+{
+	char	*tmp;
+	size_t	cnt;
+
+	if (ft_strllen(cmd->options) || !ft_strchr(cmd->input, '-'))
+		return (cmd);
+	tmp = ft_strdup(ft_strchr(cmd->input, '-'));
+	if (!ft_isalpha(tmp[1]))
+		return (cmd);
+	cnt = 0;
+	while (tmp[++cnt])
+		if (tmp[cnt] != '-' && tmp[cnt - 1] != '-')
+			tmp[cnt] = '\0';
+	cmd->options = ft_strdup(tmp);
+	cmd->input = ft_strremplace(cmd->input, cmd->input + ft_strllen(tmp));
+	tmp = ft_free_str(tmp);
+	tmp = ft_strtrim_s(cmd->input, " ");
+	cmd->input = ft_strremplace(cmd->input, tmp);
+	tmp = ft_free_str(tmp);
+	return (cmd);
+}
+
 /*
  * If a REDIR_CMD has an input with spaces && is not quoted
  * Create a comand with this and put it behind the REDIR_CMD
@@ -61,9 +95,10 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	if (ft_strchr(comand->comand, ' '))
 		comand->input = ft_strdup(ft_strchr(comand->comand, ' ') + 1);
 	comand->comand = ft_strcut(comand->comand, ' ', '<', 'y');
+	comand = revise_cmd(comand);
 	new_comand = ft_lstnew(comand);
 	if (!new_comand)
-		return (comands);
+		return (free_cmd_error(comands, comand));
 	new_comand->prev = comands;
 	new_comand->next = comands->next;
 	comands->next = new_comand;
