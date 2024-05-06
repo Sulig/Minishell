@@ -6,18 +6,19 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 16:04:21 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:40:45 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*fline(void)
+char	*fline(size_t _case)
 {
-	static int	bruh;
-	char		*ttp;
+	static size_t	bruh;
+	char			*ttp;
 
-	bruh = 9;
+	if (_case)
+		bruh = _case;
 	if (!bruh)
 		ttp = "      echo       hello    \"$USER $$ $ $\"    look \"<|^_^|>\"";
 	else if (bruh == 1)
@@ -27,7 +28,7 @@ char	*fline(void)
 	else if (bruh == 3)
 		ttp = "<|°_°|>";
 	else if (bruh == 4)
-		ttp = "cat|ls bruh";
+		ttp = "export HELLO=122";
 	else if (bruh == 5)
 		ttp = "< file cat -e";
 	else if (bruh == 6)
@@ -40,6 +41,10 @@ char	*fline(void)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
 		ttp = "$-$ '<$-$>'|echo -nn-n ";
+	else if (bruh == 11)
+		ttp = "echo \"hola'\" -100 | echo -100";
+	else if (bruh == 12)
+		ttp = "echo hola";
 	else
 		ttp = NULL;
 	bruh++;
@@ -59,18 +64,18 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		tshell->line = ft_readline();
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		//abtshell->line = fline();
+		//tshell->line = ft_readline();
+		tshell->line = fline(4); //to test: 2, 4, 9 (-- as input, not option), 10
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		//print_tokens_st(tshell->tokens); //Print tokens list
+		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
-		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);

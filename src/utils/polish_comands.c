@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 14:24:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:30:08 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	t_list	*new_comand;
 	t_cmd	*comand;
 
-	comand = NULL;
-	if (!ft_strllen(cmd->input))
+	if (!ft_strllen(cmd->input) || !ft_strstr(cmd->input, " "))
 		return (comands);
 	if (cmd->input[0] == '\"' || cmd->input[0] == '\'')
-		return (comands);
-	if (!ft_strstr(cmd->input, " "))
 		return (comands);
 	comand = ft_calloc(sizeof(t_cmd), 1);
 	if (!comand)
@@ -67,6 +64,7 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 	new_comand = ft_lstnew(comand);
 	if (!new_comand)
 		return (comands);
+	new_comand->prev = comands;
 	new_comand->next = comands->next;
 	comands->next = new_comand;
 	return (comands);

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:41:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 19:10:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:17:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,15 @@ static size_t	search_pipes(t_list *comands)
 	return (pipes);
 }
 
-t_list *create_nodelist_intodll(t_list *cmds)
+/*
+ * Save the list with the Xcmd cmd to | or NULL
+ * *Don't include the '|'
+ * And include this list into a double list.
+ * Exemple:
+ * [0][ CMD - REDIR - CMD ]
+ * [1][ CMD ]
+*/
+static t_list *create_nodelist_intodll(t_list *cmds)
 {
 	static size_t	comand;
 	t_list			*list;
@@ -52,6 +60,11 @@ t_list *create_nodelist_intodll(t_list *cmds)
 	return (list);
 }
 
+/*
+ * Converts the list of comands into a double list.
+ * Each Position into **multiple_cmd can be diferent cmds & redirs
+ * The size of this array is calculated by number of PIPES + 1
+*/
 void	split_intodoublelist(t_shell *tshell)
 {
 	t_list	**multiple_cmd;

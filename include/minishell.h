@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 18:28:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:32:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	split_intodoublelist(t_shell *tshell);
 
 /* TO TEST OR TESTING */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
+t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
 void	heredoc(char **env, char *end, int fd);
 

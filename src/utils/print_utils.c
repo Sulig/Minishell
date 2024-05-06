@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/24 19:11:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:38:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	print_multiple_cmds_st(t_list **cmds)
 	size_t	size;
 
 	size = 0;
+	if (!cmds)
+		return ;
 	while (cmds[size])
 	{
 		ft_printf("~~~~~~~~~~~~ ~ Double linked list node pos: %u", size);

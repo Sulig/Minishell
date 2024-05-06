@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:03:35 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 14:24:38 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:14:15 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos)
 			cmd->options = ft_strjoin_free_fst(cmd->options, tk->content);
 		else if (check_beforecreate(0, tk) == -1 || check_beforecreate(0, tk) == 1)
 		{
-			//*pos = *pos - 1;
+			*pos = *pos - 1;
 			break ;
 		}
 		else if (check_beforecreate(NULL, tk) == 3)
@@ -50,20 +50,17 @@ t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos)
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
-	if (!tokens)
-		*pos = *pos - 1;
 	return (cmd);
 }
 
-/*
- * WORK IN PROGRESS
-*/
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
 	t_token	*token;
 
 	if (!tokens)
 		return (cmd);
+	if (*pos > tokens->pos)
+		tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
@@ -77,7 +74,5 @@ t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos)
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
-	if (!tokens)
-		*pos = *pos - 1;
 	return (cmd);
 }

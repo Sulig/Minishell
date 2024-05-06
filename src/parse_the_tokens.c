@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 14:24:36 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:09:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		else
 		{
 			cmd = fill_comand_options(cmd, tokens, pos);
-			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 			cmd = fill_comand_input(cmd, tokens, pos);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+			if (!tokens)
+				break ;
 		}
 	}
 	return (cmd);
