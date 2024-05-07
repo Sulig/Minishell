@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:25:38 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/07 20:32:41 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:18:23 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char	**change_pwd_absolute(char *path, char **env);
 char	**change_pwd_relative(char *path, char **my_env);
 char	**change_pwd(char **temp, char **env);
 char	*concat_path(char **env, char *str);
+char	**get_key_value_pair(char *arg);
 
 #endif

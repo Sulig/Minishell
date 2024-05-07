@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/02 09:06:23 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/07 21:16:29 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ SRC_SRC += redirect_and_execute.c
 
 BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
-		  cd_utils2.c
+		  cd_utils2.c export_utils.c
 
 ENV_SRC = env_get_varname.c env_name_len.c env_set_var.c\
 		  find_var_index_from_env.c find_var_line_from_env.c\

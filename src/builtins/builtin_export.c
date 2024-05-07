@@ -6,30 +6,27 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/07 20:39:27 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:17:29 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* get_key_value_pair:
-*	Separates the given argument into a key-value pair
-*	for the environment variable.
-*	Returns an array of 2 strings containing the key and the
-*	value of the new environment variable.
-*	Returns NULL in case of error.
-*/
-static char	**get_key_value_pair(char *arg)
+void	printvar_quoted(const char *var)
 {
-	char	**tmp;
-	char	*eq_pos;
-
-	eq_pos = ft_strchr(arg, '=');
-	tmp = malloc(sizeof * tmp * (2 + 1));
-	tmp[0] = ft_substr(arg, 0, eq_pos - arg);
-	tmp[1] = ft_substr(eq_pos, 1, ft_strlen(eq_pos));
-	tmp[2] = NULL;
-	return (tmp);
+	while (*var != '=')
+	{
+		write (1, var, 1);
+		++var;
+	}
+	write (1, "=\"", 2);
+	++var;
+	while (*var)
+	{
+		write (1, var, 1);
+		++var;
+	}
+	write (1, "\"\n", 2);
 }
 
 /*
@@ -47,7 +44,7 @@ int	export_noargs(char **env)
 		if (ft_strchr(env[i], '='))
 		{
 			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			//printvar_quoted(env[i]);
+			printvar_quoted(env[i]);
 		}
 	}
 	return (EXIT_SUCCESS);
