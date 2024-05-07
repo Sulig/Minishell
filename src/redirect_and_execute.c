@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/02 09:09:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:38:42 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Redirects and executes the command 'cmd' in a subshell, taking into account
 // it is the i-th command of the pipeline.
 // It exits with the appropriate exit status, or returns with a non-zero value.
-static int	process_command(t_pipe *p, t_list *cmds, int e_stat, char **env)
+static int	process_command(t_pipe *p, t_list *cmds, int e_stat, t_shell *tshell)
 {
 	int		exit_stat;
 
@@ -28,7 +28,7 @@ static int	process_command(t_pipe *p, t_list *cmds, int e_stat, char **env)
 		exit(exit_stat);
 	if (ft_lstsize(cmds) == 0)
 		exit(EXIT_SUCCESS);
-	execute_command(cmds, e_stat, env);
+	execute_command(cmds, tshell);
 	return (EXIT_FAILURE);
 }
 
@@ -51,7 +51,7 @@ static void	parent_pipe_update(t_pipe *p, int i)
 // Redirects and executes the commands defined by the array of commands 'cmds',
 // assuming p->cmds_amount is already initialized. All commands are executed in
 // subprocesses. Returns the exit status of the last command.
-static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **env)
+static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, t_shell *tshell)
 {
 	int		exit_stat;
 	int		i;
@@ -71,7 +71,7 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, int e_stat, char **e
 			pipe_or_die(p->next_fds);
 		pid = fork_or_die();
 		if (pid == 0)
-			return (process_command(p, piped_cmds[i], e_stat, env));
+			return (process_command(p, piped_cmds[i], e_stat, tshell));
 		parent_pipe_update(p, i);
 		last_child = pid;
 	}
@@ -101,7 +101,7 @@ static int	process_builtin_here(t_shell *tshell)
 		return (exit_stat);
 	}
 	if (ft_lstsize(cmds) > 0)
-		exit_stat = execute_builtin(cmds, tshell->exit_state, env, FALSE);
+		exit_stat = execute_builtin(cmds, tshell, FALSE);
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
 	return (exit_stat);
 }
@@ -120,5 +120,5 @@ void	redirect_and_execute(t_shell *tshell)
 		tshell->exit_state = process_builtin_here(tshell);
 	else
 		tshell->exit_state = process_commands(tshell->tree_cmd, &p,
-			tshell->exit_state, tshell->env);
+			tshell->exit_state, tshell);
 }
