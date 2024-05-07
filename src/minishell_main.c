@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 20:15:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:30:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*fline(size_t _case)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "$-$ '<$-$>'|echo -nn-n ";
+		ttp = "echo -nn-n|echo-n\"j\"|echo -n-n-n|echo -n -n -n|echo -nn j";
 	else if (bruh == 11)
 		ttp = "echo \"hola'\" -100 | echo -100";
 	else if (bruh == 12)
@@ -66,7 +66,7 @@ void	minishell(t_shell *tshell)
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		//tshell->line = ft_readline();
-		tshell->line = fline(2); //testing: 2, 4, 9 (-- as input, not option), 10
+		tshell->line = fline(0); 
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
@@ -82,7 +82,7 @@ void	minishell(t_shell *tshell)
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		break ;
+		//break ;
 	}
 }
 

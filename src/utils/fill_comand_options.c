@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:03:35 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 20:14:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:30:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,33 @@ static t_cmd	*join_option(t_cmd *cmd, t_list *tokens, size_t *pos)
 
 	if (!tokens->next)
 		return (cmd);
-	cmd->options = ft_strjoin_free_fst(cmd->options, "-");
 	tokens = tokens->next;
 	token = tokens->content;
+	if (token->toktype == OPTION)
+		return (cmd);
+	cmd->options = ft_strjoin_free_fst(cmd->options, "-");
 	cmd->options = ft_strjoin_free_fst(cmd->options, token->content);
 	*pos = *pos + 1;
 	return (cmd);
+}
+
+static int	consider_specialcase(t_list *tokens)
+{
+	t_token	*token;
+
+	token = (t_token *)tokens->content;
+	if (token->toktype != OPTION)
+		return (0);
+	while (tokens->next)
+	{
+		tokens = tokens->next;
+		token = (t_token *)tokens->content;
+		if (token->toktype == SPACE)
+			break ;
+		if (token->toktype == OPTION || ft_strstr(token->content, "-"))
+			return (1);
+	}
+	return (0);
 }
 
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos)
@@ -39,7 +60,7 @@ t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos)
 		checker = check_beforecreate(0, token);
 		if (token->toktype == SPACE)
 			cmd->options = ft_strjoin_free_fst(cmd->options, token->content);
-		else if (checker == -1 || checker == 1)
+		else if (checker == -1 || checker == 1 || consider_specialcase(tokens))
 		{
 			*pos = *pos - 1;
 			break ;
@@ -63,6 +84,8 @@ t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos)
 		return (cmd);
 	if (*pos > tokens->pos)
 		tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+	else if (*pos < tokens->pos)
+		*pos = tokens->pos;
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
