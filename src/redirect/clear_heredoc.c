@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   clear_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/07 20:34:53 by jguillot         ###   ########.fr       */
+/*   Created: 2024/05/02 08:44:15 by jguillot          #+#    #+#             */
+/*   Updated: 2024/05/02 08:51:41 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "../../include/minishell.h"
 
-# include "minishell.h"
+// Removes the temporary here document 'file'.
+void	clear_heredoc(const char *file)
+{
+	unlink(file);
+}
 
-int		execute_builtin(t_list *cmd, t_shell *tshell, int is_child);
-int		path_exists(const char *path);
-int		is_directory(const char *path);
-int		can_execute(const char *path);
-void	execute_command(t_list *cmds, t_shell *tshell);
-void	exec_cmd(t_cmd *cmd, char **env);
-char	*get_executable(const char *file, char **env);
+// Removes the temporary here document files, up to the 'n'-th command.
+void	clear_heredocs(int n)
+{
+	char	*filename;
 
-#endif
+	while (n-- >= 0)
+	{
+		filename = heredoc_filename(n);
+		unlink(filename);
+		free(filename);
+	}
+}

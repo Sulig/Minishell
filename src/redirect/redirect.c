@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:15:55 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:24:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * In the case of here documents, quote-removal is performed.
  * Returns the appropriate exit code after printing any error message.
 */
-static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
+static int	redirect_one(t_cmd *redir, int n)
 {
 	char	*str;
 
@@ -34,17 +34,15 @@ static int	redirect_one(t_cmd *redir)//, t_list *next, int n)
 		return (link_output_file(str, TRUE));
 	else if (!ft_strncmp(redir->comand, "<", 2))
 		return (link_input_file(str));
-	/*
-	else if (!ft_strncmp(redir, "<<", 3))
+	else if (!ft_strncmp(redir->comand, "<<", 3))
 		return (link_heredoc(n));
-    */
 	return (EXIT_FAILURE);
 }
 
 // Performs all redirections of 'cmd', from left-to-right, removing the
 // redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
 // If a redirection error ocurrs, prints an error message.
-int	redirect(t_list *cmds)
+int	redirect(t_list *cmds, int i)
 {
 	int		exit_stat;
 	t_list	*node;
@@ -57,7 +55,7 @@ int	redirect(t_list *cmds)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
-			exit_stat = redirect_one(cmd);
+			exit_stat = redirect_one(cmd, i);
 			node = node->next;
 		}
 		else

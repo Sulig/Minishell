@@ -6,12 +6,12 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 17:57:36 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/19 18:53:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:19:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../../include/searchers.h"
+#include "../include/searchers.h"
 
 /*
  * Search where ocours needle in haystack

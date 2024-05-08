@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:35:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/03 20:13:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:18:06 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t	ft_cnt_tostr(const char *haystack, const char *needle);
 size_t	ft_cnt_tostr_end(const char *haystack, const char *needle);
 size_t	ft_search_str(char **arr, char *to_search);
+
+size_t	ft_apears_ch_in_str(char *str, char ch);
+size_t	ft_apears_str_in_str(const char *haystack, const char *needle);
 
 #endif

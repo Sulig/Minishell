@@ -5,43 +5,184 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 22:29:53 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 19:39:09 by sadoming         ###   ########.fr       */
+/*   Created: 2024/05/07 18:29:11 by jguillot          #+#    #+#             */
+/*   Updated: 2024/05/07 20:40:09 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
 #include "../../include/minishell.h"
 
-// Allocates and returns a string consisting of 'varname' + "=" + 'value'.
-static char	*join_varline(const char *varname, const char *value)
+/* free_ptr:
+*	Frees a pointer of any type if it is not NULL and sets it to NULL.
+*	This avoids accidental double-frees.
+*/
+void	free_ptr(void *ptr)
 {
-	char	*varline;
-	size_t	varline_len;
-	int		i;
-
-	varline_len = ft_strlen(varname) + ft_strlen(value) + 1;
-	varline = (char *)p_malloc(sizeof(char) * (varline_len + 1));
-	i = 0;
-	while (*varname)
-		varline[i++] = *varname++;
-	varline[i++] = '=';
-	while (*value)
-		varline[i++] = *value++;
-	varline[i] = '\0';
-	return (varline);
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
 }
 
-// Sets the environment variable 'varname' to 'value', creating it if needed.
-void	env_set_var(const char *varname, const char *value, char **env)
+/* env_var_count:
+*	Counts how many original environment variables there are.
+*	Returns the number of environment variables.
+*/
+int	env_var_count(char **env)
 {
-	int		var_index;
-	char	*varline;
+	int	i;
 
-	varline = join_varline(varname, value);
-	var_index = find_var_index_from_env((char *)varname, (char **)env);
-	if (var_index == -1)
-		env = arrstr_add(env, varline);
+	i = 0;
+	while (env && env[i])
+		i++;
+	return (i);
+}
+
+/* realloc_env_vars:
+*	Reallocates memory for the global variable g_env_vars.
+*
+*	Returns a pointer to the new environment variables
+*	or NULL in case of a memory allocation error.
+*/
+static char	**realloc_env_vars(t_shell *data, int size)
+{
+	char	**new_env;
+	int		i;
+
+	new_env = ft_calloc(size + 1, sizeof * new_env);
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	while (data->env[i] && i < size)
+	{
+		new_env[i] = ft_strdup(data->env[i]);
+		free_ptr(data->env[i]);
+		i++;
+	}
+	free(data->env);
+	return (new_env);
+}
+
+/*
+	DESCRIPTION :
+	The function ft_strncmp compares the first n bytes of the given strings
+	s1 and s2.
+
+	RETURN VALUE :
+	An integer less than, equal to, or greater than zero if one of the first
+	n bytes of s1 is found to be less than, to match, or to be greater than
+	s2.
+*/
+
+int	ft_strncmp_simple(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((s1[i] != '\0' && s2[i] != '\0')
+		&& (i < n - 1) && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+/* get_env_var_index:
+*	Searches for the given variable in the environment variables.
+*
+*	Returns the index of the variable in the environment
+*	matching the given string. Partial variable names are not
+*	supported: the given string must be a full variable name.
+*	Returns -1 if the string cannot be found in the environment.
+*/
+int	get_env_var_index(char **env, char *var)
+{
+	int		i;
+	char	*tmp;
+
+	tmp = ft_strjoin(var, "=");
+	if (!tmp)
+		return (-1);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp_simple(tmp, env[i], ft_strlen(tmp)) == 0)
+		{
+			free_ptr(tmp);
+			return (i);
+		}
+		i++;
+	}
+	free_ptr(tmp);
+	return (-1);
+}
+
+/* set_env_var:
+*	Adds an environment variable with the given key
+*	corresponding to the given value. If the key already
+*	exists in the environment variables, the value will
+*	be overwritten. If not, it creates a new entry.
+*
+*	Returns 1 if the operation was successful, or 0 if
+*	in case of error.
+*/
+int	set_env_var(t_shell *tshell, char *key, char *value)
+{
+	int		idx;
+	char	*tmp;
+
+	idx = get_env_var_index(tshell->env, key);
+	if (value == NULL)
+		value = "";
+	tmp = ft_strjoin("=", value);
+	if (!tmp)
+		return (FALSE);
+	if (idx != -1 && tshell->env[idx])
+	{
+		free_ptr(tshell->env[idx]);
+		tshell->env[idx] = ft_strjoin(key, tmp);
+	}
 	else
-		env = arrstr_set(env, varline, var_index);
-	free(varline);
+	{
+		idx = env_var_count(tshell->env);
+		tshell->env = realloc_env_vars(tshell, idx + 1);
+		if (!tshell->env)
+			return (FALSE);
+		tshell->env[idx] = ft_strjoin(key, tmp);
+	}
+	free_ptr(tmp);
+	return (TRUE);
+}
+
+/* remove_env_var:
+*	Removes the variable at the given index from the
+*	environment variables.
+*
+*	Returns 1 if the removal was successful, 0 if case
+*	of an invalid index or a memory allocation error.
+*/
+int	remove_var_from_env(t_shell *tshell, int idx)
+{
+	int	i;
+	int	count;
+
+	if (idx > env_var_count(tshell->env))
+		return (FALSE);
+	free_ptr(tshell->env[idx]);
+	i = idx;
+	count = idx;
+	while (tshell->env[i + 1])
+	{
+		tshell->env[i] = ft_strdup(tshell->env[i + 1]);
+		free_ptr(tshell->env[i + 1]);
+		count++;
+		i++;
+	}
+	tshell->env = realloc_env_vars(tshell, count);
+	if (!tshell->env)
+		return (FALSE);
+	return (FALSE);
 }

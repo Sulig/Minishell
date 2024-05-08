@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/30 17:55:45 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:59:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	print_err_custom(char *error, int error_n)
 	return (error_n);
 }
 
-int print_comun_error(char *error, int error_n)
+int	print_comun_error(char *error, int error_n)
 {
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(error, STDERR_FILENO);

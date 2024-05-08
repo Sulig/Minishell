@@ -6,13 +6,35 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 17:25:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:59:29 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-enum e_toktype	env_var_newtoktype(t_token *token)
+char	*expand_env_var_instr(char *str, char **env, int exit)
+{
+	char	*search;
+	char	*tmp;
+	char	*env_var;
+
+	(void)exit;
+	if (!ft_strstr(str, "$"))
+		return (str);
+	//consider case $?
+	tmp = ft_strstr(str, "$");
+	tmp[ft_cnttoch_out(tmp, ' ')] = '\0';
+	search = ft_strjoin_s(tmp + 1, "=");
+	env_var = env[ft_search_str(env, search)];
+	//cut env
+	//integrate env next to $
+	str = ft_strremove(str, tmp);
+	search = ft_free_str(search);
+	return (str);
+	//return (expand_env_var_instr(str, env, exit));
+}
+
+static enum e_toktype	env_var_newtoktype(t_token *token)
 {
 	if (my_strcmp("$?", token->content))
 		return (ARGS);

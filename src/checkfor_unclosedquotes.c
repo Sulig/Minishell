@@ -6,13 +6,18 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:59:11 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/23 16:58:53 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:12:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char *what_content(t_list *node)
+/*
+ * Return a previous content if exist
+ * ** This will be considered when printing:
+ * * syntax error near token + this-content.
+*/
+static char	*what_content(t_list *node)
 {
 	t_token	*token;
 

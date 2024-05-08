@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:16:12 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 12:50:55 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:34:12 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ char	*env_get_varname(const char *str);
 int		env_valid_varname(char *word);
 void	remove_env_var(char *varname, char **env);
 char	**get_vars_from_env(const char *varname, char **env);
-void	env_set_var(const char *varname, const char *value, char **env);
+int		set_env_var(t_shell *tshell, char *key, char *value);
 
 #endif
