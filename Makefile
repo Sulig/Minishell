@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+         #
+#    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/07 21:16:29 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/08 19:02:57 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,8 +86,7 @@ PER_SRC = print_common_errors.c
 
 RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 		  link_write_end.c open_file.c pipe_or_die.c redirect.c\
-		  save_restore_stdio.c wait_children.c heredoc_filename.c link_heredoc.c\
-		  read_heredoc.c read_heredocs.c clear_heredoc.c
+		  save_restore_stdio.c wait_children.c
 
 SIG_SRC = signals.c signals_utils.c
 
