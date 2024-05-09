@@ -6,32 +6,83 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/08 19:59:29 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:05:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+ * Expand '$?' to exit state
+*/
+static char	*case_of_envvar_exit(char *str, int exit)
+{
+	size_t	pos;
+	char	*env_var;
+	char	*result;
+
+	env_var = ft_itoa(exit);
+	pos = ft_cnt_tostr(str, "$?");
+	result = ft_strinter(str, env_var, pos + 2);
+	result = ft_strremove(result, "$?");
+	str = ft_free_str(str);
+	env_var = ft_free_str(env_var);
+	return (result);
+}
+
+/*
+ * Expand the var
+*/
+static char	*expansor_utils(char *str, char *env_var)
+{
+	size_t	pos;
+	char	*result;
+	char	*remove;
+
+	remove = ft_strdup(ft_strstr(str, "$"));
+	remove[ft_cnttoch_out(remove, ' ')] = '\0';
+	env_var = env[ft_search_str(env, search)];
+	env_var = ft_strcut(env_var, '=', '>', 'y');
+	pos = ft_cnt_tostr(str, remove) + ft_strllen(remove);
+	result = ft_strinter(str, env_var, pos);
+	result = ft_strremove(result, remove);
+	remove = ft_free_str(remove);
+	str = ft_free_str(str);
+	return (result);
+}
+
 char	*expand_env_var_instr(char *str, char **env, int exit)
 {
-	char	*search;
-	char	*tmp;
-	char	*env_var;
+	/*
+	 * For next change, try: 
+	 * 1. split(str, ' ');
+	 * 2. Expand each case
+	 * 	2.1 Ignore case '$' && normal text
+	 * 	2.2 Expand case '$?' to exit -> use case_of_envvar_exit
+	 * 	2.3 Expand if encounters the var, else remplace for "".
+	 * 3. Join again
+	*/
+	char	**args;
+	size_t	cnt;
 
-	(void)exit;
 	if (!ft_strstr(str, "$"))
 		return (str);
-	//consider case $?
-	tmp = ft_strstr(str, "$");
-	tmp[ft_cnttoch_out(tmp, ' ')] = '\0';
-	search = ft_strjoin_s(tmp + 1, "=");
-	env_var = env[ft_search_str(env, search)];
-	//cut env
-	//integrate env next to $
-	str = ft_strremove(str, tmp);
-	search = ft_free_str(search);
+	args = ft_split(str, ' ');
+	if (!args)
+		return (str);
+	str = ft_free_str(str);
+	cnt = 0;
+	while (args[cnt])
+	{
+		if (ft_strstr(args[cnt], "$?"))
+			args[cnt] = case_of_envvar_exit(args[cnt], exit);
+		// Ignore case '$'
+		// expand
+		cnt++;
+	}
+	// Join
+	args = ft_auto_free_arr(args);
 	return (str);
-	//return (expand_env_var_instr(str, env, exit));
 }
 
 static enum e_toktype	env_var_newtoktype(t_token *token)

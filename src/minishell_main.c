@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/08 19:59:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:05:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	test_heredoc(char *file, t_shell *tshell)
 {
 	int		fd;
 
-	fd = open(file, O_RDONLY);
+	fd = open(file, O_RDWR);
 	if (fd == -1)
 		ft_printf_fd(2, "Incorrect file");
 	else
 		heredoc(tshell, "EOF" , fd);
+	close(fd);
 }
 
 void	minishell(t_shell *tshell)
