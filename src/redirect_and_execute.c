@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/08 19:05:49 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:18:55 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	process_command(t_pipe *p, t_list *cmds, t_shell *tshell)
 		link_read_end(p->prev_fds);
 	if (p->i < p->cmds_amount - 1)
 		link_write_end(p->next_fds);
-	exit_stat = redirect(cmds, p->i);
+	exit_stat = redirect(cmds);
 	if (exit_stat != 0)
 		exit(exit_stat);
 	if (ft_lstsize(cmds) == 0)
@@ -93,7 +93,7 @@ static int	process_builtin_here(t_shell *tshell)
 	exit_stat = 0;
 	if (exit_stat)
 		return (exit_stat);
-	exit_stat = redirect(cmds, 0);
+	exit_stat = redirect(cmds);
 	if (exit_stat != 0)
 	{
 		save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, RESTORE);
