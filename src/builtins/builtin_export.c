@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:07:37 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:02:23 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,11 @@ int	args_export(char **args, t_shell *tshell)
 int	builtin_export(t_cmd *cmd, t_shell *tshell)
 {
 	char	**args;
-
+	int		exit_status;
 	if (cmd->input == NULL)
 		return (export_noargs(tshell->env));
 	args = ft_split(cmd->input, ' ');
-	return (args_export(args, tshell));
+	exit_status = args_export(args, tshell);
+	free_arr_2d(args);
+	return (exit_status);
 }

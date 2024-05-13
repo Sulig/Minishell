@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:37:01 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:54 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:04:50 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	builtin_unset(t_cmd *cmd, char **env)
 		i = 0;
 		args = ft_split(cmd->input, ' ');
 		if (!ft_arr_strlen(args))
+		{
+			free_arr_2d(args);
 			return (0);
+		}
 		while (args[i])
 		{
 			if (env_valid_varname(args[i]))
@@ -33,6 +36,7 @@ int	builtin_unset(t_cmd *cmd, char **env)
 				exit_status = print_err_custom(MERR_UNSET, 127);
 			i++;
 		}
+		free_arr_2d(args);
 	}
 	return (exit_status);
 }
