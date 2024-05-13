@@ -6,11 +6,11 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/08 19:12:09 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:04:10 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/minishell.h"
+#include "../include/minishell.h"
 
 // Redirects and executes the command 'cmd' in a subshell, taking into account
 // it is the i-th command of the pipeline.

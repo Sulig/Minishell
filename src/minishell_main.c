@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/07 18:30:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:13:34 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		//tshell->line = ft_readline();
-		tshell->line = fline(0); 
+		tshell->line = ft_readline();
+		//tshell->line = fline(0);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//1print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
-		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		//if (tshell->cmd_size && tshell->tree_cmd)
-		//	redirect_and_execute(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

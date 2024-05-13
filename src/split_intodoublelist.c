@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_intodoublelist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:41:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 18:17:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:05:03 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static size_t	search_pipes(t_list *comands)
  * [0][ CMD - REDIR - CMD ]
  * [1][ CMD ]
 */
-static t_list *create_nodelist_intodll(t_list *cmds)
+static t_list	*create_nodelist_intodll(t_list *cmds)
 {
 	static size_t	comand;
 	t_list			*list;

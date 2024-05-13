@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:41:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/17 16:59:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:10:30 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	**change_pwd(char **temp, char **env)
 	aux = (char **)malloc(sizeof(char *) * (arr_2d_len(env) + 1));
 	if (!aux)
 		return (NULL);
-	//pwd_place = find_var_line_from_env("PWD", env);
+	pwd_place = find_var_index_from_env("PWD", env);
 	new_pwd = concat_path(temp, "PWD=");
 	while (env[i])
 	{

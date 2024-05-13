@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/07 21:17:29 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:07:37 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	args_export(char **args, t_shell *tshell)
 	{
 		if (!is_valid_env_var_key(args[i]))
 		{
-
 			exit_status = print_comun_error("not a valid identifier", 1);
 		}
 		else if (ft_strchr(args[i], '=') != NULL)
@@ -100,12 +99,13 @@ int	args_export(char **args, t_shell *tshell)
 	}
 	return (exit_status);
 }
+
 // Export every variable in 'args' to env.
 // If no errors are found, returns 0.
 // Otherwise returns error with the proper message and exit_status.
 int	builtin_export(t_cmd *cmd, t_shell *tshell)
 {
-	char **args;
+	char	**args;
 
 	if (cmd->input == NULL)
 		return (export_noargs(tshell->env));
