@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:49:39 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:46:02 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:49:12 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	**arrstr_set(char **arr, const char *str, int i)
 	arr[i] = ft_strdup(str);
 	return (arr);
 }
-
 
 /* free_ptr:
 *	Frees a pointer of any type if it is not NULL and sets it to NULL.
