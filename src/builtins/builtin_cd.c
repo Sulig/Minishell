@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:38:43 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:41:53 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,6 @@ static void	end_in_slash(char **path)
 {
 	if ((*path)[ft_strlen(*path)] != '/')
 		ft_strjoin_free(path, "/");
-}
-
-/*
-	if can't change directory (chdir return -1), exit statut = 1
-	else change env (pwd, oldpwd), exit statut = 0
-*/
-int	change_dir(t_cmd *cmd, char **env)
-{
-	char	*home;
-
-	home = get_var_from_env("HOME", env);
-	if (cmd->input == NULL)
-	{
-		if (chdir(home) == -1)
-			return (print_err_syntax ("minishell: cd: HOME not set"));
-	}
-	else if (chdir(cmd->input) == -1)
-		return (print_err_syntax ("minishell: unable to get path"));
-	return (1);
 }
 
 // Tries to change directory for any 'path' with 'str' at the end.
@@ -98,7 +79,7 @@ int	builtin_cd(t_cmd *cmd, char **env)//char **args, char **env)
 	if (args == NULL)
 	{
 		if (chdir(get_var_from_env("HOME", env)) < 0)
-			return (print_comun_error("error getting $HOME", 1));
+			return (print_comun_error("minishell: cd: HOME not set", 1));
 		return (EXIT_SUCCESS);
 	}
 	if (args[0] == '\0')
@@ -109,6 +90,6 @@ int	builtin_cd(t_cmd *cmd, char **env)//char **args, char **env)
 			return (builtin_pwd());
 	}
 	if (chdir(args) < 0)
-		return (print_comun_error("error setting cd", 1));
+		return (print_comun_error("minishell: unable to get path", 1));
 	return (EXIT_SUCCESS);
 }
