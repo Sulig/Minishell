@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/09 20:05:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:07:32 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ static char	*fline(size_t _case)
 		ttp = "\nsometext $USER sometext\n";
 	else if (bruh == 5)
 		ttp = "\n$ $USE $USER $?";
+	else if (bruh == 6)
+		ttp = "$>USER $<USER $$USER $$$USER\n";
+	else if (bruh == 7)
+		ttp = "\"$USER\" '$USER'\n";
 	else
 		ttp = "EOF";
 	bruh++;
@@ -82,6 +86,6 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 	}
 	if (fd > 2)
 		ft_printf_fd(fd, joined);
-	ft_printf("Result: |%s", joined);
+	ft_printf("\033[1;34mResult: |%s", joined);
 	joined = ft_free_str(joined);
 }

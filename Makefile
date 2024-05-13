@@ -93,7 +93,7 @@ SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
 		  quote_removal.c set_path.c trim_input.c is_builtin.c\
-		  fill_comand_options.c ft_strjoin_free.c
+		  fill_comand_options.c ft_strjoin_free.c expand_vars_utils.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
 

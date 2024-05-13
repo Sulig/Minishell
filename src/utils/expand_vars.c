@@ -6,16 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/09 20:05:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:07:28 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
- * Expand '$?' to exit state
-*/
-static char	*case_of_envvar_exit(char *str, int exit)
+char	*case_of_envvar_exit(char *str, int exit)
 {
 	size_t	pos;
 	char	*env_var;
@@ -30,57 +27,45 @@ static char	*case_of_envvar_exit(char *str, int exit)
 	return (result);
 }
 
-/*
- * Expand the var
-*/
-static char	*expansor_utils(char *str, char *env_var)
+static char	*expansor_utils(char *str, char **env, char *args)
 {
 	size_t	pos;
+	char	*env_var;
 	char	*result;
-	char	*remove;
+	char	*tmp;
 
-	remove = ft_strdup(ft_strstr(str, "$"));
-	remove[ft_cnttoch_out(remove, ' ')] = '\0';
-	env_var = env[ft_search_str(env, search)];
+	env_var = NULL;
+	tmp = ft_strdup(args + 1);
+	tmp = ft_strjoin_free_fst(tmp, "=");
+	env_var = env[ft_search_str(env, tmp)];
 	env_var = ft_strcut(env_var, '=', '>', 'y');
-	pos = ft_cnt_tostr(str, remove) + ft_strllen(remove);
+	pos = ft_cnt_tostr(str, args) + ft_strllen(args);
 	result = ft_strinter(str, env_var, pos);
-	result = ft_strremove(result, remove);
-	remove = ft_free_str(remove);
+	result = ft_strremove(result, args);
+	tmp = ft_free_str(tmp);
 	str = ft_free_str(str);
 	return (result);
 }
 
 char	*expand_env_var_instr(char *str, char **env, int exit)
 {
-	/*
-	 * For next change, try: 
-	 * 1. split(str, ' ');
-	 * 2. Expand each case
-	 * 	2.1 Ignore case '$' && normal text
-	 * 	2.2 Expand case '$?' to exit -> use case_of_envvar_exit
-	 * 	2.3 Expand if encounters the var, else remplace for "".
-	 * 3. Join again
-	*/
 	char	**args;
 	size_t	cnt;
 
 	if (!ft_strstr(str, "$"))
 		return (str);
-	args = ft_split(str, ' ');
+	args = split_intoarr(str);
 	if (!args)
 		return (str);
-	str = ft_free_str(str);
 	cnt = 0;
 	while (args[cnt])
 	{
 		if (ft_strstr(args[cnt], "$?"))
-			args[cnt] = case_of_envvar_exit(args[cnt], exit);
-		// Ignore case '$'
-		// expand
+			str = case_of_envvar_exit(str, exit);
+		else
+			str = expansor_utils(str, env, args[cnt]);
 		cnt++;
 	}
-	// Join
 	args = ft_auto_free_arr(args);
 	return (str);
 }

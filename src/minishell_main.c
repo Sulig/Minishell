@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/09 20:05:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:07:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*fline(size_t _case)
 	else if (bruh == 11)
 		ttp = "echo \"hola'\" -100 | echo -100";
 	else if (bruh == 12)
-		ttp = "echo hola";
+		ttp = "$NOEXISTENT echo hole";
 	else
 		ttp = "";
 	bruh++;
@@ -78,13 +78,13 @@ void	minishell(t_shell *tshell)
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		//tshell->line = ft_readline();
-		tshell->line = fline(3); 
+		tshell->line = fline(12); 
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		//print_tokens_st(tshell->tokens); //Print tokens list
+		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		//print_comands_st(tshell->comands); //Print cmd list
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd

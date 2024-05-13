@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:07:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-enum	e_toktype	scan_toktype(char c)
+static enum	e_toktype	scan_toktype(char c)
 {
 	if (!c)
 		return (TNULL);
