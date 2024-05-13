@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 17:13:34 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:30:38 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	minishell(t_shell *tshell)
 		split_intotokens(tshell);
 		//1print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
+		create_cmd_from_cmd(tshell);
 		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell); //split into dll
@@ -82,7 +83,7 @@ void	minishell(t_shell *tshell)
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 

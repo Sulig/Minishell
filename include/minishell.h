@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 20:15:06 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:37:45 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
+void	create_cmd_from_cmd(t_shell *tshell);
 
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);

@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/08 19:02:57 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/13 18:22:01 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
 # MINISHELL SRC ->
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
 		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
-		  checkfor_unclosedquotes.c split_intodoublelist.c
+		  checkfor_unclosedquotes.c split_intodoublelist.c\
+		  create_cmd_from_cmd.c
 
 SRC_SRC += redirect_and_execute.c
 

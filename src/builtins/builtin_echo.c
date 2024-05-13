@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:03:19 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:07:33 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_flag(char *word)
 {
-	if (word[0] == '-' && word[0] == 'n' && ft_strllen(word) == 2)
+	if (word[0] == '-' && word[1] == 'n' && ft_strllen(word) == 2)
 		return (TRUE);
 	else
 		return (FALSE);
