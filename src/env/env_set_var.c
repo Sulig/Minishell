@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_set_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/07 20:40:09 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:46:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../../include/minishell.h"
-
-/* free_ptr:
-*	Frees a pointer of any type if it is not NULL and sets it to NULL.
-*	This avoids accidental double-frees.
-*/
-void	free_ptr(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
 
 /* env_var_count:
 *	Counts how many original environment variables there are.
@@ -64,30 +49,6 @@ static char	**realloc_env_vars(t_shell *data, int size)
 	}
 	free(data->env);
 	return (new_env);
-}
-
-/*
-	DESCRIPTION :
-	The function ft_strncmp compares the first n bytes of the given strings
-	s1 and s2.
-
-	RETURN VALUE :
-	An integer less than, equal to, or greater than zero if one of the first
-	n bytes of s1 is found to be less than, to match, or to be greater than
-	s2.
-*/
-
-int	ft_strncmp_simple(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] != '\0' && s2[i] != '\0')
-		&& (i < n - 1) && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 /* get_env_var_index:
