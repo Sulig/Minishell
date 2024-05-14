@@ -6,67 +6,69 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 20:07:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:50:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*case_of_envvar_exit(char *str, int exit)
+static char	*expansor_utils(char *str, char **env, int exit)
 {
-	size_t	pos;
 	char	*env_var;
-	char	*result;
-
-	env_var = ft_itoa(exit);
-	pos = ft_cnt_tostr(str, "$?");
-	result = ft_strinter(str, env_var, pos + 2);
-	result = ft_strremove(result, "$?");
-	str = ft_free_str(str);
-	env_var = ft_free_str(env_var);
-	return (result);
-}
-
-static char	*expansor_utils(char *str, char **env, char *args)
-{
-	size_t	pos;
-	char	*env_var;
-	char	*result;
 	char	*tmp;
 
+	if (my_strcmp("$?", str))
+	{
+		str = ft_free_str(str);
+		return (ft_itoa(exit));
+	}
 	env_var = NULL;
-	tmp = ft_strdup(args + 1);
+	tmp = ft_strdup(str + 1);
 	tmp = ft_strjoin_free_fst(tmp, "=");
 	env_var = env[ft_search_str(env, tmp)];
 	env_var = ft_strcut(env_var, '=', '>', 'y');
-	pos = ft_cnt_tostr(str, args) + ft_strllen(args);
-	result = ft_strinter(str, env_var, pos);
-	result = ft_strremove(result, args);
 	tmp = ft_free_str(tmp);
 	str = ft_free_str(str);
-	return (result);
+	return (ft_strdup(env_var));
+}
+
+static char	*join_again(t_list *tokens)
+{
+	t_token	*token;
+	char	*joined;
+
+	joined = NULL;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		joined = ft_strjoin_free_fst(joined, token->content);
+		tokens = tokens->next;
+	}
+	return (joined);
 }
 
 char	*expand_env_var_instr(char *str, char **env, int exit)
 {
-	char	**args;
-	size_t	cnt;
+	t_list	*tokens;
+	t_list	*first;
+	t_token	*token;
 
 	if (!ft_strstr(str, "$"))
 		return (str);
-	args = split_intoarr(str);
-	if (!args)
+	tokens = split_intotokens_forexpand(str);
+	if (!tokens)
 		return (str);
-	cnt = 0;
-	while (args[cnt])
+	first = tokens;
+	while (tokens)
 	{
-		if (ft_strstr(args[cnt], "$?"))
-			str = case_of_envvar_exit(str, exit);
-		else
-			str = expansor_utils(str, env, args[cnt]);
-		cnt++;
+		token = (t_token *)tokens->content;
+		if (token->toktype == ENV)
+			token->content = expansor_utils(token->content, env, exit);
+		tokens = tokens->next;
 	}
-	args = ft_auto_free_arr(args);
+	str = ft_free_str(str);
+	str = join_again(first);
+	tokens = free_tokens_list(&first);
 	return (str);
 }
 

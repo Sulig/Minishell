@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:35:23 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 20:07:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:50:54 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static t_token	*create_token(char *line, size_t pos)
 		len++;
 		if (scan_toktype(line[i]) == ENV)
 			len += len_of_content(line + pos + 1);
+		if (len == 1)
+			token->toktype = ARGS;
 	}
 	token->content = ft_substr(line, pos, len);
 	if (!ft_strllen(token->content))
@@ -87,8 +89,9 @@ t_list	*split_intotokens_forexpand(char *line)
 
 	i = 0;
 	tmp = NULL;
+	tokens = NULL;
 	if (!ft_strllen(line))
-		return ;
+		return (NULL);
 	while (line[i])
 	{
 		tmp = ft_lstnew(create_token(line, i));
@@ -98,4 +101,26 @@ t_list	*split_intotokens_forexpand(char *line)
 		if (!ft_strllen(token->content))
 			i++;
 	}
+	return (tokens);
+}
+
+t_list	*free_tokens_list(t_list **tokens)
+{
+	t_list	*tmp;
+	t_token	*token;
+	size_t	size;
+
+	tmp = *tokens;
+	if (*tokens)
+	{
+		size = ft_lstsize(*tokens);
+		while (size--)
+		{
+			token = (t_token *)tmp->content;
+			token->content = ft_free_str(token->content);
+			tmp = tmp->next;
+		}
+	}
+	ft_lstclear(tokens, free);
+	return (NULL);
 }

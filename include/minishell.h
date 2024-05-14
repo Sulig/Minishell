@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 20:07:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:09:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
 
-char	**split_intoarr(char *line);
-char	*expand_env_var_instr(char *str, char **env, int exit);
 void	heredoc(t_shell *tshell, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
@@ -72,6 +70,7 @@ int		print_comandnotfound(char *comand);
 int		print_comun_error(char *error, int error_n);
 
 /* STRUCTURE MEMORY MANAGER */
+t_list	*free_tokens_list(t_list **tokens);
 void	free_tokens(t_shell *tshell);
 void	free_comands(t_shell *tshell);
 void	free_tree_cmds(t_shell *tshell);
@@ -79,6 +78,9 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
+t_list	*split_intotokens_forexpand(char *line);
+char	*expand_env_var_instr(char *str, char **env, int exit);
+
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
 int		set_quote(char ch, int quoted);

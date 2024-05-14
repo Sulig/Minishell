@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 20:07:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:50:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_readline(void)
 	return (line);
 }
 
-static char	*fline(size_t _case)
+/*static char	*fline(size_t _case)
 {
 	static size_t	bruh;
 	char			*ttp;
@@ -55,12 +55,14 @@ static char	*fline(size_t _case)
 	else if (bruh == 6)
 		ttp = "$>USER $<USER $$USER $$$USER\n";
 	else if (bruh == 7)
-		ttp = "\"$USER\" '$USER'\n";
+		ttp = "\"$USER\" '$USER' $? |\n";
+	else if (bruh == 8)
+		ttp = NULL;
 	else
 		ttp = "EOF";
 	bruh++;
 	return (ft_strdup(ttp));
-}
+}*/
 
 void	heredoc(t_shell *tshell, char *end, int fd)
 {
@@ -70,8 +72,8 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 	joined = NULL;
 	while (4)
 	{
-		//tmp = readline(HEREDOC);
-		tmp = fline(0);
+		tmp = readline(HEREDOC);
+		//tmp = fline(0);
 		if (!tmp)
 			break ;
 		if (my_strcmp(end, tmp))
@@ -82,10 +84,10 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 		tmp = expand_env_var_instr(tmp, tshell->env, tshell->exit_state);
 		joined = ft_strjoin_free_fst(joined, tmp);
 		tmp = ft_free_str(tmp);
-		//break ;
+		rl_on_new_line();
 	}
-	if (fd > 2)
+	if (fd > 2 && ft_strllen(joined))
 		ft_printf_fd(fd, joined);
-	ft_printf("\033[1;34mResult: |%s", joined);
 	joined = ft_free_str(joined);
+	tshell->exit_state = 0;
 }
