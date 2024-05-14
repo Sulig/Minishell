@@ -217,7 +217,7 @@ leaks: $(NAME)
 
 val: $(NAME)
 	@echo " ~ Running valgrind ./$(NAME)"
-	@valgrind --leak-check=full ./$(NAME)
+	@valgrind ./$(NAME)
 
 val-strict: $(NAME)
 	@echo " ~ Running valgrind ./$(NAME)"
