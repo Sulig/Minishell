@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:48:18 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:46:33 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:16:07 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ void	restore_exit(int exit_status);
 void	ft_strjoin_free(char **s1, const char *s2);
 void	free_ptr(void *ptr);
 int		ft_strncmp_simple(const char *s1, const char *s2, size_t n);
+
+/* 3 */
+long long	ft_atoll(char *str);
 
 #endif

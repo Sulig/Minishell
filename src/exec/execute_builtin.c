@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 16:31:37 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:04:22 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 
 	ext_stat = tshell->exit_state;
 	cmd = piped_cmd->content;
-	(void)is_child;
 	if (!ft_strncmp(cmd->comand, "cd", 3))
 		ext_stat = builtin_cd(cmd, tshell->env);
 	else if (!ft_strncmp(cmd->comand, "echo", 5))
@@ -33,7 +32,7 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 	else if (!ft_strncmp(cmd->comand, "env", 4))
 		ext_stat = builtin_env(tshell->env);
 	else if (!ft_strncmp(cmd->comand, "exit", 5))
-		ext_stat = builtin_exit(cmd);
+		ext_stat = builtin_exit(cmd, ext_stat, is_child);
 	else if (!ft_strncmp(cmd->comand, "export", 7))
 		ext_stat = builtin_export(cmd, tshell);
 	else if (!ft_strncmp(cmd->comand, "pwd", 4))

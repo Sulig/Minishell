@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:25:38 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:46:36 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:04:58 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		builtin_cd(t_cmd *cmd, char **env);
 int		builtin_env(char **env);
 int		builtin_export(t_cmd *cmd, t_shell *tshell);
 int		builtin_unset(t_cmd *cmd, char **env);
-int		builtin_exit(t_cmd *cmd);
+int		builtin_exit(t_cmd *cmd, int exit_status, int is_child);
 
 /* UTILS */
 int		is_builtin_cmd(t_list *cmd_lst);

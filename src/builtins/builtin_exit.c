@@ -6,11 +6,63 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 19:27:50 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:17:03 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	ft_check_llong(char *arg)
+{
+	int		len;
+	int		diff;
+	char	sign;
+
+	sign = '+';
+	if (*arg == '-' || *arg == '+')
+	{
+		sign = *arg;
+		arg++;
+	}
+	while (*arg == '0')
+		arg++;
+	len = ft_strlen(arg);
+	if (len > 19)
+		return (FALSE);
+	if (len == 19)
+	{
+		if (sign == '-')
+			diff = ft_strncmp(arg, LLINT_MIN_STR, 19);
+		else
+			diff = ft_strncmp(arg, LLINT_MAX_STR, 19);
+		if (diff > 0)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+// Long long range: -9223372036854775808 > 9223372036854775807
+
+static int	is_longlong(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!*arg)
+		return (FALSE);
+	if (arg[i] == '-' || arg[i] == '+')
+	{
+		if (arg[i + 1] == 0)
+			return (FALSE);
+		++i;
+	}
+	while (arg[i] == '0')
+		++i;
+	while (arg[i] && ((arg[i] <= '9' && arg[i] >= '0')))
+		++i;
+	if (arg[i])
+		return (FALSE);
+	return (ft_check_llong(arg));
+}
 
 /*
 handles more than 2 arguments
@@ -18,22 +70,26 @@ handles no arguments exiting with code 0
 handles non numeric arguments
 handles arguments with values larger than 255 (max exit code)
 */
-int	builtin_exit(t_cmd *cmd)
+int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 {
-	int		exit_status;
+	int		exit_stat;
+	char	*arg;
 
+	if (!is_child)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	if (cmd->input == NULL)
-		exit_status = 0;
-	else
+		restore_exit(exit_status);
+	if (ft_strchr(cmd->input, ' ') != NULL)
+		return (print_comun_error("too many arguments", 1));
+	arg = ft_strtrim(cmd->input, " \n\t\v\f\r");
+	if (is_longlong(arg) == FALSE)
 	{
-		if (ft_strchr(cmd->input, ' ') != NULL)
-			return (print_comun_error("too many arguments", 1));
-		else if (!ft_isnumeric(cmd->input))
-			return (print_comun_error("numeric argument required", 255));
-		else
-			exit_status = ft_atoi(cmd->input);
+		free(arg);
+		restore_exit(print_comun_error("numeric argument required", 255));
 	}
-	printf("exit\n");
-	exit(exit_status % 256);
+	exit_stat = ft_atoll(arg);
+	free(arg);
+	restore_exit(exit_stat % 256);
+	free(arg);
 	return (exit_status);
 }

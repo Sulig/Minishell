@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/14 16:44:37 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/14 17:16:26 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,7 @@ UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
 		  quote_removal.c set_path.c trim_input.c is_builtin.c\
 		  fill_comand_options.c ft_strjoin_free.c
 
-UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
+UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c builtin_utils.c
 
 HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 

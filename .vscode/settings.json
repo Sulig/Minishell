@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"libft_utils.h": "c"
+		"libft_utils.h": "c",
+		"sstream": "c"
 	}
 }
