@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 16:29:02 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:44:16 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int		read_all_heredocs(t_list **cmds, int cmds_amount, char **env);
 int		read_heredocs(t_list *cmds, int n, char **env);
 char	*heredoc_filename(int n);
 void	clear_heredocs(int n);
+int		link_heredoc(int n);
 
 #endif

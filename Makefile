@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/14 16:29:43 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/14 16:44:37 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
 
-HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c
+HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))

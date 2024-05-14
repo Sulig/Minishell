@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/08 19:07:42 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:48:40 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define HEREDOC_FILENAME_PREFIX "/tmp/heredoc_temp_"
 
 void	save_restore_stdio(int std_in, int std_out, int mode);
-int		redirect(t_list *cmds);
+int		redirect(t_list *cmds, int n);
 int		link_output_file(const char *filename, int append);
 int		link_input_file(const char *filename);
 int		open_file(const char *filename, int flags);
