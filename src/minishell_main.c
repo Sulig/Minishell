@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 19:41:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:03:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char	*fline(size_t _case)
 	else if (bruh == 11)
 		ttp = "echo \"hola'\" -100 | echo -100";
 	else if (bruh == 12)
-		ttp = "echo hola";
+		ttp = "$NOEXISTENT echo hole";
 	else
-		ttp = NULL;
+		ttp = "";
 	bruh++;
 	return (ft_strdup(ttp));
 }
@@ -59,25 +59,37 @@ static int	control_and_c(int exit_status)
 	return (exit_status);
 }
 
+void	test_heredoc(char *file, t_shell *tshell)
+{
+	int		fd;
+
+	fd = open(file, O_RDWR);
+	if (fd == -1)
+		ft_printf_fd(2, "Incorrect file");
+	else
+		heredoc(tshell, "EOF" , fd);
+	close(fd);
+}
+
 void	minishell(t_shell *tshell)
 {
 	while (4)
 	{
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		tshell->line = ft_readline();
-		//tshell->line = fline(0);
+		//tshell->line = ft_readline();
+		tshell->line = fline(3); 
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		//print_tokens_st(tshell->tokens); //Print tokens list
+		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		create_cmd_from_cmd(tshell);
-		//print_comands_st(tshell->comands); //Print cmd list
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
-		split_intodoublelist(tshell); //split into dll
+		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
+		//test_heredoc("test.txt", tshell); //test heredoc
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
 		free_comands(tshell);

@@ -6,13 +6,73 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/08 17:25:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:50:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-enum e_toktype	env_var_newtoktype(t_token *token)
+static char	*expansor_utils(char *str, char **env, int exit)
+{
+	char	*env_var;
+	char	*tmp;
+
+	if (my_strcmp("$?", str))
+	{
+		str = ft_free_str(str);
+		return (ft_itoa(exit));
+	}
+	env_var = NULL;
+	tmp = ft_strdup(str + 1);
+	tmp = ft_strjoin_free_fst(tmp, "=");
+	env_var = env[ft_search_str(env, tmp)];
+	env_var = ft_strcut(env_var, '=', '>', 'y');
+	tmp = ft_free_str(tmp);
+	str = ft_free_str(str);
+	return (ft_strdup(env_var));
+}
+
+static char	*join_again(t_list *tokens)
+{
+	t_token	*token;
+	char	*joined;
+
+	joined = NULL;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		joined = ft_strjoin_free_fst(joined, token->content);
+		tokens = tokens->next;
+	}
+	return (joined);
+}
+
+char	*expand_env_var_instr(char *str, char **env, int exit)
+{
+	t_list	*tokens;
+	t_list	*first;
+	t_token	*token;
+
+	if (!ft_strstr(str, "$"))
+		return (str);
+	tokens = split_intotokens_forexpand(str);
+	if (!tokens)
+		return (str);
+	first = tokens;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		if (token->toktype == ENV)
+			token->content = expansor_utils(token->content, env, exit);
+		tokens = tokens->next;
+	}
+	str = ft_free_str(str);
+	str = join_again(first);
+	tokens = free_tokens_list(&first);
+	return (str);
+}
+
+static enum e_toktype	env_var_newtoktype(t_token *token)
 {
 	if (my_strcmp("$?", token->content))
 		return (ARGS);

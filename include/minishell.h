@@ -6,14 +6,13 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 17:15:29 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:01:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include "../readline/readline.h"
 # include "../readline/history.h"
 
@@ -34,6 +33,7 @@
 
 # include <fcntl.h>
 # include <signal.h>
+# include <stdio.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <termios.h>
@@ -48,6 +48,7 @@ int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 
 /* MINISHELL */
 char	*ft_readline(void);
+void	heredoc(t_shell *tshell, char *end, int fd);
 void	split_intotokens(t_shell *tshell);
 void	fill_token_location(t_shell *tshell);
 void	expand_env_var(t_shell *tshell);
@@ -58,7 +59,6 @@ void	split_intodoublelist(t_shell *tshell);
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
-void	heredoc(char **env, char *end, int fd);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -71,6 +71,7 @@ int		print_comandnotfound(char *comand);
 int		print_comun_error(char *error, int error_n);
 
 /* STRUCTURE MEMORY MANAGER */
+t_list	*free_tokens_list(t_list **tokens);
 void	free_tokens(t_shell *tshell);
 void	free_comands(t_shell *tshell);
 void	free_tree_cmds(t_shell *tshell);
@@ -78,6 +79,9 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
+t_list	*split_intotokens_forexpand(char *line);
+char	*expand_env_var_instr(char *str, char **env, int exit);
+
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
 int		set_quote(char ch, int quoted);
