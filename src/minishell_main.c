@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 18:03:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:28:57 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		//tshell->line = ft_readline();
-		tshell->line = fline(3); 
+		tshell->line = ft_readline();
+		//tshell->line = fline(3);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
