@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:19:11 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:28:10 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, t_shell *tshell)
 	pid_t	last_child;
 
 	last_child = 0;
-	exit_stat = 0;
+	exit_stat = read_all_heredocs(piped_cmds, p->cmds_amount, tshell->env);
 	if (exit_stat)
 		return (exit_stat);
 	stop_signals();
@@ -76,6 +76,7 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, t_shell *tshell)
 		last_child = pid;
 	}
 	exit_stat = wait_children(last_child, p->cmds_amount);
+	clear_heredocs(p->cmds_amount);
 	return (exit_stat);
 }
 
@@ -90,7 +91,7 @@ static int	process_builtin_here(t_shell *tshell)
 	cmds = tshell->tree_cmd[0];
 	env = tshell->env;
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, SAVE);
-	exit_stat = 0;
+	exit_stat = read_heredocs(cmds, 0, env);
 	if (exit_stat)
 		return (exit_stat);
 	exit_stat = redirect(cmds);

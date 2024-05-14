@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/13 18:22:01 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/14 16:29:43 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ PER_DIR = $(SRC_DIR)/print_errors
 RED_DIR = $(SRC_DIR)/redirect
 SIG_DIR = $(SRC_DIR)/signals
 UTL_DIR = $(SRC_DIR)/utils
+HER_DIR = $(SRC_DIR)/heredoc
+
 # ------------------- #
 # Sources:
 MAK = Makefile # This Makefile
@@ -97,6 +99,8 @@ UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c builtin_utils.c
 
+HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c
+
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
 SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
@@ -105,6 +109,7 @@ SRC += $(addprefix $(RED_DIR)/, $(RED_SRC))
 SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
 SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
+SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 

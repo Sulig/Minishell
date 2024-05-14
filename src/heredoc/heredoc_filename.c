@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   heredoc_filename.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 18:45:58 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 15:46:27 by jguillot         ###   ########.fr       */
+/*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
+/*   Updated: 2024/05/14 15:37:38 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
- * Opens the file 'filename' with the 'flags' and returns its file descriptor.
- * On failure, prints an error message and returns -1 (setting errno).
-*/
-int	open_file(const char *filename, int flags)
+// Allocates and returns a string representing the here document temp filename
+// for the 'n'-th command.
+char	*heredoc_filename(int n)
 {
-	int	fd_file;
+	char	*tmp;
+	char	*filename;
 
-	fd_file = open(filename, flags, OPEN_FILE_MODE);
-	if (fd_file == -1)
-		print_comun_error(MERR_FILE, 2);
-	return (fd_file);
+	filename = ft_strdup(HEREDOC_FILENAME_PREFIX);
+	tmp = ft_itoa(n);
+	ft_strjoin_free(&filename, tmp);
+	free(tmp);
+	return (filename);
 }

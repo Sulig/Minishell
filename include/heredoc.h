@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 18:45:58 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 15:46:27 by jguillot         ###   ########.fr       */
+/*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
+/*   Updated: 2024/05/14 16:29:02 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef HEREDOC_H
+# define HEREDOC_H
+
 #include "../../include/minishell.h"
 
-/*
- * Opens the file 'filename' with the 'flags' and returns its file descriptor.
- * On failure, prints an error message and returns -1 (setting errno).
-*/
-int	open_file(const char *filename, int flags)
-{
-	int	fd_file;
+# define HEREDOC_FILENAME_PREFIX "/tmp/heredoc_temp_"
 
-	fd_file = open(filename, flags, OPEN_FILE_MODE);
-	if (fd_file == -1)
-		print_comun_error(MERR_FILE, 2);
-	return (fd_file);
-}
+int		read_all_heredocs(t_list **cmds, int cmds_amount, char **env);
+int		read_heredocs(t_list *cmds, int n, char **env);
+char	*heredoc_filename(int n);
+void	clear_heredocs(int n);
+
+#endif

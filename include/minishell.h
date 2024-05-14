@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 18:37:45 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:26:05 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "libft_utils.h"
 # include "redirect.h"
 # include "signals.h"
+# include "heredoc.h"
 
 # include <fcntl.h>
 # include <signal.h>
