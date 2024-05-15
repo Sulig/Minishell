@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 17:50:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:54:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ static char	*expansor_utils(char *str, char **env, int exit)
 
 	if (my_strcmp("$?", str))
 	{
+		if (ft_strstr(str, "\1") || ft_strstr(str, "\2"))
+		{
+			if (ft_strstr(str, "\1"))
+			{
+				str = ft_free_str(str);
+				return (ft_itoa(exit));
+			}
+			str = ft_strremove(str, "\2");
+		}
 		str = ft_free_str(str);
 		return (ft_itoa(exit));
 	}
