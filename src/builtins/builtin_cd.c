@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:41:53 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:11:48 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int	builtin_cd(t_cmd *cmd, char **env)//char **args, char **env)
 			return (builtin_pwd());
 	}
 	if (chdir(args) < 0)
-		return (print_comun_error("minishell: unable to get path", 1));
+		return (print_comun_error("cd: no such file or directory", 1));
 	return (EXIT_SUCCESS);
 }
