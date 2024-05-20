@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 09:57:20 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:49:41 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static int	read_hd_child(char *d, const char *file, t_shell *tshell)
 	set_signals(HERE);
 	fd_file = open_file(file, O_CREAT | O_WRONLY | O_TRUNC);
 	if (fd_file == -1)
-		return (print_comun_error("cannot create temp file for here document", EXIT_FAILURE));
+		return (print_comun_error("cannot create temp file for here document"
+				, EXIT_FAILURE));
 	heredoc(tshell, d, fd_file);
 	close(fd_file);
-	return tshell->exit_state;
+	return (tshell->exit_state);
 }
 
 /*
@@ -40,8 +41,8 @@ static int	read_hd_child(char *d, const char *file, t_shell *tshell)
 * WIFEXITED and WEXITSTATUS are two of the options which can be used to know
 * the exit status of the child.
 * WIFEXITED(status) : returns true if the child terminated normally.
-* WEXITSTATUS(status) : returns the exit status of the child. This macro should be
-* employed only if WIFEXITED returned true.
+* WEXITSTATUS(status) : returns the exit status of the child.
+* This macro should be employed only if WIFEXITED returned true.
 */
 int	read_heredoc(char *delim, const char *file, t_shell *tshell)
 {

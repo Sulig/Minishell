@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 19:14:52 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:51:04 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void	execute_command(t_list *cmds, t_shell *tshell)
 {
 	int		exit_stat;
-	char	**e;
 	t_cmd	*cmd;
 	t_list	*node;
 
@@ -32,9 +31,7 @@ void	execute_command(t_list *cmds, t_shell *tshell)
 				exit(EXIT_SUCCESS);
 			if (is_builtin_name(cmd))
 			{
-				e = arrstr_dup(tshell->env);
 				exit_stat = execute_builtin(cmds, tshell, TRUE);
-				arrstr_free(e);
 				exit(exit_stat);
 			}
 			exec_cmd(cmd, tshell->env);

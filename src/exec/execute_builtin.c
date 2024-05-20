@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 12:31:16 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:51:49 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
 void	prepare_echo(t_list *piped_cmd)
 {
-	t_cmd *first_cmd;
-	t_cmd *cmd;
+	t_cmd	*first_cmd;
+	t_cmd	*cmd;
 
 	first_cmd = piped_cmd->content;
 	piped_cmd = piped_cmd->next;
@@ -28,6 +27,7 @@ void	prepare_echo(t_list *piped_cmd)
 		piped_cmd = piped_cmd->next;
 	}
 }
+
 /*
  * Executes the builtin defined by 'cmd'
  * assuming there are no redirections and modifying the 'env' if required.

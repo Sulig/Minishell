@@ -6,11 +6,12 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:49:39 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 17:15:42 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:47:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
 long long	ft_atoll(char *str)
 {
 	long long	res;
