@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 18:28:57 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:10:07 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int		g_signal;
 
 char	*fline(size_t _case)
 {
@@ -42,9 +44,9 @@ char	*fline(size_t _case)
 	else if (bruh == 10)
 		ttp = "echo -nn-n|echo-n\"j\"|echo -n-n-n|echo -n -n -n|echo -nn j";
 	else if (bruh == 11)
-		ttp = "echo \"hola'\" -100 | echo -100";
+		ttp = "echo >> test.txt bye";
 	else if (bruh == 12)
-		ttp = "$NOEXISTENT echo hole";
+		ttp = "echo \"exit_code ->$? user ->$USER home -> $HOME\"";
 	else
 		ttp = "";
 	bruh++;
@@ -78,18 +80,19 @@ void	minishell(t_shell *tshell)
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		tshell->line = ft_readline();
-		//tshell->line = fline(3);
+		//tshell->line = fline(11);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//test_heredoc("test.txt", tshell); //test heredoc
+		create_cmd_from_cmd(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
 		free_comands(tshell);
