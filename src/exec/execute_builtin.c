@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 17:04:22 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:31:16 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+
+void	prepare_echo(t_list *piped_cmd)
+{
+	t_cmd *first_cmd;
+	t_cmd *cmd;
+
+	first_cmd = piped_cmd->content;
+	piped_cmd = piped_cmd->next;
+	while (piped_cmd)
+	{
+		cmd = piped_cmd->content;
+		if (cmd->cmdtype == CMD)
+			first_cmd->input = cmd->comand;
+		piped_cmd = piped_cmd->next;
+	}
+}
 /*
  * Executes the builtin defined by 'cmd'
  * assuming there are no redirections and modifying the 'env' if required.
@@ -25,6 +41,8 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 
 	ext_stat = tshell->exit_state;
 	cmd = piped_cmd->content;
+	if (!ft_strncmp(cmd->comand, "echo", 5) && tshell->cmd_size > 1)
+		prepare_echo(piped_cmd);
 	if (!ft_strncmp(cmd->comand, "cd", 3))
 		ext_stat = builtin_cd(cmd, tshell->env);
 	else if (!ft_strncmp(cmd->comand, "echo", 5))
