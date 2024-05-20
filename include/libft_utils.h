@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:48:18 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 17:16:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:57:03 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ int		ft_strncmp_simple(const char *s1, const char *s2, size_t n);
 
 /* 3 */
 long long	ft_atoll(char *str);
+char		*ft_strcpy(char *dst, const char *src);
+char		*ft_strncpy(char *dst, const char *src, size_t len);
 
 #endif

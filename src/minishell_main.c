@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/20 13:10:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:31:06 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char	*fline(size_t _case)
 	else if (bruh == 10)
 		ttp = "echo -nn-n|echo-n\"j\"|echo -n-n-n|echo -n -n -n|echo -nn j";
 	else if (bruh == 11)
-		ttp = "echo >> test.txt bye";
+		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
-		ttp = "echo \"exit_code ->$? user ->$USER home -> $HOME\"";
+		ttp = "echo $?HELLO";
 	else
 		ttp = "";
 	bruh++;

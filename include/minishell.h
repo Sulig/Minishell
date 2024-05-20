@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 18:01:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:40:04 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 /* UTILS */
 t_list	*split_intotokens_forexpand(char *line);
 char	*expand_env_var_instr(char *str, char **env, int exit);
+void	change_to_exit_status(t_list *tokens, int ex_st);
 
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
