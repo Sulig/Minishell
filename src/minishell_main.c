@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/20 19:07:23 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:12:37 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*fline(size_t _case)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "unset HOME";
+		ttp = "cd $pwd\\src";
 	else if (bruh == 11)
 		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
