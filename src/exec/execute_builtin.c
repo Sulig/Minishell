@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 18:37:06 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:05:56 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 	else if (!ft_strncmp(cmd->comand, "pwd", 4))
 		ext_stat = builtin_pwd();
 	else if (!ft_strncmp(cmd->comand, "unset", 6))
-		ext_stat = builtin_unset(cmd, tshell->env);
+		ext_stat = builtin_unset(cmd, tshell);
 	return (ext_stat);
 }

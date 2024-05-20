@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/20 18:31:06 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:07:23 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*fline(size_t _case)
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "echo -nn-n|echo-n\"j\"|echo -n-n-n|echo -n -n -n|echo -nn j";
+		ttp = "unset HOME";
 	else if (bruh == 11)
 		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
@@ -80,7 +80,7 @@ void	minishell(t_shell *tshell)
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		tshell->line = ft_readline();
-		//tshell->line = fline(11);
+		//tshell->line = fline(10);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);

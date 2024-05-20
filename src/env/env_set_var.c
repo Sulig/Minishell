@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:46:36 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:09:21 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	set_env_var(t_shell *tshell, char *key, char *value)
 	return (TRUE);
 }
 
-/* remove_env_var:
+/*  remove_var_from_env:
 *	Removes the variable at the given index from the
 *	environment variables.
 *
