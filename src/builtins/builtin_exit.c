@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 17:17:03 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:39:10 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 	if (is_longlong(arg) == FALSE)
 	{
 		free(arg);
-		restore_exit(print_comun_error("numeric argument required", 255));
+		restore_exit(print_comun_error("numeric argument required", 2));
 	}
 	exit_stat = ft_atoll(arg);
 	free(arg);
