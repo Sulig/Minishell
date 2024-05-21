@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 19:26:36 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:25:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,6 @@ char	*ft_readline(void)
 	return (line);
 }
 
-/*static char	*fline(size_t _case)
-{
-	static size_t	bruh;
-	char			*ttp;
-
-	if (_case)
-		bruh = _case;
-	if (!bruh)
-		ttp = "hello\n";
-	else if (bruh == 1)
-		ttp = "$USER";
-	else if (bruh == 2)
-		ttp = "\nsometext $USER";
-	else if (bruh == 3)
-		ttp = "$USER sometext\n";
-	else if (bruh == 4)
-		ttp = "\nsometext $USER sometext\n";
-	else if (bruh == 5)
-		ttp = "\n$ $USE $USER $?";
-	else if (bruh == 6)
-		ttp = "$>USER $<USER $$USER $$$USER\n";
-	else if (bruh == 7)
-		ttp = "\"$USER\" '$USER' $? |\n";
-	else if (bruh == 8)
-		ttp = NULL;
-	else
-		ttp = "EOF";
-	bruh++;
-	return (ft_strdup(ttp));
-}*/
-
 void	heredoc(t_shell *tshell, char *end, int fd)
 {
 	char	*tmp;
@@ -73,7 +42,6 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 	while (4)
 	{
 		tmp = readline(HEREDOC);
-		//tmp = fline(0);
 		if (!tmp)
 			break ;
 		if (my_strcmp(end, tmp))

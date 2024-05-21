@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/20 18:49:35 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:29:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 	size_t	pos;
 	int		checker;
 
-	pos = 0;
 	tmp = NULL;
 	if (!check_beforecreate(tshell, NULL))
 		return ;

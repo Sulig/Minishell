@@ -6,14 +6,14 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:09:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 09:37:39 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:24:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 # define HEREDOC_FILENAME_PREFIX "/tmp/heredoc_temp_"
 

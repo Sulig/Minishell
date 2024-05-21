@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:48:18 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 17:57:03 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:25:04 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 # include "minishell.h"
 
-size_t	arr_size(const void **arr);
-size_t	arrstr_size(char **arr);
-char	**arrstr_dup(char **arr);
-void	arrstr_free(char **arr);
-char	**arrstr_add(char **arr, const char *str);
-char	**arrstr_set(char **arr, const char *str, int i);
+size_t		arr_size(const void **arr);
+size_t		arrstr_size(char **arr);
+char		**arrstr_dup(char **arr);
+void		arrstr_free(char **arr);
+char		**arrstr_add(char **arr, const char *str);
+char		**arrstr_set(char **arr, const char *str, int i);
 
 /* 2 */
-void	*p_malloc(size_t size);
-void	restore_exit(int exit_status);
-void	ft_strjoin_free(char **s1, const char *s2);
-void	free_ptr(void *ptr);
-int		ft_strncmp_simple(const char *s1, const char *s2, size_t n);
+void		*p_malloc(size_t size);
+void		restore_exit(int exit_status);
+void		ft_strjoin_free(char **s1, const char *s2);
+void		free_ptr(void *ptr);
+int			ft_strncmp_simple(const char *s1, const char *s2, size_t n);
 
 /* 3 */
 long long	ft_atoll(char *str);
