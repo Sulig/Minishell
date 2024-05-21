@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/21 18:55:25 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:04:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ char	*fline(size_t _case)
 	else if (bruh == 6)
 		ttp = "comand name\" -option ";
 	else if (bruh == 7)
-		ttp = "\"i will don't close";
+		ttp = "echo > fgh | < file cat -e";
 	else if (bruh == 8)
-		ttp = "sometext \"i will don't close";
+		ttp = "cat Makefile > gig | > h | >> a | cat h > >";
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
@@ -44,7 +44,7 @@ char	*fline(size_t _case)
 	else if (bruh == 11)
 		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
-		ttp = "echo $?HELLO";
+		ttp = "echo $?HELLO > tgh >";
 	else
 		ttp = "";
 	bruh++;
@@ -77,8 +77,8 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		tshell->line = ft_readline();
-		//tshell->line = fline(10);
+		//tshell->line = ft_readline();
+		tshell->line = fline(12); //3, 8 && 12
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);

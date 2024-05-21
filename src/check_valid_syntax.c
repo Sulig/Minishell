@@ -6,19 +6,28 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/29 17:31:04 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:04:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	check_toktype(t_token *token)
+static int	check_toktype(t_token *token, enum e_toktype mode, int ok)
 {
 	if (!token)
 		return (0);
-	if (token->toktype == REDIR || token->toktype == PIPE)
+	if (token->toktype == PIPE)
 		if (token->location == NO_QUOTED)
 			return (-1);
+	if (token->toktype == REDIR)
+	{
+		//if (mode == PIPE && ok)
+			//return (0);
+		ok = 0;
+		mode = TNULL;
+		if (token->location == NO_QUOTED)
+			return (-1);
+	}
 	if (token->toktype != SPACE)
 		return (1);
 	return (0);
@@ -28,7 +37,7 @@ static t_token	*return_type(t_token *act, t_token *ret)
 {
 	int	check;
 
-	check = check_toktype(act);
+	check = check_toktype(act, act->toktype, 0);
 	if (check == 1)
 		return (NULL);
 	if (check == -1)
@@ -55,7 +64,7 @@ static t_token	*checkfor_befstuff(t_list *list, enum e_toktype mode)
 			while (tmp)
 			{
 				token = (t_token *)tmp->content;
-				if (check_toktype(token) != 0)
+				if (check_toktype(token, mode, 0) != 0)
 					return (return_type(token, act));
 				tmp = tmp->prev;
 			}
@@ -83,7 +92,7 @@ static t_token	*checkfor_atfstuff(t_list *list, enum e_toktype mode)
 			{
 				list = list->next;
 				token = (t_token *)list->content;
-				if (check_toktype(token) != 0)
+				if (check_toktype(token, mode, 1) != 0)
 					return (return_type(token, act));
 			}
 		}
