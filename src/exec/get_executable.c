@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:23:50 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 17:50:32 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:15:55 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ char	*get_executable(const char *file, char **env)
 		}
 		free(path);
 	}
-	print_comun_error("command not found", 127);
+	print_comandnotfound((char *)file);
 	exit(127);
 }
