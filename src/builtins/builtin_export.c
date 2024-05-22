@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 18:05:47 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/22 18:41:28 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	is_valid_env_var_key(char *var)
 	return (TRUE);
 }
 
-int	args_export(char **args, t_shell *tshell)
+int	args_export(char **args, t_shell *tshell, char *var)
 {
 	int		i;
 	char	**tmp;
@@ -95,6 +95,10 @@ int	args_export(char **args, t_shell *tshell)
 			set_env_var(tshell, tmp[0], tmp[1]);
 			free_arr_2d(tmp);
 		}
+		else
+		{
+			set_env_var(tshell, var, NULL);
+		}
 		i++;
 	}
 	return (exit_status);
@@ -111,7 +115,7 @@ int	builtin_export(t_cmd *cmd, t_shell *tshell)
 	if (cmd->input == NULL)
 		return (export_noargs(tshell->env));
 	args = ft_split(cmd->input, ' ');
-	exit_status = args_export(args, tshell);
+	exit_status = args_export(args, tshell, cmd->input);
 	free_arr_2d(args);
 	return (exit_status);
 }
