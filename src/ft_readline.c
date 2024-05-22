@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/22 19:06:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:18:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	exit_minishell(t_shell *tshell)
 	exit_state = tshell->exit_state;
 	rl_clear_history();
 	tshell = free_tshell(tshell);
-	ft_printf_fd(2, "minishell$: exit\n");
+	if (isatty(STDIN_FILENO))
+		ft_printf_fd(2, "minishell$: exit\n");
 	exit(exit_state);
 }
 
