@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/21 20:04:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:08:20 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
+		tshell->line = ft_readline();
+		//tshell->line = fline(0);
 		tshell->exit_state = control_and_c(tshell->exit_state);
-		//tshell->line = ft_readline();
-		tshell->line = fline(12); //3, 8 && 12
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
 		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
@@ -96,7 +96,7 @@ void	minishell(t_shell *tshell)
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		break ;
+		//break ;
 	}
 }
 

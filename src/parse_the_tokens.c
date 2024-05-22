@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/21 16:29:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:44:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 {
 	if (!token)
 	{
-		if (!check_valid_syntax(tshell))
-			return (0);
 		if (!tshell->tokens)
+			return (0);
+		if (!check_valid_syntax(tshell))
 			return (0);
 		if (!checkfor_unclosedquotes(tshell, tshell->tokens))
 			return (0);

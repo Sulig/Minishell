@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/21 16:25:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:06:59 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 		ft_printf_fd(fd, joined);
 	joined = ft_free_str(joined);
 	tshell->exit_state = 0;
+	exit(0);
 }
