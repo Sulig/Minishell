@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:49:39 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:49:12 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:18:17 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // Restores the default print signal config and exits returning 'exit_status'.
 void	restore_exit(int exit_status)
 {
+	while (exit_status < 0)
+		exit_status = 256 + exit_status;
 	signals_print_handler(TRUE);
 	exit(exit_status);
 }
