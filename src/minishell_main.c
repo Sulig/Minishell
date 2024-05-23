@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/22 19:18:27 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:03:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*fline(size_t _case)
 	else if (bruh == 3)
 		ttp = "<|°_°|>";
 	else if (bruh == 4)
-		ttp = "export HELLO=122";
+		ttp = "\"\"";
 	else if (bruh == 5)
 		ttp = "< file cat -e";
 	else if (bruh == 6)
@@ -44,7 +44,7 @@ char	*fline(size_t _case)
 	else if (bruh == 11)
 		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
-		ttp = "echo $?HELLO > tgh >";
+		ttp = "echo >> file hi";
 	else
 		ttp = "";
 	bruh++;
@@ -76,18 +76,18 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		tshell->line = ft_readline();
-		//tshell->line = fline(0);
+		//tshell->line = ft_readline();
+		tshell->line = fline(4);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
 		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		//print_comands_st(tshell->comands); //Print cmd list
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//test_heredoc("test.txt", tshell); //test heredoc
 		create_cmd_from_cmd(tshell);
@@ -96,7 +96,7 @@ void	minishell(t_shell *tshell)
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/01 14:02:53 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ static char	*convert_tokens_instr(t_list *tokens)
 	return (result);
 }
 
+static t_cmd	*quote_removal_options(t_shell *tshell, t_cmd *cmd)
+{
+	if (ft_strchr(cmd->options, '\"') || ft_strchr(cmd->options, '\''))
+	{
+		free_tokens(tshell);
+		tshell->line = cmd->options;
+		split_intotokens(tshell);
+		cmd->options = ft_free_str(cmd->options);
+		cmd->options = convert_tokens_instr(tshell->tokens);
+	}
+	return (cmd);
+}
+
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd)
 {
 	tshell->line = ft_free_str(tshell->line);
@@ -67,6 +80,7 @@ t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd)
 		cmd->input = ft_free_str(cmd->input);
 		cmd->input = convert_tokens_instr(tshell->tokens);
 	}
+	cmd = quote_removal_options(tshell, cmd);
 	tshell->line = NULL;
 	return (cmd);
 }
