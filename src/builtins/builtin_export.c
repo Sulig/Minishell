@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/22 18:41:28 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:16:08 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ int	args_export(char **args, t_shell *tshell, char *var)
 	while (args[i])
 	{
 		if (!is_valid_env_var_key(args[i]))
-		{
-			exit_status = print_comun_error("not a valid identifier", 1);
-		}
+			exit_status = print_err_identifier("export", args[i]);
 		else if (ft_strchr(args[i], '=') != NULL)
 		{
 			tmp = get_key_value_pair(args[i]);

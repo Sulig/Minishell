@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/20 18:35:44 by jguillot         ###   ########.fr        #
+#    Updated: 2024/05/27 17:23:20 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ ENV_SRC = env_get_varname.c env_name_len.c env_set_var.c\
 EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
 		  exec_cmd.c get_executable.c
 
-PER_SRC = print_common_errors.c
+PER_SRC = print_common_errors.c print_errors.c
 
 RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 		  link_write_end.c open_file.c pipe_or_die.c redirect.c\

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/20 18:40:04 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:22:41 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "signals.h"
 # include "heredoc.h"
 # include "limits.h"
+# include "errors.h"
 
 # include <fcntl.h>
 # include <signal.h>
