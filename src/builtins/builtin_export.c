@@ -6,35 +6,31 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/27 17:16:08 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:04:04 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	printvar_quoted(const char *var)
+static void	printvar_quoted(const char *var)
 {
 	while (*var != '=')
 	{
-		write (1, var, 1);
+		write(1, var, 1);
 		++var;
 	}
-	write (1, "=\"", 2);
+	write(1, "=\"", 2);
 	++var;
 	while (*var)
 	{
-		write (1, var, 1);
+		write(1, var, 1);
 		++var;
 	}
-	write (1, "\"\n", 2);
+	write(1, "\"\n", 2);
 }
 
-/*
-** If no args
-** Prints the variables in env starting with
-** declare -x and returns 0.
-*/
-int	export_noargs(char **env)
+// Prints the variables in env and reurns 0.
+static int	export_noargs(char **env)
 {
 	int	i;
 
@@ -47,59 +43,7 @@ int	export_noargs(char **env)
 			printvar_quoted(env[i]);
 		}
 	}
-	return (EXIT_SUCCESS);
-}
-
-/* is_valid_env_var_key:
-*	Checks if the key is a valid name for an evironment
-*	variable.
-*	Returns true if the key contains only alphanumeric chars
-*	or '_', or false if not.
-*/
-int	is_valid_env_var_key(char *var)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(var[i]) == 0 && var[i] != '_')
-		return (FALSE);
-	i++;
-	while (var[i] && var[i] != '=')
-	{
-		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
-
-int	args_export(char **args, t_shell *tshell, char *var)
-{
-	int		i;
-	char	**tmp;
-	int		exit_status;
-
-	exit_status = EXIT_SUCCESS;
-	i = 0;
-	if (!args[i])
-		return (export_noargs(tshell->env));
-	while (args[i])
-	{
-		if (!is_valid_env_var_key(args[i]))
-			exit_status = print_err_identifier("export", args[i]);
-		else if (ft_strchr(args[i], '=') != NULL)
-		{
-			tmp = get_key_value_pair(args[i]);
-			set_env_var(tshell, tmp[0], tmp[1]);
-			free_arr_2d(tmp);
-		}
-		else
-		{
-			set_env_var(tshell, var, NULL);
-		}
-		i++;
-	}
-	return (exit_status);
+	return (0);
 }
 
 // Export every variable in 'args' to env.
@@ -107,13 +51,37 @@ int	args_export(char **args, t_shell *tshell, char *var)
 // Otherwise returns error with the proper message and exit_status.
 int	builtin_export(t_cmd *cmd, t_shell *tshell)
 {
-	char	**args;
+	char	*varname;
+	int		i;
 	int		exit_status;
+	char	**args;
+	char	**tmp;
 
-	if (cmd->input == NULL)
+	exit_status = 0;
+	if (!cmd->input)
 		return (export_noargs(tshell->env));
 	args = ft_split(cmd->input, ' ');
-	exit_status = args_export(args, tshell, cmd->input);
-	free_arr_2d(args);
+	tmp = args;
+	--args;
+	while (++args && *args)
+	{
+		i = 0;
+		varname = env_get_varname(*args);
+		if (!env_valid_varname(varname))
+		{
+			exit_status = print_err_identifier("export", *args);
+			free(varname);
+			continue ;
+		}
+		while ((*args)[i] && (*args)[i] != '=')
+			++i;
+		if ((*args)[i++] == '=')
+			set_env_var(varname, (*args) + i, tshell);
+		else
+			set_env_var(varname, NULL, tshell);
+		if (varname)
+			free(varname);
+	}
+	free_arr_2d(tmp);
 	return (exit_status);
 }
