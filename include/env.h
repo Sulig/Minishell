@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:16:12 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 19:11:40 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:34:27 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ char	*env_get_varname(const char *str);
 int		env_valid_varname(char *word);
 void	remove_env_var(char *varname, t_shell *tshell);
 char	**get_vars_from_env(const char *varname, char **env);
-int		set_env_var(t_shell *tshell, char *key, char *value);
+void	set_env_var(const char *varname, const char *value, t_shell *tshell);
 
 #endif

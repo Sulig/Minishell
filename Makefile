@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+         #
+#    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/28 19:19:11 by sadoming         ###   ########.fr        #
+#    Created: 2024/05/28 19:21:21 by sadoming          #+#    #+#              #
+#    Updated: 2024/05/28 19:21:25 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

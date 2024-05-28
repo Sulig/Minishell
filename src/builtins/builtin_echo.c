@@ -6,18 +6,34 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 18:48:42 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:19:37 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	check_flag(char *word)
+static int	is_flag(char *word)
 {
-	if (word[0] == '-' && word[1] == 'n' && ft_strllen(word) == 2)
-		return (TRUE);
-	else
+	int	i;
+
+	i = 0;
+	if (word[i++] != '-')
 		return (FALSE);
+	while (word[i] && word[i] == 'n')
+		++i;
+	if (word[i])
+		return (FALSE);
+	return (TRUE);
+}
+
+static int	get_flag(char **args)
+{
+	int	idx;
+
+	idx = 0;
+	while (args[idx] && is_flag(args[idx]))
+		++idx;
+	return (idx);
 }
 
 // Output the 'args', separated by spaces, followed by a newline.
@@ -25,16 +41,15 @@ static int	check_flag(char *word)
 // If -n is specified, the trailing newline is suppressed.
 int	builtin_echo(t_cmd *cmd)
 {
-	int	flag;
+	int		flag;
+	char	**args;
 
 	flag = FALSE;
 	if (cmd->options)
-		flag = check_flag(cmd->options);
-	if (!flag && cmd->options)
 	{
-		printf("%s", cmd->options);
-		if (cmd->input != NULL)
-			printf(" ");
+		args = ft_split(cmd->options, ' ');
+		flag = get_flag(args);
+		free_arr_2d(args);
 	}
 	if (cmd->input != NULL)
 		ft_putstr_fd(cmd->input, STDOUT_FILENO);
