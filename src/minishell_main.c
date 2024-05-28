@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/23 20:03:39 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 19:16:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*fline(size_t _case)
 	else if (bruh == 3)
 		ttp = "<|°_°|>";
 	else if (bruh == 4)
-		ttp = "\"\"";
+		ttp = "\"$US $USER\" $? $? | export 'aab = dfg'";
 	else if (bruh == 5)
 		ttp = "< file cat -e";
 	else if (bruh == 6)
@@ -82,12 +82,12 @@ void	minishell(t_shell *tshell)
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		//print_tokens_st(tshell->tokens); //Print tokens list
+		print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//test_heredoc("test.txt", tshell); //test heredoc
 		create_cmd_from_cmd(tshell);

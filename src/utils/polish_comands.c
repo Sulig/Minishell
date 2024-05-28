@@ -6,20 +6,16 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/23 18:54:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 19:08:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /* Asing comand type:
- * - REDIR	< << > >>
+ * - REDIR	< > << >>
  * - PIPE	|
- * - CMD	the rest...
- *
- * And do:
- * * Quote removal of comand
- * * Trim the input & quote removal
+ * - CMD	the rest
 */
 t_cmd	*asign_comandtype(t_cmd *cmd)
 {
@@ -106,8 +102,8 @@ static t_list	*create_comand_behind(t_list *comands, t_cmd *cmd)
 }
 
 /*
- * Remove quotes, asign corresponent CMDTYPE (CMD, REDIR || PIPE)
- * Call for create_comand_behind if REDIR->input has ' '
+ * Expand env_var, remove quotes, asign corresponent CMDTYPE (CMD, REDIR || PIPE)
+ * Call for create_comand_behind if REDIR->input has ' ' && is no quoted
 */
 t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 {
@@ -127,9 +123,10 @@ t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 				cmd = (t_cmd *)comands->next->content;
 				if (!ft_strllen(cmd->input))
 					cmd->input = ft_free_str(cmd->input);
-				cmd = asign_comandtype(cmd);
 			}
+			cmd = asign_comandtype(cmd);
 		}
+		cmd = expand_env_vars_cmd(tshell, cmd);
 		cmd = quote_removal(tshell, cmd);
 		comands = comands->next;
 	}

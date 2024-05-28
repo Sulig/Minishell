@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/23 18:50:38 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:43:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ static t_cmd	*quote_removal_options(t_shell *tshell, t_cmd *cmd)
 	return (cmd);
 }
 
+/*
+ * Removes all quotes of comand
+ * * Considers cases like: "''" && '""' and so on..
+*/
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd)
 {
 	tshell->line = ft_free_str(tshell->line);

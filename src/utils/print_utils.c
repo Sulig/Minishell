@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 19:58:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:57:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	print_comands_st(t_list *cmd)
 		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
 		ft_printf("~ comand '%s'\n", comand->comand);
 		ft_printf("~ options '%s'\n", comand->options);
+		ft_printf("~ original: '%s'\n", comand->original);
 		ft_printf("~ input: '%s'\n", comand->input);
 		ft_printf("⎨---------------v---------------⎬\n");
 		cmd = cmd->next;

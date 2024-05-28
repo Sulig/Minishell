@@ -6,12 +6,17 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/23 18:50:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:43:07 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+ * This function have 2 parts:
+ * 	- Part 1 -> Checker of tokens in tshell
+ * 	- Part 2 -> Token->toktype checker
+*/
 int	check_beforecreate(t_shell *tshell, t_token *token)
 {
 	if (!token)
@@ -22,7 +27,6 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (0);
 		if (!checkfor_unclosedquotes(tshell, tshell->tokens))
 			return (0);
-		expand_env_var(tshell);
 		return (1);
 	}
 	if (token->toktype == PIPE || token->toktype == REDIR)
@@ -59,6 +63,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		{
 			cmd = fill_comand_options(cmd, tokens, pos);
 			cmd = fill_comand_input(cmd, tokens, pos);
+			cmd->original = ft_strdup(cmd->input);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 			if (!tokens)
 				break ;
@@ -128,7 +133,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 	tmp = NULL;
 	if (!check_beforecreate(tshell, NULL))
 		return ;
-	change_to_exit_status(tokens, tshell->exit_state);
 	while (tokens)
 	{
 		pos = ft_lstpos_node(tshell->tokens, tokens);

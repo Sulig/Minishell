@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:10:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,5 @@ void	split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tok_size = ft_lstsize(tshell->tokens);
-	fill_token_location(tshell);
+	fill_token_location(tshell, NULL);
 }
