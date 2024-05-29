@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 19:21:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:05:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*fline(size_t _case)
 	else if (bruh == 6)
 		ttp = "comand name\" -option ";
 	else if (bruh == 7)
-		ttp = "echo > fgh | < file cat -e";
+		ttp = "\"\"";
 	else if (bruh == 8)
 		ttp = "cat Makefile > gig | > h | >> a | cat h > >";
 	else if (bruh == 9)
@@ -77,17 +77,17 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		//tshell->line = ft_readline();
-		tshell->line = fline(4);
+		tshell->line = fline(7);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//test_heredoc("test.txt", tshell); //test heredoc
 		create_cmd_from_cmd(tshell);
