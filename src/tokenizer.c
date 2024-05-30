@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 20:07:25 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:10:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static enum	e_toktype	scan_toktype(char c)
+enum	e_toktype	scan_toktype(char c)
 {
 	if (!c)
 		return (TNULL);
@@ -132,5 +132,5 @@ void	split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tok_size = ft_lstsize(tshell->tokens);
-	fill_token_location(tshell);
+	fill_token_location(tshell, NULL);
 }

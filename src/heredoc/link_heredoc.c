@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   link_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 20:53:50 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/01 20:54:11 by jguillot         ###   ########.fr       */
+/*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
+/*   Updated: 2024/05/14 16:50:07 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

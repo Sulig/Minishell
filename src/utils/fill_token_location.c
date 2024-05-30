@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/04/17 19:14:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:12:03 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static t_list	*detect_quotes(t_list *tokens)
 	return (first);
 }
 
-void	fill_token_location(t_shell *tshell)
+void	fill_token_location(t_shell *tshell, t_list *tokens)
 {
-	tshell->tokens = detect_quotes(tshell->tokens);
+	if (tshell)
+		tshell->tokens = detect_quotes(tshell->tokens);
+	if (tokens)
+		tokens = detect_quotes(tokens);
 }

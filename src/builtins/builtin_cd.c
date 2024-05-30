@@ -6,74 +6,90 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 12:18:58 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:11:48 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_absolutepath(char *str)
+static int	is_relativepath(char *str)
 {
-	if (str[0] == '/')
+	if (str[0] != '/')
 		return (TRUE);
 	return (FALSE);
 }
 
-/*
-**	change env (oldpwd and pwd) depending on if it's absolute or relativ path
-** Simply running cd without any arguments is equivalent
-** to cd ~ which goes to the $HOME directory.
-*/
-char	**change_my_env(t_cmd *cmd, char **env)
+// Makes sure the pointed 'path' string ends in '/'
+static void	end_in_slash(char **path)
 {
-	char	*pwd;
-
-	pwd = get_var_from_env("PWD", env);
-	if (!pwd)
-	{
-		print_err_syntax("minishell: cd does not work if PWD is unset");
-		return (env);
-	}
-	if (cmd->input == NULL)
-	{
-		env = change_pwd_home(env);
-		env = change_oldpwd(pwd, env);
-	}
-	else if (is_absolutepath(cmd->input))
-	{
-		env = change_pwd_absolute(cmd->input, env);
-		env = change_oldpwd(pwd, env);
-	}
-	else
-		env = change_pwd_relative(cmd->input, env);
-	return (env);
+	if ((*path)[ft_strlen(*path)] != '/')
+		ft_strjoin_free(path, "/");
 }
 
-/*
-	if can't change directory (chdir return -1), exit statut = 1
-	else change env (pwd, oldpwd), exit statut = 0
-*/
-int	change_dir(t_cmd *cmd, char **env)
+// Tries to change directory for any 'path' with 'str' at the end.
+// If it succeeds, stops trying and retuns TRUE.
+// FALSE otherwise.
+static int	try_cdpath(char *str, char **env)
 {
-	char	*home;
+	char	**path;
+	int		i;
 
-	home = get_var_from_env("HOME", env);
-	if (cmd->input == NULL)
+	i = -1;
+	path = get_vars_from_env("CDPATH", env);
+	if (path == NULL)
+		return (FALSE);
+	while (path[++i])
 	{
-		if (chdir(home) == -1)
-			return (print_err_syntax ("minishell: cd: HOME not set"));
+		end_in_slash(&path[i]);
+		ft_strjoin_free(&path[i], str);
+		if (chdir(path[i]) == 0)
+		{
+			arrstr_free(path);
+			return (TRUE);
+		}
 	}
-	else if (chdir(cmd->input) == -1)
-		return (print_err_syntax ("minishell: unable to get path"));
-	return (1);
+	arrstr_free(path);
+	return (FALSE);
 }
 
-int	builtin_cd(t_cmd *cmd, char **env)
+// If the string 'str' uses the dir "." or ".." returns TRUE.
+// Otherwise returns FALSE.
+static int	is_same_or_parent_dir(char *str)
 {
-	if (change_dir(cmd, env))
+	if (str[0] != '.')
+		return (FALSE);
+	if (str[1] == '\0' || str[1] == '/')
+		return (TRUE);
+	if (str[1] == '.' && (str[2] == '\0' || str[2] == '/'))
+		return (TRUE);
+	return (FALSE);
+}
+
+// Changes the actual dir.
+// If no 'args' is set, search for the env variable PATH.
+// The first element of 'args' is taken as the new path.
+// It it is a relative path tries appending CDPATH values, printing the current
+// working dir on success.
+// If some error is found returns after printing an error message.
+int	builtin_cd(t_cmd *cmd, char **env)//char **args, char **env)
+{
+	char	*args;
+
+	args = cmd->input;
+	if (args == NULL)
 	{
-		env = change_my_env(cmd, env);
-		return (0);
+		if (chdir(get_var_from_env("HOME", env)) < 0)
+			return (print_comun_error("minishell: cd: HOME not set", 1));
+		return (EXIT_SUCCESS);
 	}
-	return (1);
+	if (args[0] == '\0')
+		return (EXIT_SUCCESS);
+	if (is_relativepath(args) && is_same_or_parent_dir(args) == FALSE)
+	{
+		if (try_cdpath(args, env))
+			return (builtin_pwd());
+	}
+	if (chdir(args) < 0)
+		return (print_comun_error("cd: no such file or directory", 1));
+	return (EXIT_SUCCESS);
 }

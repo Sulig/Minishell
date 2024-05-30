@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 19:59:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:05:28 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	print_err_syntax(char *content)
 		ft_printf_fd(2, " %cnewline'\n", 96);
 	else
 		ft_printf_fd(2, " %c%s'\n", 96, content);
-	return (0);
+	return (2);
 }
 
 int	print_comandnotfound(char *comand)

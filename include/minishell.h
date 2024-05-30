@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 15:56:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 17:09:57 by sadoming         ###   ########.fr       */
+/*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
+/*   Updated: 2024/05/28 19:21:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include "libft_utils.h"
 # include "redirect.h"
 # include "signals.h"
+# include "heredoc.h"
+# include "limits.h"
+# include "errors.h"
 
 # include <fcntl.h>
 # include <signal.h>
@@ -46,8 +49,9 @@ int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 
 /* MINISHELL */
 char	*ft_readline(void);
+void	heredoc(t_shell *tshell, char *end, int fd);
 void	split_intotokens(t_shell *tshell);
-void	fill_token_location(t_shell *tshell);
+void	fill_token_location(t_shell *tshell, t_list *tokens);
 void	expand_env_var(t_shell *tshell);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 void	split_intodoublelist(t_shell *tshell);
@@ -56,8 +60,7 @@ void	split_intodoublelist(t_shell *tshell);
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
-
-void	heredoc(t_shell *tshell, char *end, int fd);
+t_list	*destroy_nullcomands(t_shell *tshell, t_list *first, t_list *comands);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -80,6 +83,7 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 /* UTILS */
 t_list	*split_intotokens_forexpand(char *line);
 char	*expand_env_var_instr(char *str, char **env, int exit);
+void	change_to_exit_status(t_list *tokens, int ex_st);
 
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
@@ -87,8 +91,10 @@ int		set_quote(char ch, int quoted);
 void	set_path(t_shell *tshell);
 t_cmd	*trim_input(t_cmd *cmd);
 t_cmd	*asign_comandtype(t_cmd *cmd);
+t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
+void	create_cmd_from_cmd(t_shell *tshell);
 
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strremove.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:17:11 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/09 20:05:30 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:45:38 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 17:57:47 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:10:31 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	exec_cmd(t_cmd *cmd, char **env)
 	else
 		check_path(path);
 	args = parse_args(path, cmd->options);
+	args = parse_args(path, cmd->input);
 	execve(path, args, env);
-	print_comun_error("command not found", 127);
+	print_comandnotfound(cmd->comand);
 	exit(EXIT_FAILURE);
 }

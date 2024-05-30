@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 17:44:50 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/14 17:50:52 by sadoming         ###   ########.fr       */
+/*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
+/*   Updated: 2024/05/29 19:05:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ char	*fline(size_t _case)
 	else if (bruh == 3)
 		ttp = "<|°_°|>";
 	else if (bruh == 4)
-		ttp = "export HELLO=122";
+		ttp = "\"$US $USER\" $? $? | export 'aab = dfg'";
 	else if (bruh == 5)
 		ttp = "< file cat -e";
 	else if (bruh == 6)
 		ttp = "comand name\" -option ";
 	else if (bruh == 7)
-		ttp = "\"i will don't close";
+		ttp = "\"\"";
 	else if (bruh == 8)
-		ttp = "sometext \"i will don't close";
+		ttp = "cat Makefile > gig | > h | >> a | cat h > >";
 	else if (bruh == 9)
 		ttp = "ls -l -a -b arhchive | leaks -atExit -- ./minishell";
 	else if (bruh == 10)
-		ttp = "echo -nn-n|echo-n\"j\"|echo -n-n-n|echo -n -n -n|echo -nn j";
+		ttp = "cd $pwd\\src";
 	else if (bruh == 11)
-		ttp = "echo \"hola'\" -100 | echo -100";
+		ttp = "echo \'exit_code ->$? user ->$USER home -> $HOME\'";
 	else if (bruh == 12)
-		ttp = "$NOEXISTENT echo hole";
+		ttp = "echo >> file hi";
 	else
 		ttp = "";
 	bruh++;
@@ -76,22 +76,23 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		tshell->exit_state = control_and_c(tshell->exit_state);
 		//tshell->line = ft_readline();
-		tshell->line = fline(3); 
+		tshell->line = fline(7);
+		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens); //Print tokens list
+		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
-		test_heredoc("test.txt", tshell); //test heredoc
-		//if (tshell->cmd_size && tshell->tree_cmd)
-			//redirect_and_execute(tshell);
+		//test_heredoc("test.txt", tshell); //test heredoc
+		create_cmd_from_cmd(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

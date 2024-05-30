@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:47:20 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/08 17:47:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:46:44 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

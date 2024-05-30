@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 19:08:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:02:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	is_builtin_cmd(t_list *cmd_lst)
 				return (FALSE);
 			cmd = node->content;
 		}
+		if (!ft_strllen(cmd->comand))
+			return (FALSE);
 		if (is_builtin(cmd->comand))
 			return (TRUE);
 	}

@@ -6,13 +6,13 @@
 /*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:37:01 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:54 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:10:28 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	builtin_unset(t_cmd *cmd, char **env)
+int	builtin_unset(t_cmd *cmd, t_shell *tshell)
 {
 	int		i;
 	int		exit_status;
@@ -24,15 +24,19 @@ int	builtin_unset(t_cmd *cmd, char **env)
 		i = 0;
 		args = ft_split(cmd->input, ' ');
 		if (!ft_arr_strlen(args))
+		{
+			free_arr_2d(args);
 			return (0);
+		}
 		while (args[i])
 		{
 			if (env_valid_varname(args[i]))
-				remove_env_var(args[i], env);
+				remove_env_var(args[i], tshell);
 			else
 				exit_status = print_err_custom(MERR_UNSET, 127);
 			i++;
 		}
+		free_arr_2d(args);
 	}
 	return (exit_status);
 }

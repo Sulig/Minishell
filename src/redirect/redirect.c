@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/01 21:24:36 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:48:24 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	redirect_one(t_cmd *redir, int n)
 // Performs all redirections of 'cmd', from left-to-right, removing the
 // redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
 // If a redirection error ocurrs, prints an error message.
-int	redirect(t_list *cmds, int i)
+int	redirect(t_list *cmds, int n)
 {
 	int		exit_stat;
 	t_list	*node;
@@ -55,7 +55,7 @@ int	redirect(t_list *cmds, int i)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
-			exit_stat = redirect_one(cmd, i);
+			exit_stat = redirect_one(cmd, n);
 			node = node->next;
 		}
 		else
