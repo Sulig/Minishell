@@ -20,6 +20,7 @@ CFLAGS	:= -Wall -Wextra -g #-Werror #-fsanitize=address
 # ------------------ #
 # Directories:
 
+LIB_DIR = ./libft
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 INC_DIR = ./include
