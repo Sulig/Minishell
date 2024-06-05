@@ -57,7 +57,6 @@ RL_URL		= http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-bfe9c5
 LIBS		= -lreadline -ltermcap
 RM			= rm -fr
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
 DEFS		= -DREADLINE_LIBRARY
 DFLAGS		= -MT $@ -MMD -MP
 #XFLAGS		= -fsanitize=address
