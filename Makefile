@@ -14,9 +14,9 @@ NAME = minishell
 # ------------------ #
 # Flags:
 
-CC			:=	gcc
-FLAGS		:=	-lreadline -Llibft -lft #-fsanitize=address
-CFLAGS		:=	-Wall -Wextra -g
+CC	:= gcc
+FLAGS	:= -lreadline -Llibft -lft #-fsanitize=address
+CFLAGS	:= -Wall -Wextra -g #-Werror #-fsanitize=address
 # ------------------ #
 # Directories:
 
@@ -46,6 +46,11 @@ RL_FLAGS = -lreadline -Llibft -lft
 
 # HEADERS
 HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
+
+# DEPENDENCIES ->
+INCS	:=	minishell.h
+DEPS = $(OBJS:%.o=%d)
+-include $(DEPS)
 
 ## MINISHELL SRC ->
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
@@ -94,11 +99,40 @@ SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
 SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
 
-INCS	:=	minishell.h
+OBJS 	= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+INC	:=	$(addprefix $(INC_DIR)/, $(INCS))
 
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
-INC		:=	$(addprefix $(INC_DIR)/, $(INCS))
-
+# **************************************************************************** #
+#-------------------------------------------------------------#
+all: libft $(NAME)
+#-------------------------------------------------------------#
+author:
+	@echo "\033[1;34m\n~ **************************************** ~\n"
+	@echo "  ~ \tMade by sadoming && jguillot \t  ~\n"
+	@echo "~ **************************************** ~\n\n"
+#-------------------------------------------------------------#
+#-------------------------------------------------------------#
+norm:
+	@echo "\n\033[1;93m~ Norminette:\n"
+	@norminette -R CheckForbiddenSourceHeader $(LIB_DIR)
+	@norminette -R CheckForbiddenSourceHeader $(HEADERS)
+	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR)
+	@echo "\n~~~~~~~~~~~~~~~~~~~~~~\n"
+	@norminette $(LIB_DIR)
+	@norminette $(HEADERS)
+	@norminette $(SRC_DIR)
+	@echo "\033[1;32m\n ~ Norminette:\t~ OK\n"
+	@echo "~~~~~~~~~~~~~~~~~~~~~~\n"
+#-------------------------------------------------------------#
+#-------------------------------------------------------------#
+run: $(NAME)
+	@echo "\033[1;34m\n~ **************************************** ~\n"
+	@echo " ~ Running ./$(NAME)"
+	@echo "\n~ **************************************** ~\033[0;37m\n"
+	@./$(NAME)
+#-------------------------------------------------------------#
+#-------------------------------------------------------------#
+# **************************************************************************** #
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC) Makefile libft/libft.a
 #mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/print_errors $(OBJ_DIR)/utils $(OBJ_DIR)/exec $(OBJ_DIR)/env $(OBJ_DIR)/redirect
 	@mkdir -p $(@D)
@@ -107,25 +141,59 @@ ifdef CPPFLAGS
 else
 	$(CC) -I $(INC_DIR) $(CFLAGS) -c $< -o $@
 endif
-
-all:		libft $(NAME)
-
-$(NAME):	$(OBJS)
-	$(CC) $(OBJS) $(FLAGS) $(CFLAGS) -o $@
-
+# ----------------------------------------
+# LIBFT ->
 libft:
+	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
 	make -C libft
+	@echo "\033[1;37m~ **************************************** ~\n"
+# ----------------------------------------
+# MINISHELL ->
+$(NAME): $(OBJS)
+	@echo "\033[1;93m\n * Making $(NAME) -->\033[0;37m\n"
+	$(CC) $(OBJS) $(FLAGS) $(CFLAGS) -o $@
+	@echo "\033[1;32m\n $(NAME) Compiled Successfully\033[0;37m\n"
 
+# **************************************************************************** #
+# **************************************************************************** #
+# Debugging region:
+
+debug: $(NAME)
+	@echo " ~ Debugging ./$(NAME)"
+	@lldb $(NAME)
+
+# ------------------
+
+leaks: $(NAME)
+	@echo " ~ Running leaks -atExit -- ./$(NAME)"
+	@leaks -atExit -- ./$(NAME)
+
+# ------------------
+
+val: $(NAME)
+	@echo " ~ Running valgrind ./$(NAME)"
+	@valgrind ./$(NAME)
+
+val-strict: $(NAME)
+	@echo " ~ Running valgrind ./$(NAME)"
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+# **************************************************************************** #
+# Clean region
 clean:
-	rm -rdf $(OBJ_DIR)
-	printf "libft : "
-	make clean -C libft
+	@make -s clean -C $(LIB_DIR)
+	@/bin/rm -frd $(OBJ_DIR)
 
-fclean:		clean
-	rm -rf $(NAME) checker
-	printf "libft : "
-	make fclean -C libft
+fclean:	clean
+	@make -s fclean -C $(LIB_DIR)
+	@/bin/rm -f $(NAME)
+	@/bin/rm -frd $(NAME).dSYM
+	@echo "\033[1;34m All cleaned succesfully\033[1;97m\n"
 
-re:			fclean all
+clear: fclean
+	@find . -name ".DS_Store" -type f -delete
+	@clear
 
-.PHONY:		all libft clean fclean re
+re: fclean all
+
+.PHONY:	all libft clean fclean re
+# **************************************************************************** #
