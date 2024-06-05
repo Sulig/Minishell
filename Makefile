@@ -146,7 +146,7 @@ endif
 # LIBFT ->
 libft:
 	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
-	make -C libft
+	@make -s -C $(LIB_DIR)
 	@echo "\033[1;37m~ **************************************** ~\n"
 # ----------------------------------------
 # MINISHELL ->
