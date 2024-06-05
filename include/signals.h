@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:38:41 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/21 18:06:29 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:53:36 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define HERE 0
 
 // Number of the received signal.
-int		g_signal;
+extern int		g_signal;
 
 void	set_signals(int mode);
 void	start_signals(void);

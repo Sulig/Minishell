@@ -6,7 +6,7 @@
 #    By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/19 12:00:39 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/20 09:48:53 by jguillot         ###   ########.fr        #
+#    Updated: 2024/06/05 17:48:37 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = libft.a
 # Flags:
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -g #-fsanitize=address
 CPPFLAGS = -MMD -MP
 INCLUDE = -I $(INC_DIR)/
 # ------------------ #

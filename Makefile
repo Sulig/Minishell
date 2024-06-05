@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
+#    By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/28 19:21:21 by sadoming          #+#    #+#              #
-#    Updated: 2024/05/28 19:21:25 by sadoming         ###   ########.fr        #
+#    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
+#    Updated: 2024/06/05 17:50:21 by jguillot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,14 @@ NAME = minishell
 # ------------------ #
 # Flags:
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
-LDFLAGS = $(addprefix -L, $(dir $(LIBFT)))
-INCFLAG = -I $(INC_DIR)/ -I $(LIB_DIR)/include/
+CC			:=	gcc
+FLAGS		:=	-lreadline -Llibft -lft #-fsanitize=address
+CFLAGS		:=	-Wall -Wextra -g
 # ------------------ #
 # Directories:
 
+SRC_DIR = ./src
 OBJ_DIR = ./obj
-LIB_DIR = ./libft
-RDL_DIR = ./readline
 INC_DIR = ./include
 
 # Minishell SRC Directories:
@@ -44,28 +42,12 @@ MAK = Makefile # This Makefile
 LIBFT = $(LIB_DIR)/libft.a # The Libft
 
 # Readline libraries ->
-#READLINE = ./readline/libreadline.a
-#HISTORY = ./readline/libhistory.a
-
-#READLINE
-RL_DIR		= readline/
-INCFLAG		+= -I $(RL_DIR)
-READLINE	:= $(RL_DIR)libreadline.a $(RL_DIR)libhistory.a
-RL_FILE		= readline.tar.gz
-RL_URL		= http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-bfe9c573a9e376323929c80b2b71c59727fab0cc.tar.gz
-
-LIBS		= -lreadline -ltermcap
-RM			= rm -fr
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
-DEFS		= -DREADLINE_LIBRARY
-DFLAGS		= -MT $@ -MMD -MP
-#XFLAGS		= -fsanitize=address
+RL_FLAGS = -lreadline -Llibft -lft
 
 # HEADERS
 HEADERS = $(INC_DIR)/ $(LIB_DIR)/include/
 
-# MINISHELL SRC ->
+## MINISHELL SRC ->
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
 		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
 		  checkfor_unclosedquotes.c split_intodoublelist.c\
@@ -112,142 +94,38 @@ SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
 SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
 
+INCS	:=	minishell.h
+
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+INC		:=	$(addprefix $(INC_DIR)/, $(INCS))
 
-# DEPENDENCIES ->
-DEPS = $(OBJS:%.o=%d)
--include $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC) Makefile libft/libft.a
+#mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/print_errors $(OBJ_DIR)/utils $(OBJ_DIR)/exec $(OBJ_DIR)/env $(OBJ_DIR)/redirect
+	@mkdir -p $(@D)
+ifdef CPPFLAGS
+	$(CC) -I $(INC_DIR) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+else
+	$(CC) -I $(INC_DIR) $(CFLAGS) -c $< -o $@
+endif
 
-# **************************************************************************** #
-#-------------------------------------------------------------#
-all: $(LIBFT) $(READINE) $(NAME)
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-$(RL_DIR):
-			@curl -k $(RL_URL) > $(RL_FILE)
-			@tar -xf $(RL_FILE) && mv readline-* readline
-			@rm -rf $(RL_FILE)
+all:		libft $(NAME)
 
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-help:
-	@echo "\033[1;37m\n ~ Posible comands:\n"
-	@echo "\t~ all  \t\t #-> Make $(NAME)\n"
-	@echo "\t~ clean \t #-> Clean *.o\n"
-	@echo "\t~ fclean \t #-> Clean all\n"
-	@echo "\t~ clear \t #-> Clean all & clear\n"
-	@echo "\t~ norm \t\t #-> Run norminette\n"
-	@echo "\t~ run  \t\t #-> Run $(NAME)\n"
-	@echo "\t~ re   \t\t #-> Redo $(NAME)\n"
-	@make -s author
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-author:
-	@echo "\033[1;34m\n~ **************************************** ~\n"
-	@echo "  ~ \tMade by sadoming \t  ~\n"
-	@echo "~ **************************************** ~\n\n"
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-norm:
-	@echo "\n\033[1;93m~ Norminette:\n"
-	@norminette -R CheckForbiddenSourceHeader $(LIB_DIR)
-	@norminette -R CheckForbiddenSourceHeader $(HEADERS)
-	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR)
-	@echo "\n~~~~~~~~~~~~~~~~~~~~~~\n"
-	@norminette $(LIB_DIR)
-	@norminette $(HEADERS)
-	@norminette $(SRC_DIR)
-	@echo "\033[1;32m\n ~ Norminette:\t~ OK\n"
-	@echo "~~~~~~~~~~~~~~~~~~~~~~\n"
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-run: $(NAME)
-	@echo "\033[1;34m\n~ **************************************** ~\n"
-	@echo " ~ Running ./$(NAME)"
-	@echo "\n~ **************************************** ~\033[0;37m\n"
-	@./$(NAME)
-#-------------------------------------------------------------#
-#-------------------------------------------------------------#
-# *****************************************************************************
-# Compiling Region:
+$(NAME):	$(OBJS)
+	$(CC) $(OBJS) $(FLAGS) $(CFLAGS) -o $@
 
-# LIBFT ->
-$(LIBFT):
-	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
-	@make -s -C $(LIB_DIR)
-	@echo "\033[1;37m~ **************************************** ~\n"
-# ----------------------------------------
-# READLINE ->
-$(READLINE): $(RL_DIR)
-			@if [ ! -f $(RL_DIR)config.status ] ; then \
-				printf "\t$(YELLOW)Configuring READLINE...$(DEFAULT)" && \
-				cd ./$(RL_DIR) && \
-				./configure &> /dev/null && \
-				echo ✅; \
-			fi
-			@printf "\t$(YELLOW)Making READLINE...$(DEFAULT)"
-			@cd ./$(RL_DIR) && make &> /dev/null
-			@echo ✅
-# ----------------------------------------
-# MINISHELL ->
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HEADERS)
-			@mkdir -p $(@D)
-			@$(CC) $(CFLAGS) $(XFLAGS) $(DEFS) $(DFLAGS) $(INCFLAG) -c $< -o $@
-			@printf "\t$(YELLOW)$< $(GREEN)compiled$(DEFAULT)\n"
-
-$(NAME): $(MAK) $(HEADERS) $(LIBFT) $(READLINE) $(OBJS)
-	@echo "\033[1;93m\n * Making $(NAME) -->\033[0;37m\n"
-	@$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) -l ft $(XFLAGS) $(DEFS) $(LIBS) $(READLINE) -o $(NAME)
-	@echo "\033[1;32m\n $(NAME) Compiled Successfully\033[0;37m\n"
-
-# **************************************************************************** #
-# **************************************************************************** #
-# Debugging region:
-
-debug: $(NAME)
-	@echo " ~ Debugging ./$(NAME)"
-	@lldb $(NAME)
-
-# ------------------
-
-leaks: $(NAME)
-	@echo " ~ Running leaks -atExit -- ./$(NAME)"
-	@leaks -atExit -- ./$(NAME)
-
-# ------------------
-
-val: $(NAME)
-	@echo " ~ Running valgrind ./$(NAME)"
-	@valgrind ./$(NAME)
-
-val-strict: $(NAME)
-	@echo " ~ Running valgrind ./$(NAME)"
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-
-# **************************************************************************** #
-# Clean region
+libft:
+	make -C libft
 
 clean:
-	@make -s clean -C $(LIB_DIR)
-	@if [ -d $(RDL_DIR) ]; then \
-		make -s clean -C $(RDL_DIR); \
-	fi
-	@/bin/rm -frd $(OBJ_DIR)
-	@echo "\033[1;34m\n All obj removed\033[1;97m\n"
+	rm -rdf $(OBJ_DIR)
+	printf "libft : "
+	make clean -C libft
 
+fclean:		clean
+	rm -rf $(NAME) checker
+	printf "libft : "
+	make fclean -C libft
 
-fclean: clean
-	@make -s fclean -C $(LIB_DIR)
-	@/bin/rm -f $(NAME)
-	@/bin/rm -frd $(NAME).dSYM
-	@find . -name ".DS_Store" -type f -delete
-	@clear
-	@echo "\033[1;34m All cleaned succesfully\033[1;97m\n"
+re:			fclean all
 
-clear: fclean
-	@clear
-
-re: fclean all
-# -------------------- #
-.PHONY: all author clean clear debug fclean help leaks norm re run val
-# **************************************************************************** #
+.PHONY:		all libft clean fclean re

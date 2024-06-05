@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/29 19:05:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:51:35 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int		g_signal;
 
 char	*fline(size_t _case)
 {
