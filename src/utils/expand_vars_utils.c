@@ -22,9 +22,9 @@ static enum	e_toktype	scan_toktype(char c)
 		return (ENV);
 	else if (c == '-')
 		return (OPTION);
-	else if (c == 34)
+	else if (c == '\"')
 		return (D_QUOTE);
-	else if (c == 39)
+	else if (c == '\'')
 		return (S_QUOTE);
 	else if (c == '|')
 		return (PIPE);
@@ -71,7 +71,7 @@ static t_token	*create_token(char *line, size_t pos)
 		len++;
 		if (scan_toktype(line[i]) == ENV)
 			len += len_of_content(line + pos + 1);
-		if (len == 1)
+		if (scan_toktype(line[i]) == ENV && len == 1)
 			token->toktype = ARGS;
 	}
 	token->content = ft_substr(line, pos, len);

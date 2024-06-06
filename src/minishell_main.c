@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/05 17:51:35 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:00:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*fline(size_t _case)
 	else if (bruh == 5)
 		ttp = "< file cat -e";
 	else if (bruh == 6)
-		ttp = "comand name\" -option ";
+		ttp = "\"$USER\" '$USER' | '$USER' $USER \"$\" ";
 	else if (bruh == 7)
 		ttp = "\"\"";
 	else if (bruh == 8)
@@ -78,8 +78,8 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		//tshell->line = ft_readline();
-		tshell->line = fline(7);
+		tshell->line = ft_readline();
+		//tshell->line = fline(6);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
@@ -89,7 +89,7 @@ void	minishell(t_shell *tshell)
 		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
+		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
 		free_tokens(tshell);
 		//test_heredoc("test.txt", tshell); //test heredoc
 		create_cmd_from_cmd(tshell);

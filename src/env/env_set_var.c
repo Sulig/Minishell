@@ -48,4 +48,3 @@ void	set_env_var(const char *varname, const char *value, t_shell *tshell)
 		tshell->env = arrstr_set(tshell->env, varline, var_index);
 	free(varline);
 }
-

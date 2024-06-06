@@ -32,12 +32,10 @@ static char	*what_content(t_list *node)
 
 static char	*unclosed_dquote(t_list *tokens)
 {
-	t_list	*first;
 	t_list	*pos;
 	t_token	*token;
 	size_t	dquotes;
 
-	first = tokens;
 	dquotes = 0;
 	while (tokens)
 	{
@@ -56,12 +54,10 @@ static char	*unclosed_dquote(t_list *tokens)
 
 static char	*unclosed_squote(t_list *tokens)
 {
-	t_list	*first;
 	t_list	*pos;
 	t_token	*token;
 	size_t	dquotes;
 
-	first = tokens;
 	dquotes = 0;
 	while (tokens)
 	{

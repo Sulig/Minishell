@@ -59,10 +59,36 @@ static t_list	*detect_quotes(t_list *tokens)
 	return (first);
 }
 
-void	fill_token_location(t_shell *tshell, t_list *tokens)
+void	fill_token_location_inshell(t_shell *tshell)
 {
 	if (tshell)
 		tshell->tokens = detect_quotes(tshell->tokens);
-	if (tokens)
-		tokens = detect_quotes(tokens);
+}
+
+t_list	*fill_token_location(t_list *tokens)
+{
+	t_list	*first;
+	t_token	*token;
+	int		quoted;
+
+	first = tokens;
+	quoted = 0;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		quoted = set_quote_type(token->toktype, quoted);
+		if (quoted == 1 && token->toktype != S_QUOTE)
+		{
+			token->location = IN_SINGLE_Q;
+			token->toktype = ARGS;
+		}
+		if (quoted == 2 && token->toktype != D_QUOTE)
+		{
+			token->location = IN_DOUBLE_Q;
+			if (token->toktype != ENV)
+				token->toktype = ARGS;
+		}
+		tokens = tokens->next;
+	}
+	return (first);
 }

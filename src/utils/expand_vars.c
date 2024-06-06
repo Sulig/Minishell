@@ -91,7 +91,7 @@ static char	*expand_env_var_str(char *str, char **env, int exit)
 	if (!ft_strstr(str, "$"))
 		return (str);
 	tokens = split_intotokens_forexpand(str);
-	fill_token_location(NULL, tokens);
+	tokens = fill_token_location(tokens);
 	if (!tokens)
 		return (str);
 	first = tokens;

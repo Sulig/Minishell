@@ -132,5 +132,5 @@ void	split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tok_size = ft_lstsize(tshell->tokens);
-	fill_token_location(tshell, NULL);
+	fill_token_location_inshell(tshell);
 }

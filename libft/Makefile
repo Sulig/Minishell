@@ -15,8 +15,7 @@ NAME = libft.a
 # Flags:
 
 CC = gcc
-CFLAGS = -Wall -Wextra -g #-fsanitize=address
-CPPFLAGS = -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 INCLUDE = -I $(INC_DIR)/
 # ------------------ #
 # Directories:
@@ -106,7 +105,7 @@ norm:
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)%.c $(HDR) $(MAK)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDE) -c $< -o $@ $(INCLUDE)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(INCLUDE)
 
 $(NAME): $(MAK) $(HDR) $(OBJS)
 	@ar rc $(NAME) $(OBJS)

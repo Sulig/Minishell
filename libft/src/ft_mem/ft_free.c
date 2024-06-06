@@ -14,7 +14,8 @@
 
 void	donothing(void *ptr)
 {
-	ptr = NULL;
+	if (ptr)
+		ptr = NULL;
 }
 
 void	*ft_free_str(char *str)

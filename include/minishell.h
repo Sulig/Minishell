@@ -51,7 +51,6 @@ int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 char	*ft_readline(void);
 void	heredoc(t_shell *tshell, char *end, int fd);
 void	split_intotokens(t_shell *tshell);
-void	fill_token_location(t_shell *tshell, t_list *tokens);
 void	expand_env_var(t_shell *tshell);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 void	split_intodoublelist(t_shell *tshell);
@@ -84,6 +83,8 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 t_list	*split_intotokens_forexpand(char *line);
 char	*expand_env_var_instr(char *str, char **env, int exit);
 void	change_to_exit_status(t_list *tokens, int ex_st);
+void	fill_token_location_inshell(t_shell *tshell);
+t_list	*fill_token_location(t_list *tokens);
 
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
