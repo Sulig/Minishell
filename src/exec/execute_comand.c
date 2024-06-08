@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_comand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 16:51:04 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/08 07:50:41 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execute_command(t_list *cmds, t_shell *tshell)
 	node = cmds;
 	while (node)
 	{
-		cmd = node->content;
+		cmd = expand_env_vars_cmd(tshell, node->content);
 		if (cmd->cmdtype != REDIR)
 		{
 			set_signals(NON_INTER);

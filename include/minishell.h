@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 19:21:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/08 07:29:53 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 /* UTILS */
 t_list	*split_intotokens_forexpand(char *line);
 char	*expand_env_var_instr(char *str, char **env, int exit);
-void	change_to_exit_status(t_list *tokens, int ex_st);
+/*void	change_to_exit_status(t_list *tokens, int ex_st);*/
+char	*replace_exit_st(char *str, int exit_status);
 void	fill_token_location_inshell(t_shell *tshell);
 t_list	*fill_token_location(t_list *tokens);
 

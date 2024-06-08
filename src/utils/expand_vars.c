@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 19:08:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/08 08:41:23 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,23 @@ static char	*expansor_utils(char *str, char **env, int exit)
 {
 	char	*env_var;
 	char	*tmp;
-
+/*
 	if (my_strcmp("$?", str))
 	{
+
 		if (ft_strstr(str, "\1"))
 		{
 			str = ft_free_str(str);
 			return (ft_itoa(exit));
 		}
 		return (str);
+	}
+*/
+	if (ft_strstr(str, "$?") != NULL)
+	{
+		tmp = replace_exit_st(str, exit);
+		str = ft_free_str(str);
+		return (tmp);
 	}
 	env_var = NULL;
 	tmp = ft_strdup(str + 1);
@@ -116,5 +124,6 @@ t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd)
 	cmd->comand = expand_env_var_str(cmd->comand, tshell->env, exit);
 	cmd->options = expand_env_var_str(cmd->options, tshell->env, exit);
 	cmd->input = expand_env_var_str(cmd->input, tshell->env, exit);
+	cmd->original = expand_env_var_str(cmd->original, tshell->env, exit);
 	return (cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_exit_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 18:46:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/08 07:43:21 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*replace_exit_st(char *str, int exit_status)
 	free(exit_status_str);
 	return (result);
 }
-
+/*
 void	change_to_exit_status(t_list *tokens, int ex_st)
 {
 	t_list	*first;
@@ -89,3 +89,4 @@ void	change_to_exit_status(t_list *tokens, int ex_st)
 	}
 	tokens = first;
 }
+*/
