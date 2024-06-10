@@ -79,7 +79,7 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		//tshell->line = ft_readline();
-		tshell->line = fline(4);
+		tshell->line = fline(12);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
@@ -95,6 +95,7 @@ void	minishell(t_shell *tshell)
 		create_cmd_from_cmd(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
+						print_comands_st(tshell->comands);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

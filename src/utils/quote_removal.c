@@ -12,6 +12,7 @@
 
 #include "../../include/minishell.h"
 
+/*
 static char	*consider_envcase(char *result, t_token *token)
 {
 	if (ft_strstr(token->content, "$?") && token->location != IN_SINGLE_Q)
@@ -23,7 +24,7 @@ static char	*consider_envcase(char *result, t_token *token)
 	else
 		result = ft_strjoin_free_fst(result, token->content);
 	return (result);
-}
+}*/
 
 static char	*convert_tokens_instr(t_list *tokens)
 {
@@ -39,7 +40,7 @@ static char	*convert_tokens_instr(t_list *tokens)
 		else if (token->toktype == SPACE)
 			result = ft_strjoin_free_fst(result, token->content);
 		else if (token->toktype == ENV)
-			result = consider_envcase(result, token);
+			result = ft_strjoin_free_fst(result, token->content);
 		else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
 			if (token->location != NO_QUOTED)
 				result = ft_strjoin_free_fst(result, token->content);
