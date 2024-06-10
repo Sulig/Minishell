@@ -16,22 +16,15 @@ static char	*expansor_utils(char *str, char **env, int exit)
 {
 	char	*env_var;
 	char	*tmp;
-/*
-	if (my_strcmp("$?", str))
-	{
+	char	*itoa;
 
-		if (ft_strstr(str, "\1"))
-		{
-			str = ft_free_str(str);
-			return (ft_itoa(exit));
-		}
-		return (str);
-	}
-*/
-	if (ft_strstr(str, "$?") != NULL)
+	if (ft_strstr(str, "$?"))
 	{
-		tmp = replace_exit_st(str, exit);
+		itoa = ft_itoa(exit);
+		tmp = ft_strinter(str, itoa, ft_cnt_tostr(str, "$?") + 2);
 		str = ft_free_str(str);
+		itoa = ft_free_str(itoa);
+		tmp = ft_strremove(tmp, "$?");
 		return (tmp);
 	}
 	env_var = NULL;
@@ -124,6 +117,5 @@ t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd)
 	cmd->comand = expand_env_var_str(cmd->comand, tshell->env, exit);
 	cmd->options = expand_env_var_str(cmd->options, tshell->env, exit);
 	cmd->input = expand_env_var_str(cmd->input, tshell->env, exit);
-	cmd->original = expand_env_var_str(cmd->original, tshell->env, exit);
 	return (cmd);
 }

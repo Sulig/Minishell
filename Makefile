@@ -105,7 +105,7 @@ INC	:=	$(addprefix $(INC_DIR)/, $(INCS))
 
 # **************************************************************************** #
 #-------------------------------------------------------------#
-all: libft $(NAME)
+all: $(LIBFT) $(NAME)
 #-------------------------------------------------------------#
 author:
 	@echo "\033[1;34m\n~ **************************************** ~\n"
@@ -134,6 +134,13 @@ run: $(NAME)
 #-------------------------------------------------------------#
 #-------------------------------------------------------------#
 # **************************************************************************** #
+# LIBFT ->
+$(LIBFT):
+	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
+	@make -s -C $(LIB_DIR)
+	@echo "\033[1;37m~ **************************************** ~\n"
+# ----------------------------------------
+# MINISHELL ->
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC) Makefile libft/libft.a
 #mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/print_errors $(OBJ_DIR)/utils $(OBJ_DIR)/exec $(OBJ_DIR)/env $(OBJ_DIR)/redirect
 	@mkdir -p $(@D)
@@ -143,14 +150,7 @@ else
 	$(CC) -I $(INC_DIR) $(CFLAGS) -c $< -o $@
 endif
 # ----------------------------------------
-# LIBFT ->
-libft:
-	@echo "\033[0;33m\n * Compiling Libft -->\033[0;37m\n"
-	@make -s -C $(LIB_DIR)
-	@echo "\033[1;37m~ **************************************** ~\n"
-# ----------------------------------------
-# MINISHELL ->
-$(NAME): $(OBJS)
+$(NAME): $(MAK) $(HEADERS) $(LIBFT) $(OBJS)
 	@echo "\033[1;93m\n * Making $(NAME) -->\033[0;37m\n"
 	$(CC) $(OBJS) $(FLAGS) $(CFLAGS) -o $@
 	@echo "\033[1;32m\n $(NAME) Compiled Successfully\033[0;37m\n"
@@ -162,12 +162,6 @@ $(NAME): $(OBJS)
 debug: $(NAME)
 	@echo " ~ Debugging ./$(NAME)"
 	@lldb $(NAME)
-
-# ------------------
-
-leaks: $(NAME)
-	@echo " ~ Running leaks -atExit -- ./$(NAME)"
-	@leaks -atExit -- ./$(NAME)
 
 # ------------------
 
@@ -196,5 +190,5 @@ clear: fclean
 
 re: fclean all
 
-.PHONY:	all libft clean fclean re
+.PHONY:	all author clean clear debug fclean norm re run val
 # **************************************************************************** #

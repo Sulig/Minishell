@@ -30,13 +30,13 @@ char	*fline(size_t _case)
 	else if (bruh == 3)
 		ttp = "<|°_°|>";
 	else if (bruh == 4)
-		ttp = "\"$US $USER\" $? $? | export 'aab = dfg'";
+		ttp = "\"$US $USER\" '$?' $? | export 'aab = dfg'";
 	else if (bruh == 5)
 		ttp = "export welcome=\"Welcome, $USER\" | echo $welcome";
 	else if (bruh == 6)
 		ttp = "\"$USER\" '$USER' | '$USER' $USER \"$\" ";
 	else if (bruh == 7)
-		ttp = "\"\"";
+		ttp = "'$?'hola";
 	else if (bruh == 8)
 		ttp = "cat Makefile > gig | > h | >> a | cat h > >";
 	else if (bruh == 9)
@@ -78,8 +78,8 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		tshell->line = ft_readline();
-		//tshell->line = fline(5);
+		//tshell->line = ft_readline();
+		tshell->line = fline(4);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
@@ -98,7 +98,7 @@ void	minishell(t_shell *tshell)
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 
