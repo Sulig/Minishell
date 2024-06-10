@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 18:26:13 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:46:04 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ static int	process_builtin_here(t_shell *tshell)
 {
 	int		exit_stat;
 	t_list	*cmds;
-	char	**env;
 
 	cmds = tshell->tree_cmd[0];
-	env = tshell->env;
 	save_restore_stdio(STDIN_FILENO, STDOUT_FILENO, SAVE);
 	exit_stat = read_heredocs(cmds, 0, tshell);
 	if (exit_stat)
