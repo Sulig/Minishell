@@ -32,7 +32,7 @@ char	*fline(size_t _case)
 	else if (bruh == 4)
 		ttp = "\"$US $USER\" '$?' $? | export 'aab = dfg'";
 	else if (bruh == 5)
-		ttp = "export welcome=\"Welcome, $USER\" | echo $welcome";
+		ttp = "export welcome=\"Welcome, $USER\"";
 	else if (bruh == 6)
 		ttp = "echo \"$USER\" '$USER'";
 	else if (bruh == 7)
@@ -86,7 +86,7 @@ void	minishell(t_shell *tshell)
 		split_intotokens(tshell);
 		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		//print_comands_st(tshell->comands); //Print cmd list
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd

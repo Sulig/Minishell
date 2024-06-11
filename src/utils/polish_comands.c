@@ -60,7 +60,10 @@ static t_cmd	*revise_cmd(t_cmd *cmd)
 		if (tmp[cnt] != '-' && tmp[cnt - 1] != '-')
 			tmp[cnt] = '\0';
 	cmd->options = ft_strdup(tmp);
-	cmd->input = ft_strremplace(cmd->input, cmd->input + ft_strllen(tmp));
+	if (ft_strllen(cmd->input + ft_strllen(tmp)) != 0)
+		cmd->input = ft_strremplace(cmd->input, cmd->input + ft_strllen(tmp));
+	else
+		cmd->input = ft_free_str(cmd->input);
 	tmp = ft_free_str(tmp);
 	tmp = ft_strtrim_s(cmd->input, " ");
 	cmd->input = ft_strremplace(cmd->input, tmp);
