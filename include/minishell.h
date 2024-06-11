@@ -44,7 +44,7 @@ void	print_minishell_welcome(char **env);
 void	exit_minishell(t_shell *tshell);
 
 /* CHECKERS */
-int		check_valid_syntax(t_shell *tshell);
+void	check_valid_syntax(t_shell *tshell);
 int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 
 /* MINISHELL */
