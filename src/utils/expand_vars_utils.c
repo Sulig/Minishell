@@ -44,7 +44,7 @@ static size_t	len_of_content(char *line)
 		return (0);
 	while (line[len])
 	{
-		if (!ft_isalnum(line[len]))
+		if (!ft_isalnum(line[len]) && line[len] != '_')
 			if (line[len] != '?')
 				return (len);
 		len++;

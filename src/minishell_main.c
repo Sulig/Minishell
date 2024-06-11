@@ -34,9 +34,9 @@ char	*fline(size_t _case)
 	else if (bruh == 5)
 		ttp = "export welcome=\"Welcome, $USER\" | echo $welcome";
 	else if (bruh == 6)
-		ttp = "\"$USER\" '$USER' | '$USER' $USER \"$\" ";
+		ttp = "echo \"$USER\" '$USER'";
 	else if (bruh == 7)
-		ttp = "'$?'hola";
+		ttp = "'$?'hola | echo $USER_a";
 	else if (bruh == 8)
 		ttp = "cat Makefile > gig | > h | >> a | cat h > >";
 	else if (bruh == 9)
@@ -78,15 +78,15 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		tshell->line = ft_readline();
-		//tshell->line = fline(12);
+		//tshell->line = ft_readline();
+		tshell->line = fline(6);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
 		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		//print_comands_st(tshell->comands); //Print cmd list
+		print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
@@ -95,10 +95,11 @@ void	minishell(t_shell *tshell)
 		create_cmd_from_cmd(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
+		print_comands_st(tshell->comands); //Print cmd list
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		//break ;
+		break ;
 	}
 }
 

@@ -113,7 +113,7 @@ void	redirect_and_execute(t_shell *tshell)
 
 	p.cmds_amount = arr_size((void *)tshell->tree_cmd);
 	if (p.cmds_amount == 0)
-		tshell->exit_state = 0;
+		return ;
 	else if (p.cmds_amount == 1 && is_builtin_cmd(tshell->tree_cmd[0]))
 		tshell->exit_state = process_builtin_here(tshell);
 	else
