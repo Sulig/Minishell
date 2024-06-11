@@ -6,7 +6,7 @@
 /*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/08 08:17:02 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:48:00 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 	int		ext_stat;
 
 	ext_stat = tshell->exit_state;
-	cmd = expand_env_vars_cmd(tshell, piped_cmd->content);
+	cmd = expand_exit_status(tshell, piped_cmd->content);
 	if (!ft_strncmp(cmd->comand, "echo", 5) && tshell->cmd_size > 1)
 		prepare_echo(piped_cmd);
 	if (!ft_strncmp(cmd->comand, "cd", 3))
