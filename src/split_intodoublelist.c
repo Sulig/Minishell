@@ -70,6 +70,7 @@ void	split_intodoublelist(t_shell *tshell)
 	t_list	**multiple_cmd;
 	size_t	nodes;
 	size_t	pos;
+	size_t	len;
 
 	multiple_cmd = NULL;
 	if (!tshell->comands || !tshell->cmd_size)
@@ -81,11 +82,14 @@ void	split_intodoublelist(t_shell *tshell)
 		tshell->exit_state = print_err_custom(MERR_MALLOC, 1);
 		return ;
 	}
+	len = 0;
 	pos = 0;
-	while (pos < nodes)
+	while (len < nodes)
 	{
 		multiple_cmd[pos] = create_nodelist_intodll(tshell->comands);
-		pos++;
+		if (multiple_cmd[pos])
+			pos++;
+		len++;
 	}
 	tshell->tree_cmd = multiple_cmd;
 }

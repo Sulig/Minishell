@@ -23,8 +23,7 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 	{
 		if (!tshell->tokens)
 			return (0);
-		if (!check_valid_syntax(tshell))
-			return (0);
+		check_valid_syntax(tshell);
 		if (!checkfor_unclosedquotes(tshell, tshell->tokens))
 			return (0);
 		return (1);

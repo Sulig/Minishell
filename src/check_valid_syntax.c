@@ -76,7 +76,7 @@ t_token	*checkfor_mode(enum e_toktype mode, t_list *list)
 	return (NULL);
 }
 
-int	check_valid_syntax(t_shell *tshell)
+void	check_valid_syntax(t_shell *tshell)
 {
 	t_list	*list;
 	t_token	*checker;
@@ -84,15 +84,8 @@ int	check_valid_syntax(t_shell *tshell)
 	list = tshell->tokens;
 	checker = checkfor_mode(PIPE, list);
 	if (checker)
-	{
 		tshell->exit_state = print_err_syntax(checker->content);
-		return (tshell->exit_state);
-	}
 	checker = checkfor_mode(REDIR, list);
 	if (checker)
-	{
 		tshell->exit_state = print_err_syntax(checker->content);
-		return (tshell->exit_state);
-	}
-	return (1);
 }
