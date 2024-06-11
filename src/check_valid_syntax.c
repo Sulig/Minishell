@@ -84,9 +84,15 @@ int	check_valid_syntax(t_shell *tshell)
 	list = tshell->tokens;
 	checker = checkfor_mode(PIPE, list);
 	if (checker)
-		return (print_err_syntax(checker->content));
+	{
+		tshell->exit_state = print_err_syntax(checker->content);
+		return (tshell->exit_state);
+	}
 	checker = checkfor_mode(REDIR, list);
 	if (checker)
-		return (print_err_syntax(checker->content));
+	{
+		tshell->exit_state = print_err_syntax(checker->content);
+		return (tshell->exit_state);
+	}
 	return (1);
 }
