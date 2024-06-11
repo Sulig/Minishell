@@ -78,15 +78,15 @@ void	minishell(t_shell *tshell)
 	while (4)
 	{
 		set_signals(INTER);
-		//tshell->line = ft_readline();
-		tshell->line = fline(6);
+		tshell->line = ft_readline();
+		//tshell->line = fline(6);
 		tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
 		//print_tokens_st(tshell->tokens); //Print tokens list
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		//print_multiple_cmds_st(tshell->tree_cmd); //Print tree_cmd
@@ -95,11 +95,11 @@ void	minishell(t_shell *tshell)
 		create_cmd_from_cmd(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
-		print_comands_st(tshell->comands); //Print cmd list
+		//print_comands_st(tshell->comands); //Print cmd list
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
-		break ;
+		//break ;
 	}
 }
 

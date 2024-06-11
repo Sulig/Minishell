@@ -42,13 +42,12 @@ char	**parse_expr(char *path, char *args)
 
 	splited = ft_split(args, ' ');
 	items = ft_arr_strlen(splited);
-
-	arg = malloc(sizeof(char *)*(items + 2));
+	arg = malloc(sizeof(char *) * (items + 2));
 	i = 1;
 	arg[0] = path;
 	while (i <= items)
 	{
-		arg[i] = ft_strdup(splited[i-1]);
+		arg[i] = ft_strdup(splited[i - 1]);
 		i++;
 	}
 	arg[i] = NULL;
