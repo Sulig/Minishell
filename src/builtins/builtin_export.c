@@ -46,22 +46,11 @@ static int	export_noargs(char **env)
 	return (0);
 }
 
-// Export every variable in 'args' to env.
-// If no errors are found, returns 0.
-// Otherwise returns error with the proper message and exit_status.
-int	builtin_export(t_cmd *cmd, t_shell *tshell)
+int	process_args(char **args, int exit_status, t_shell *tshell)
 {
 	char	*varname;
 	int		i;
-	int		exit_status;
-	char	**args;
-	char	**tmp;
 
-	exit_status = 0;
-	if (!cmd->input)
-		return (export_noargs(tshell->env));
-	args = ft_split(cmd->input, ' ');
-	tmp = args;
 	--args;
 	while (++args && *args)
 	{
@@ -82,6 +71,24 @@ int	builtin_export(t_cmd *cmd, t_shell *tshell)
 		if (varname)
 			free(varname);
 	}
+	return (exit_status);
+}
+
+// Export every variable in 'args' to env.
+// If no errors are found, returns 0.
+// Otherwise returns error with the proper message and exit_status.
+int	builtin_export(t_cmd *cmd, t_shell *tshell)
+{
+	int		exit_status;
+	char	**args;
+	char	**tmp;
+
+	exit_status = 0;
+	if (!cmd->input)
+		return (export_noargs(tshell->env));
+	args = ft_split(cmd->input, ' ');
+	tmp = args;
+	exit_status = process_args(args, exit_status, tshell);
 	free_arr_2d(tmp);
 	return (exit_status);
 }
