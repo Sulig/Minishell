@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/08 08:41:23 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:48:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*expansor_utils(char *str, char **env, int exit)
 	env_var = NULL;
 	tmp = ft_strdup(str + 1);
 	tmp = ft_strjoin_free_fst(tmp, "=");
-	env_var = env[ft_search_str(env, tmp)];
+	env_var = find_var_line_from_env(tmp, env);
 	env_var = ft_strcut(env_var, '=', '>', 'y');
 	tmp = ft_free_str(tmp);
 	str = ft_free_str(str);
