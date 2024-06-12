@@ -130,6 +130,7 @@ t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 			cmd = asign_comandtype(cmd);
 		}
 		cmd = expand_env_vars_cmd(tshell, cmd);
+		cmd = clean_comand(cmd);
 		cmd = quote_removal(tshell, cmd);
 		comands = comands->next;
 	}

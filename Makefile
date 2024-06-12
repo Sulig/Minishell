@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+         #
+#    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/06/05 17:50:21 by jguillot         ###   ########.fr        #
+#    Updated: 2024/06/12 17:43:10 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,9 +57,7 @@ DEPS = $(OBJS:%.o=%d)
 SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
 		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
 		  checkfor_unclosedquotes.c split_intodoublelist.c\
-		  create_cmd_from_cmd.c
-
-SRC_SRC += redirect_and_execute.c
+		  redirect_and_execute.c
 
 BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
@@ -83,8 +81,8 @@ SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
 		  quote_removal.c set_path.c trim_input.c is_builtin.c\
-		  fill_comand_options.c ft_strjoin_free.c expand_vars_utils.c\
-		  replace_exit_status.c
+		  fill_comand.c ft_strjoin_free.c expand_vars_utils.c\
+		  replace_exit_status.c clean_comand.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c builtin_utils.c
 

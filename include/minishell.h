@@ -57,9 +57,9 @@ void	split_intodoublelist(t_shell *tshell);
 
 /* TO TEST OR TESTING */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
+t_cmd	*clean_comand(t_cmd *cmd);
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 t_cmd	*fill_comand_options(t_cmd *cmd, t_list *tokens, size_t *pos);
-t_list	*destroy_nullcomands(t_shell *tshell, t_list *first, t_list *comands);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -80,12 +80,11 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
-t_list	*split_intotokens_forexpand(char *line);
 char	*expand_env_var_instr(char *str, char **env, int exit);
-/*void	change_to_exit_status(t_list *tokens, int ex_st);*/
 char	*replace_exit_st(char *str, int exit_status);
 void	fill_token_location_inshell(t_shell *tshell);
 t_list	*fill_token_location(t_list *tokens);
+t_list	*split_intotokens_forexpand(char *line);
 
 int		check_beforecreate(t_shell *tshell, t_token *token);
 int		is_builtin_name(t_cmd *cmd);
@@ -96,7 +95,6 @@ t_cmd	*asign_comandtype(t_cmd *cmd);
 t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd);
 t_list	*del_nullcomand(t_list *first, t_list *comand);
 t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands);
-void	create_cmd_from_cmd(t_shell *tshell);
 
 /* UTILS FOR DEBBUG */
 void	print_all_arrstr(char **arr);
