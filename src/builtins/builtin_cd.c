@@ -71,7 +71,7 @@ static int	is_same_or_parent_dir(char *str)
 // It it is a relative path tries appending CDPATH values, printing the current
 // working dir on success.
 // If some error is found returns after printing an error message.
-int	builtin_cd(t_cmd *cmd, char **env)//char **args, char **env)
+int	builtin_cd(t_cmd *cmd, char **env)
 {
 	char	*args;
 
