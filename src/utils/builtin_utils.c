@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/29 17:02:30 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:29:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Returns TRUE if the string 'str' is the name of a builtin.
 static int	is_builtin(const char *str)
 {
 	if (!ft_strncmp(str, "cd", 3) || !ft_strncmp(str, "echo", 5) || \
@@ -23,7 +22,6 @@ static int	is_builtin(const char *str)
 	return (FALSE);
 }
 
-// Returns TRUE if the list 'cmd' is suposed to execute a builtin.
 int	is_builtin_cmd(t_list *cmd_lst)
 {
 	t_list	*node;

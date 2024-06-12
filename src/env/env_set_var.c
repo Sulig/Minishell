@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env_set_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/28 18:19:38 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:26:14 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Allocates and returns a string consisting of 'varname' + "=" + 'value'.
 static char	*join_varline(const char *varname, const char *value)
 {
 	char	*varline;
@@ -31,7 +30,6 @@ static char	*join_varline(const char *varname, const char *value)
 	return (varline);
 }
 
-// Sets the environment variable 'varname' to 'value', creating it if needed.
 void	set_env_var(const char *varname, const char *value, t_shell *tshell)
 {
 	int		var_index;

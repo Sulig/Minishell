@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:00:07 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/10 18:46:04 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:24:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// Redirects and executes the command 'cmd' in a subshell, taking into account
-// it is the i-th command of the pipeline.
-// It exits with the appropriate exit status, or returns with a non-zero value.
+/*
+* Redirects and executes the command 'cmd' in a subshell, taking into account
+* it is the i-th command of the pipeline.
+* It exits with the appropriate exit status, or returns with a non-zero value.
+*/
 static int	process_command(t_pipe *p, t_list *cmds, t_shell *tshell)
 {
 	int		exit_stat;
@@ -32,8 +34,6 @@ static int	process_command(t_pipe *p, t_list *cmds, t_shell *tshell)
 	return (EXIT_FAILURE);
 }
 
-// Updates the pipe's file descriptor updates from the parent process for the
-// i-th command, closing previous file descriptors and preparing for next.
 static void	parent_pipe_update(t_pipe *p, int i)
 {
 	if (i > 0)
@@ -48,9 +48,11 @@ static void	parent_pipe_update(t_pipe *p, int i)
 	}
 }
 
-// Redirects and executes the commands defined by the array of commands 'cmds',
-// assuming p->cmds_amount is already initialized. All commands are executed in
-// subprocesses. Returns the exit status of the last command.
+/*
+* Redirects and executes the commands defined by the array of commands 'cmds',
+* assuming p->cmds_amount is already initialized. All commands are executed in
+* subprocesses. Returns the exit status of the last command.
+*/
 static int	process_commands(t_list **piped_cmds, t_pipe *p, t_shell *tshell)
 {
 	int		exit_stat;
@@ -80,8 +82,6 @@ static int	process_commands(t_list **piped_cmds, t_pipe *p, t_shell *tshell)
 	return (exit_stat);
 }
 
-// Redirects and executes the given command 'cmd' on the current shell
-// environment, returning the exit status.
 static int	process_builtin_here(t_shell *tshell)
 {
 	int		exit_stat;
@@ -104,9 +104,11 @@ static int	process_builtin_here(t_shell *tshell)
 	return (exit_stat);
 }
 
-// Performs all redirections and command/builtin executions defined by the array
-// of lists 'commands', updating the 'exit_status' and environment 'env'
-// accordingly.
+/*
+* Performs all redirections and command/builtin executions defined by the array
+* of lists 'commands', updating the 'exit_status' and environment 'env'
+* accordingly.
+*/
 void	redirect_and_execute(t_shell *tshell)
 {
 	t_pipe	p;

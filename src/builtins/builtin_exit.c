@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/23 12:00:35 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:25:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	ft_check_llong(char *arg)
 	}
 	return (TRUE);
 }
-// Long long range: -9223372036854775808 > 9223372036854775807
 
 static int	is_longlong(char *arg)
 {

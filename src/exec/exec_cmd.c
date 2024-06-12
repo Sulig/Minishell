@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/11 17:54:58 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// If the given 'path' is not executable, prints an error message and exits.
 static void	check_path(const char *path)
 {
 	if (!path_exists(path))
@@ -55,10 +54,12 @@ char	**parse_expr(char *path, char *args)
 	return (ft_strarrdup(arg));
 }
 
-// Executes the shell command 'cmd' and exits, assuming 'cmd' is a non-empty
-// NULL-terminated array of strings in which the first element is the path or
-// name of the program and the following (if any) are the arguments.
-// On error, prints an error message and exits with the appropriate exit code.
+/*
+* Executes the shell command 'cmd' and exits, assuming 'cmd' is a non-empty
+* NULL-terminated array of strings in which the first element is the path or
+* name of the program and the following (if any) are the arguments.
+* On error, prints an error message and exits with the appropriate exit code.
+*/
 void	exec_cmd(t_cmd *cmd, char **env)
 {
 	char	**args;

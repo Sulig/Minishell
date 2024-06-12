@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wait_children.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:26:13 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:16:23 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:28:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Waits for 'n' (n > 0) children processes to finish and returns the
-// exit status of the 'last_pid' (if exited).
 int	wait_children(pid_t last_pid, size_t n)
 {
 	pid_t	pid;

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_executable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:23:50 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/21 19:15:55 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Allocates and returns a string containing the full path of 'file' in 'dir'.
-// Example: if 'dir' is /folder and 'file' is myfile, returns "/folder/myfile".
 static char	*get_full_path(const char *dir, const char *file)
 {
 	char	*tmp;
@@ -25,9 +23,6 @@ static char	*get_full_path(const char *dir, const char *file)
 	return (full_path);
 }
 
-// Searches for 'file' using the PATH env variable and returns the first
-// full path for the executable file.
-// If the file is not found or is not executable, prints an error and exits.
 char	*get_executable(const char *file, char **env)
 {
 	char	*path;

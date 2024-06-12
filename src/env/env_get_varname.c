@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env_get_varname.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 11:10:09 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:04:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:25:55 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Checks and returns TRUE if the given 'word' us a valid variable name.
-// A valid name consists only of alphanumeric characters and underscores, and
-// begins with an alphabetic character or an underscore.
+/*
+* Checks and returns TRUE if the given 'word' us a valid variable name.
+* A valid name consists only of alphanumeric characters and underscores, and
+* begins with an alphabetic character or an underscore.
+*/
 int	env_valid_varname(char *word)
 {
 	if (!word || !*word)
@@ -30,9 +32,6 @@ int	env_valid_varname(char *word)
 	return (FALSE);
 }
 
-// Check if the string has a proper name for an environment variable before
-// any '=' if exists.
-// Allocates and returns the valid varname or NULL if invalid.
 char	*env_get_varname(const char *str)
 {
 	int		len;

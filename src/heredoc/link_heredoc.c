@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   link_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 16:50:07 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:45 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Links the 'n'-th command's here document to the standard input.
-// Returns the appropriate exit code after printing any error message.
 int	link_heredoc(int n)
 {
 	char	*filename;

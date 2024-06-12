@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/28 18:04:04 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:25:32 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	printvar_quoted(const char *var)
 	write(1, "\"\n", 2);
 }
 
-// Prints the variables in env and reurns 0.
 static int	export_noargs(char **env)
 {
 	int	i;
@@ -74,9 +73,11 @@ int	process_args(char **args, int exit_status, t_shell *tshell)
 	return (exit_status);
 }
 
-// Export every variable in 'args' to env.
-// If no errors are found, returns 0.
-// Otherwise returns error with the proper message and exit_status.
+/*
+* Export every variable in 'args' to env.
+* If no errors are found, returns 0.
+* Otherwise returns error with the proper message and exit_status.
+*/
 int	builtin_export(t_cmd *cmd, t_shell *tshell)
 {
 	int		exit_status;

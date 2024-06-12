@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arr_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:57:31 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 17:15:36 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:29:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ char	**append_arr_2d(char **arr, char *s)
 	return (new);
 }
 
-// Allocates and returns a copy of the NULL-terminated array of strings 'arr'
-// with the 'i'th string removed from it. The original array 'arr' is freed.
-// Exits properly if memory allocation fails.
+/*
+* Allocates and returns a copy of the NULL-terminated array of strings 'arr'
+* with the 'i'th string removed from it. The original array 'arr' is freed.
+* Exits properly if memory allocation fails.
+*/
 char	**remove_elem_arr2d(char **arr, int i)
 {
 	char	**orig_arr;

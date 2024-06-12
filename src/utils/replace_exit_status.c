@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   replace_exit_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/11 18:46:59 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:31:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Helper function to count occurrences of a substring in a string
 int	count_occurrences(char *str, const char *sub)
 {
 	int		count;
@@ -80,23 +79,3 @@ t_cmd	*expand_exit_status(t_shell *tshell, t_cmd *cmd)
 	cmd->input = replace_exit_st(cmd->input, exit);
 	return (cmd);
 }
-
-/*
-void	change_to_exit_status(t_list *tokens, int ex_st)
-{
-	t_list	*first;
-	t_token	*node;
-
-	first = tokens;
-	while (tokens)
-	{
-		node = tokens->content;
-		if (ft_strstr(node->content, "$?") && node->location != IN_SINGLE_Q)
-		{
-			node->content = ft_strdup(replace_exit_st(node->content, ex_st));
-		}
-		tokens = tokens->next;
-	}
-	tokens = first;
-}
-*/

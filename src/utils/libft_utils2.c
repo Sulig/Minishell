@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:49:39 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/23 12:18:17 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:30:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Restores the default print signal config and exits returning 'exit_status'.
 void	restore_exit(int exit_status)
 {
 	while (exit_status < 0)
@@ -21,8 +20,6 @@ void	restore_exit(int exit_status)
 	exit(exit_status);
 }
 
-// Allocates 'size' bytes of memory and returns a pointer to it.
-// Exits properly if memory allocation fails.
 void	*p_malloc(size_t size)
 {
 	void	*ptr;
@@ -33,9 +30,6 @@ void	*p_malloc(size_t size)
 	return (ptr);
 }
 
-// Sets the value of the 'i'th string in the NULL-terminated array of strings
-// 'arr' to the string 'str'. Returns 'arr'.
-// Pre: 'i' must be smaller than the 'arr' size.
 char	**arrstr_set(char **arr, const char *str, int i)
 {
 	free(arr[i]);

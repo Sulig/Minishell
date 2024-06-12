@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute_comand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:23:34 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/11 18:48:32 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Executes the command 'cmd' (which might be a builtin) assuming there are no
-// redirections and exits with the appropriate exit status.
 void	execute_command(t_list *cmds, t_shell *tshell)
 {
 	int		exit_stat;

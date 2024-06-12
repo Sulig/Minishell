@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:37:52 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/30 17:30:58 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:29:01 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Stops listening to SIGINT and SIGQUIT signals.
 void	stop_signals(void)
 {
 	signal(SIGINT, SIG_IGN);

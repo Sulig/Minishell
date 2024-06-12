@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   save_restore_stdio.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:01:56 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:14:54 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:28:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// If 'mode' = SAVE: Saves the standard input and output.
-// If 'mode' = RESTORE: Restores the previously saved standard input and output.
 void	save_restore_stdio(int std_in, int std_out, int mode)
 {
 	static int	saved_stdin;

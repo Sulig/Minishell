@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 16:48:24 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:28:37 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ static int	redirect_one(t_cmd *redir, int n)
 	return (EXIT_FAILURE);
 }
 
-// Performs all redirections of 'cmd', from left-to-right, removing the
-// redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
-// If a redirection error ocurrs, prints an error message.
+/*
+* Performs all redirections of 'cmd', from left-to-right, removing the
+* redirection tokens, knowing it's the 'n'-th command. Returns the exit status.
+* If a redirection error ocurrs, prints an error message.
+*/
 int	redirect(t_list *cmds, int n)
 {
 	int		exit_stat;

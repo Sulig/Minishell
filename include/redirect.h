@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:28 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 16:48:40 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:22:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "minishell.h"
 
-# define SAVE 1			// Save mode for save_restore_stdio()
-# define RESTORE 0		// Restore mode for save_restore_stdio()
+# define SAVE 1
+# define RESTORE 0
 # define OPEN_FILE_MODE 0644
-# define READ_END		0				// pipe's read end index
-# define WRITE_END		1				// pipe's write end index
+# define READ_END		0
+# define WRITE_END		1
 # define HEREDOC_FILENAME_PREFIX "/tmp/heredoc_temp_"
 
 void	save_restore_stdio(int std_in, int std_out, int mode);

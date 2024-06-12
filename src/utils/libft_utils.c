@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 07:46:41 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/29 17:16:25 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:30:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Returns the size of the given NULL-terminated array 'arr'.
 size_t	arr_size(const void **arr)
 {
 	size_t	size;
@@ -23,14 +22,11 @@ size_t	arr_size(const void **arr)
 	return (size);
 }
 
-// Counts and returns the amount of elements in the NULL-terminated array 'arr'.
 size_t	arrstr_size(char **arr)
 {
 	return (arr_size((void *)arr));
 }
 
-// Allocates and returns a copy of the NULL-terminated array of strings 'arr'.
-// Exits properly if memory allocation fails.
 char	**arrstr_dup(char **arr)
 {
 	char	**new_arr;
@@ -46,7 +42,6 @@ char	**arrstr_dup(char **arr)
 	return (new_arr);
 }
 
-// Frees the NULL-terminated array of strings 'arr'.
 void	arrstr_free(char **arr)
 {
 	char	**tmp;
@@ -60,8 +55,6 @@ void	arrstr_free(char **arr)
 	free(arr);
 }
 
-// with the string 'str' added at the end of it.
-// The original array 'arr' is freed. Exits properly if memory allocation fails.
 char	**arrstr_add(char **arr, const char *str)
 {
 	char	**new_arr;

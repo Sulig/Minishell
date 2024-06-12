@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   link_output_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:43:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:14:31 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:28:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Opens the file 'filename' and links it to the standard output.
-// If 'append' is not zero, it opens the file with the O_APPEND flag.
-// Returns the appropriate exit code after printing any error message.
 int	link_output_file(const char *filename, int append)
 {
 	int	fd_file;

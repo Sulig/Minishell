@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 20:24:21 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/01 20:24:50 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:30:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Returns the length of the string 'str' (but its NULL-protected).
 static size_t	p_strlen(const char *str)
 {
 	int	i;
@@ -23,10 +22,6 @@ static size_t	p_strlen(const char *str)
 	return (i);
 }
 
-// Copies the 'src' string into 'dst', ensuring NUL-termination of the string
-// (but 'src' is NULL-protected).
-// If the return value is >= dstsize, the output string has been truncated.
-// It is the caller's responsibility to handle this.
 static size_t	p_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclen;
@@ -45,9 +40,6 @@ static size_t	p_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (srclen);
 }
 
-// Copies and concatenates the string 'src' into 'dst', taking the full size of
-// 'dst' (defined by 'dstsize') and ensuring NULL-termination (but 'src' is
-// NULL-protected). Returns the total length of the string it tried to create.
 static size_t	p_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	char	*dst_cpy;
@@ -77,9 +69,6 @@ static size_t	p_strlcat(char *dst, const char *src, size_t dstsize)
 	return (dlen + (src - src_cpy));
 }
 
-// Allocates (with malloc(3)) a new string, which is the result of the
-// concatenation of 's1' and 's2'. Finally, the original 's1' is freed and the
-// new allocated string is pointed by 's1'.
 void	ft_strjoin_free(char **s1, const char *s2)
 {
 	size_t	strsize;

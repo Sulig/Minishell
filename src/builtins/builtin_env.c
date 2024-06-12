@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 09:48:48 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/22 18:53:43 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:25:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Lists the enviroment variables with its values. Returns 0
 int	builtin_env(char **env)
 {
 	char	**tmp;

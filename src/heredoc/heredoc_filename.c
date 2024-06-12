@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_filename.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/14 15:37:38 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Allocates and returns a string representing the here document temp filename
-// for the 'n'-th command.
 char	*heredoc_filename(int n)
 {
 	char	*tmp;

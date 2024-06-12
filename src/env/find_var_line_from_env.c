@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   find_var_line_from_env.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:22:18 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:06:18 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:26:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Returns a pointer to the first character of the line containing the
-// environment variable 'varname'. If 'varname' is not found returns NULL.
 char	*find_var_line_from_env(const char *varname, char **env)
 {
 	int	name_len;

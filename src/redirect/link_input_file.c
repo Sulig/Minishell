@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   link_input_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:52:02 by jguillot          #+#    #+#             */
-/*   Updated: 2024/04/25 14:14:27 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:27:55 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Opens the file 'filename' and links it to the standard input.
-// Returns the appropriate exit code after printing any error message.
 int	link_input_file(const char *filename)
 {
 	int	fd_file;
