@@ -69,7 +69,7 @@ void	exec_cmd(t_cmd *cmd, char **env)
 		path = get_executable(path, env);
 	else
 		check_path(path);
-	if (!ft_strstr(path, "expr"))
+	if (!ft_strstr(path, "expr") && cmd->options != NULL)
 		args = parse_args(path, cmd->options);
 	else
 		args = parse_expr(path, cmd->input);
