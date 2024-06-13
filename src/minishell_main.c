@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/12 19:37:28 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:19:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	minishell(t_shell *tshell)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
 		split_intocomands(tshell, tshell->tokens);
-		print_comands_st(tshell->comands);
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
-		print_multiple_cmds_st(tshell->tree_cmd);
 		free_tokens(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
 			redirect_and_execute(tshell);
