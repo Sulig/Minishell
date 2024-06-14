@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:25:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:55:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,20 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 	char	*arg;
 
 	if (!is_child)
-		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd("exit", STDIN_FILENO);
 	if (cmd->input == NULL && cmd->options == NULL)
 		restore_exit(exit_status);
 	if (cmd->input != NULL && cmd->options != NULL)
-		return (print_comun_error("too many arguments", 1));
-	if (cmd->options != NULL)
+		return (print_comun_error("too many arguments\n", 1));
+	if (cmd->options != NULL && cmd->input == NULL)
 		cmd->input = ft_strdup(cmd->options);
 	if (ft_strchr(cmd->input, ' ') != NULL)
-		return (print_comun_error("too many arguments", 1));
+		return (print_comun_error("too many arguments\n", 1));
 	arg = ft_strtrim(cmd->input, " \n\t\v\f\r");
 	if (is_longlong(arg) == FALSE)
 	{
 		free(arg);
-		restore_exit(print_comun_error("numeric argument required", 2));
+		restore_exit(print_comun_error("numeric argument required\n", 2));
 	}
 	exit_stat = ft_atoll(arg);
 	free(arg);
