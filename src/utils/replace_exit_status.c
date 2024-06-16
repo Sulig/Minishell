@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_exit_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:31:09 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/16 20:31:11 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ char	*replace_exit_st(char *str, int exit_status)
 	int		new_len;
 	char	*result;
 
-	exit_status_str = ft_itoa(exit_status);
 	occ = count_occurrences(str, "$?");
 	if (occ == 0)
 		return (str);
+	exit_status_str = ft_itoa(exit_status);
 	new_len = ft_strlen(str) + occ * (ft_strlen(exit_status_str) - 2) + 1;
 	result = (char *)malloc(new_len);
 	if (result == NULL)
