@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_syntax.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:50:51 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/22 19:07:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:06:43 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_token	*checkfor_mode(enum e_toktype mode, t_list *list)
 	return (NULL);
 }
 
-void	check_valid_syntax(t_shell *tshell)
+int	check_valid_syntax(t_shell *tshell)
 {
 	t_list	*list;
 	t_token	*checker;
@@ -84,8 +84,15 @@ void	check_valid_syntax(t_shell *tshell)
 	list = tshell->tokens;
 	checker = checkfor_mode(PIPE, list);
 	if (checker)
+	{
 		tshell->exit_state = print_err_syntax(checker->content);
+		return (tshell->exit_state);
+	}
 	checker = checkfor_mode(REDIR, list);
 	if (checker)
+	{
 		tshell->exit_state = print_err_syntax(checker->content);
+		return (tshell->exit_state);
+	}
+	return (0);
 }

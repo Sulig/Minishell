@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 18:53:09 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/14 17:33:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:43:38 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	print_err_custom(char *error, int error_n)
 
 int	print_comun_error(char *error, int error_n)
 {
-	ft_printf_fd(STDERR_FILENO, "%s", error);
+	ft_printf_fd(STDERR_FILENO, "%s\n", error);
 	return (error_n);
 }

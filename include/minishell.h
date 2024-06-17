@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/08 07:29:53 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:05:59 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_minishell_welcome(char **env);
 void	exit_minishell(t_shell *tshell);
 
 /* CHECKERS */
-void	check_valid_syntax(t_shell *tshell);
+int		check_valid_syntax(t_shell *tshell);
 int		checkfor_unclosedquotes(t_shell *tshell, t_list *tokens);
 
 /* MINISHELL */
@@ -55,7 +55,7 @@ void	expand_env_var(t_shell *tshell);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 void	split_intodoublelist(t_shell *tshell);
 
-/* TO TEST OR TESTING */
+/* MORE */
 t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd);
 t_cmd	*clean_comand(t_cmd *cmd);
 t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
