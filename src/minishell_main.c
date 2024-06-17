@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/14 18:37:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:24:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **args, char **env)
 		print_err_args();
 	t_shell = init_tshell(t_shell, env);
 	if (!t_shell)
-		return (print_err_custom(MERR_MALLOC, 1));
+		return (1);
 	minishell(t_shell);
 	exit_state = t_shell->exit_state;
 	t_shell = free_tshell(t_shell);

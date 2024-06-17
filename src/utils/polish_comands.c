@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polish_comands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 19:08:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:24:32 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,13 @@ t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 			if (ft_strllen(cmd->input))
 				if (!(cmd->input[0] == '\'' || cmd->input[0] == '\"'))
 					cmd->input = ft_strcut(cmd->input, ' ', '<', 'y');
-			if (comands->next)
-			{
-				cmd = (t_cmd *)comands->next->content;
-				if (!ft_strllen(cmd->input))
-					cmd->input = ft_free_str(cmd->input);
-			}
 			cmd = asign_comandtype(cmd);
 		}
 		cmd = expand_env_vars_cmd(tshell, cmd);
 		cmd = clean_comand(cmd);
 		cmd = quote_removal(tshell, cmd);
+		if (cmd->original && !cmd->input)
+			cmd->input = ft_calloc(sizeof(char *), 1);
 		comands = comands->next;
 	}
 	return (first);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:35:23 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 18:57:20 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:32:20 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ static t_token	*create_token(char *line, size_t pos)
 			token->toktype = ARGS;
 	}
 	token->content = ft_substr(line, pos, len);
-	if (!ft_strllen(token->content))
-		token->content = ft_free_str(token->content);
 	return (token);
 }
 

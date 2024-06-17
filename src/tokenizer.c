@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 18:10:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:31:30 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static char	*fill_content(t_shell *tshell, size_t pos)
 			len += len_of_content(tshell->line + pos + 1);
 	}
 	content = ft_substr(tshell->line, pos, len);
-	if (!ft_strllen(content))
-		content = ft_free_str(content);
 	return (content);
 }
 

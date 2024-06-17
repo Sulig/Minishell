@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_comand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:03:35 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 17:43:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:34:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos)
 
 	if (!tokens)
 		return (cmd);
-	if (*pos > tokens->pos)
-		tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
-	else if (*pos < tokens->pos)
+	if ((*pos >= ft_lstsize(tokens) && !cmd->options) || *pos < tokens->pos)
 		*pos = tokens->pos;
+	else if (*pos > tokens->pos)
+		tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
