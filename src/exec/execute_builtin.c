@@ -44,7 +44,7 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 	if (!ft_strncmp(cmd->comand, "echo", 5) && tshell->cmd_size > 1)
 		prepare_echo(piped_cmd);
 	if (!ft_strncmp(cmd->comand, "cd", 3))
-		ext_stat = builtin_cd(cmd, tshell->env);
+		ext_stat = builtin_cd(cmd, tshell);
 	else if (!ft_strncmp(cmd->comand, "echo", 5))
 		ext_stat = builtin_echo(cmd);
 	else if (!ft_strncmp(cmd->comand, "env", 4))

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/17 19:43:52 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:24:42 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,30 @@ static int	is_same_or_parent_dir(char *str)
 	return (FALSE);
 }
 
-int	builtin_cd(t_cmd *cmd, char **env)
+int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 {
-	char	*args;
-
-	args = cmd->input;
-	if (args == NULL)
+	if (cmd->input == NULL)
 	{
-		if (chdir(get_var_from_env("HOME", env)) < 0)
+		if (chdir(get_var_from_env("HOME", tshell->env)) < 0)
 			return (print_comun_error("minishell: cd: HOME not set", 1));
+		change_pwds(tshell);
 		return (EXIT_SUCCESS);
 	}
-	if (args[0] == '\0')
+	if (cmd->input[0] == '\0')
 		return (EXIT_SUCCESS);
-	if (is_relativepath(args) && is_same_or_parent_dir(args) == FALSE)
+	if (is_relativepath(cmd->input)
+		&& is_same_or_parent_dir(cmd->input) == FALSE)
 	{
-		if (try_cdpath(args, env))
-			return (builtin_pwd());
+		if (try_cdpath(cmd->input, tshell->env))
+		{
+			change_oldpwd(tshell);
+			if (!change_pwd(tshell))
+				return (builtin_pwd());
+			return (EXIT_FAILURE);
+		}
 	}
-	if (chdir(args) < 0)
+	if (chdir(cmd->input) < 0)
 		return (print_comun_error("cd: no such file or directory", 1));
+	change_pwds(tshell);
 	return (EXIT_SUCCESS);
 }
