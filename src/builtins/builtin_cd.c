@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:57:58 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 	{
 		if (chdir(get_var_from_env("HOME", tshell->env)) < 0)
 			return (print_comun_error("minishell: cd: HOME not set", 1));
-		change_pwds(tshell);
+		change_pwds_home(tshell);
 		return (EXIT_SUCCESS);
 	}
 	if (cmd->input[0] == '\0')

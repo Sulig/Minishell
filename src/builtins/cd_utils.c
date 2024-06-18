@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:41:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:10:30 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:12:54 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	change_oldpwd(t_shell *tshell)
 	pwd = get_var_from_env("PWD", tshell->env);
 	oldpwd = ft_strjoin("OLDPWD=", pwd);
 	oldpwd_index = find_var_index_from_env("OLDPWD", tshell->env);
+	if (oldpwd_index == -1)
+	{
+		set_env_var("OLDPWD", pwd,tshell);
+		oldpwd_index = find_var_index_from_env("OLDPWD", tshell->env);
+	}
 	free(tshell->env[oldpwd_index]);
 	tshell->env[oldpwd_index] = ft_strdup(oldpwd);
 	free(oldpwd);
@@ -34,6 +39,11 @@ void	change_pwd_to_home(t_shell *tshell)
 
 	home = get_var_from_env("HOME", tshell->env);
 	pwd_index = find_var_index_from_env("PWD", tshell->env);
+	if (pwd_index == -1)
+	{
+		set_env_var("PWD", home,tshell);
+		pwd_index = find_var_index_from_env("PWD", tshell->env);
+	}
 	pwd = ft_strjoin("PWD=", home);
 	free(tshell->env[pwd_index]);
 	tshell->env[pwd_index] = ft_strdup(pwd);
@@ -51,6 +61,11 @@ int	change_pwd(t_shell *tshell)
 	if (!buffer)
 		return (EXIT_FAILURE);
 	pwd_index = find_var_index_from_env("PWD", tshell->env);
+	if (pwd_index == -1)
+	{
+		set_env_var("PWD", buffer,tshell);
+		pwd_index = find_var_index_from_env("PWD", tshell->env);
+	}
 	pwd = ft_strjoin("PWD=", buffer);
 	free(tshell->env[pwd_index]);
 	tshell->env[pwd_index] = ft_strdup(pwd);
@@ -59,8 +74,14 @@ int	change_pwd(t_shell *tshell)
 	return (EXIT_SUCCESS);
 }
 
-void	change_pwds(t_shell *tshell)
+void	change_pwds_home(t_shell *tshell)
 {
 	change_oldpwd(tshell);
 	change_pwd_to_home(tshell);
+}
+
+void	change_pwds(t_shell *tshell)
+{
+	change_oldpwd(tshell);
+	change_pwd(tshell);
 }

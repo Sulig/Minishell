@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:25:38 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 19:06:23 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:57:28 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		change_pwd(t_shell *tshell);
 char	*concat_path(char **env, char *str);
 char	**get_key_value_pair(char *arg);
 void	change_pwds(t_shell *tshell);
+void	change_pwds_home(t_shell *tshell);
 
 #endif
