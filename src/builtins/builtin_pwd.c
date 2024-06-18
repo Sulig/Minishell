@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:45:42 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/13 17:50:08 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:22:44 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	builtin_pwd(void)
 	buffer = getcwd(buffer, 1024);
 	if (!buffer)
 	{
-		print_err_syntax("error getting pwd");
+		print_err_custom("error getting pwd", 2);
 		return (2);
 	}
 	ft_putendl_fd(buffer, STDOUT_FILENO);

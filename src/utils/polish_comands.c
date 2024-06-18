@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:19:48 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/17 19:24:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:37:10 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ t_list	*polish_comands(t_shell *tshell, t_list *first, t_list *comands)
 			if (ft_strllen(cmd->input))
 				if (!(cmd->input[0] == '\'' || cmd->input[0] == '\"'))
 					cmd->input = ft_strcut(cmd->input, ' ', '<', 'y');
-			cmd = asign_comandtype(cmd);
 		}
+		cmd = asign_comandtype(cmd);
 		cmd = expand_env_vars_cmd(tshell, cmd);
 		cmd = clean_comand(cmd);
 		cmd = quote_removal(tshell, cmd);

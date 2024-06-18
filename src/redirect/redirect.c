@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:28:37 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:23:15 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	redirect_one(t_cmd *redir, int n)
 
 	if (redir->input == NULL)
 	{
-		print_err_syntax("ambiguous redirect");
+		print_err_custom("ambiguous redirect", 1);
 		return (EXIT_FAILURE);
 	}
 	str = redir->input;
