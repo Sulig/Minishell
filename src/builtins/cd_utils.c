@@ -23,7 +23,7 @@ void	change_oldpwd(t_shell *tshell)
 	oldpwd_index = find_var_index_from_env("OLDPWD", tshell->env);
 	if (oldpwd_index == -1)
 	{
-		set_env_var("OLDPWD", pwd,tshell);
+		set_env_var("OLDPWD", pwd, tshell);
 		oldpwd_index = find_var_index_from_env("OLDPWD", tshell->env);
 	}
 	free(tshell->env[oldpwd_index]);
@@ -41,7 +41,7 @@ void	change_pwd_to_home(t_shell *tshell)
 	pwd_index = find_var_index_from_env("PWD", tshell->env);
 	if (pwd_index == -1)
 	{
-		set_env_var("PWD", home,tshell);
+		set_env_var("PWD", home, tshell);
 		pwd_index = find_var_index_from_env("PWD", tshell->env);
 	}
 	pwd = ft_strjoin("PWD=", home);
@@ -63,7 +63,7 @@ int	change_pwd(t_shell *tshell)
 	pwd_index = find_var_index_from_env("PWD", tshell->env);
 	if (pwd_index == -1)
 	{
-		set_env_var("PWD", buffer,tshell);
+		set_env_var("PWD", buffer, tshell);
 		pwd_index = find_var_index_from_env("PWD", tshell->env);
 	}
 	pwd = ft_strjoin("PWD=", buffer);
