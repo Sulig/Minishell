@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:54 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	builtin_echo(t_cmd *cmd)
 	char	**args;
 
 	flag = FALSE;
-	if (cmd->options)
+	if (cmd->flags)
 	{
-		args = ft_split(cmd->options, ' ');
+		args = ft_split(cmd->flags, ' ');
 		flag = get_flag(args);
 		free_arr_2d(args);
 	}

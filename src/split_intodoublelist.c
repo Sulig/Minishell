@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_intodoublelist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:41:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/13 17:05:03 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:43:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static size_t	search_pipes(t_list *comands)
 /*
  * Save the list with the Xcmd cmd to | or NULL
  * *Don't include the '|'
- * And include this list into a double list.
+ * And include this list to array.
  * Exemple:
  * [0][ CMD - REDIR - CMD ]
  * [1][ CMD ]

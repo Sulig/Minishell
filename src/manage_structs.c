@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_structs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:15 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/27 18:21:03 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	free_comands(t_shell *tshell)
 		{
 			cmd = (t_cmd *)tmp->content;
 			cmd->comand = ft_free_str(cmd->comand);
-			cmd->options = ft_free_str(cmd->options);
+			cmd->flags = ft_free_str(cmd->flags);
 			cmd->original = ft_free_str(cmd->original);
-			cmd->input = ft_free_str(cmd->input);
+			cmd->input = ft_auto_free_arr(cmd->input);
 			tmp = tmp->next;
 		}
 		tshell->cmd_size = 0;
@@ -97,8 +97,6 @@ t_shell	*init_tshell(t_shell *tshell, char **env)
 	if (!tshell->env)
 		return (free_tshell(tshell));
 	set_path(tshell);
-	if (!ft_arr_strlen(tshell->path))
-		return (free_tshell(tshell));
 	tshell->line = NULL;
 	tshell->tokens = NULL;
 	tshell->comands = NULL;

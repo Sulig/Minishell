@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:15:16 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/05 20:02:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ enum	e_toktype
 	CMD = '!',
 	ENV = '$',
 	FILENAME = 'f',
-	OPTION = '-',
+	FLAG = '-',
 	D_QUOTE = 34,
 	S_QUOTE = 39,
 	PIPE = '|',
@@ -54,10 +54,10 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	enum e_toktype	cmdtype;
-	char			*comand;
-	char			*options;
-	char			*original;
-	char			*input;
+	t_token			*comand;
+	t_token			*flags;
+	t_token			*original;
+	t_token			**input;
 }					t_cmd;
 
 /* SAVE THE OUTPUT AND FILE DESCRIPTOR */

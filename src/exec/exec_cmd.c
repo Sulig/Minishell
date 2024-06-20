@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/17 19:44:13 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	exec_cmd(t_cmd *cmd, char **env)
 		path = get_executable(path, env);
 	else
 		check_path(path);
-	if (!ft_strstr(path, "expr") && cmd->options != NULL)
-		args = parse_args(path, cmd->options);
+	if (!ft_strstr(path, "expr") && cmd->flags != NULL)
+		args = parse_args(path, cmd->flags);
 	else if (cmd->input)
 		args = parse_expr(path, cmd->input);
 	else

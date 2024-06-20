@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 13:44:25 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/17 19:44:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 
 	if (!is_child)
 		ft_putendl_fd("exit", STDIN_FILENO);
-	if (cmd->input == NULL && cmd->options == NULL)
+	if (cmd->input == NULL && cmd->flags == NULL)
 		restore_exit(exit_status);
-	if (cmd->input != NULL && cmd->options != NULL)
+	if (cmd->input != NULL && cmd->flags != NULL)
 		return (print_comun_error("too many arguments", 1));
-	if (cmd->options != NULL && cmd->input == NULL)
-		cmd->input = ft_strdup(cmd->options);
+	if (cmd->flags != NULL && cmd->input == NULL)
+		cmd->input = ft_strdup(cmd->flags);
 	if (ft_strchr(cmd->input, ' ') != NULL)
 		return (print_comun_error("too many arguments", 1));
 	arg = ft_strtrim(cmd->input, " \n\t\v\f\r");

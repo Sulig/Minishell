@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnodepos_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:50:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 17:06:39 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:56:01 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/list.h"
 
+/*
+*	Get the position of node respect to the list
+*/
 size_t	ft_lstpos_node(t_list *lst, t_list *node)
 {
 	size_t	pos;

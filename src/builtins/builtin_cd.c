@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/18 12:57:58 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:22:34 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	try_cdpath(char *str, char **env)
 	while (path[++i])
 	{
 		end_in_slash(&path[i]);
-		ft_strjoin_free(&path[i], str);
+		ft_strjoin_free_fst(path[i], str);
 		if (chdir(path[i]) == 0)
 		{
 			arrstr_free(path);

@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:19:04 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/17 17:31:30 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:46:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-enum	e_toktype	scan_toktype(char c)
+static enum	e_toktype	scan_toktype(char c)
 {
 	if (!c)
 		return (TNULL);
@@ -21,7 +21,7 @@ enum	e_toktype	scan_toktype(char c)
 	else if (c == '$')
 		return (ENV);
 	else if (c == '-')
-		return (OPTION);
+		return (FLAG);
 	else if (c == 34)
 		return (D_QUOTE);
 	else if (c == 39)
@@ -87,10 +87,10 @@ static t_token	*create_token(t_shell *tshell, size_t pos)
 	if (!token)
 		return (NULL);
 	token->toktype = scan_toktype(tshell->line[pos]);
-	if (token->toktype == OPTION && pos > 0)
+	if (token->toktype == FLAG && pos > 0)
 		if (scan_toktype(tshell->line[pos - 1]) != SPACE)
 			token->toktype = ARGS;
-	if (token->toktype == OPTION)
+	if (token->toktype == FLAG)
 		if (scan_toktype(tshell->line[pos + 1]) == SPACE)
 			token->toktype = ARGS;
 	if (token->toktype == REDIR_IN)
@@ -130,5 +130,5 @@ void	split_intotokens(t_shell *tshell)
 			i++;
 	}
 	tshell->tok_size = ft_lstsize(tshell->tokens);
-	fill_token_location_inshell(tshell);
+	tshell->tokens = fill_token_location(tshell->tokens);
 }

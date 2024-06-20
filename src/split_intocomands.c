@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_the_tokens.c                                 :+:      :+:    :+:   */
+/*   split_intocomands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/17 20:02:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:55:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,39 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (-1);
 	if (token->toktype == ARGS || token->toktype == ENV)
 		return (1);
-	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-		return (4);
 	if (token->toktype == SPACE && token->location != NO_QUOTED)
 		return (1);
-	if (token->toktype == OPTION && token->location == NO_QUOTED)
+	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+		return (2);
+	if (token->toktype == FLAG && token->location == NO_QUOTED)
 		return (3);
 	return (0);
+}
+
+static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
+{
+	t_token	*token;
+	char	*tmp;
+
+	token = (t_token *)tokens->content;
+	tmp = NULL;
+	if (token->toktype == PIPE || token->toktype == REDIR)
+	{
+		cmd->comand->content = ft_strdup(token->content);
+		return (cmd);
+	}
+	while (tokens && check_beforecreate(NULL, token) > 0)
+	{
+		tmp = ft_strjoin_free_fst(tmp, token->content);
+		tokens = tokens->next;
+		*pos = *pos + 1;
+		if (tokens)
+			token = (t_token *)tokens->content;
+	}
+	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
+		*pos = *pos -1;
+	cmd->comand->content = tmp;
+	return (cmd);
 }
 
 static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
@@ -61,9 +87,8 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		}
 		else
 		{
-			cmd = fill_comand_options(cmd, tokens, pos);
+			cmd = fill_comand_flags(cmd, tokens, pos);
 			cmd = fill_comand_input(cmd, tokens, pos);
-			cmd->original = ft_strdup(cmd->input);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 			if (!tokens)
 				break ;
@@ -72,36 +97,9 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 	return (cmd);
 }
 
-static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
-{
-	t_token	*token;
-
-	token = (t_token *)tokens->content;
-	cmd->comand = NULL;
-	if (token->toktype == PIPE || token->toktype == REDIR)
-	{
-		cmd->comand = ft_strdup(token->content);
-		return (cmd);
-	}
-	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-		token->toktype = ARGS;
-	while (tokens && check_beforecreate(NULL, token) > 0)
-	{
-		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
-		tokens = tokens->next;
-		*pos = *pos + 1;
-		if (tokens)
-			token = (t_token *)tokens->content;
-	}
-	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
-		*pos = *pos -1;
-	return (cmd);
-}
-
 static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 {
 	t_cmd	*cmd;
-	char	*trimed;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
@@ -114,10 +112,10 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (token->toktype != PIPE)
 	{
 		cmd = fill_command(cmd, tokens, pos);
-		trimed = ft_strtrim_s(cmd->options, " ");
-		cmd->options = ft_strremplace(cmd->options, trimed);
-		trimed = ft_free_str(trimed);
-		cmd = trim_input(cmd);
+		//fill cmd -> original (tokens input)
+		//create **input spliting original -> [0][hello] [1]["Exemple   template"]
+		//trim && clean: comand name && flags
+		//asign types for utilities
 		cmd = asign_comandtype(cmd);
 	}
 	return (cmd);
@@ -147,6 +145,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
-	tshell->comands = polish_comands(tshell, tshell->comands, tshell->comands);
+	//Clean comands
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

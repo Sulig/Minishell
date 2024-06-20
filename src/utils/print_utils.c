@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 16:57:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	print_all_arrstr(char **arr)
 			ft_printf_fd(1, "Pos |%u|: %s\n", i, arr[i]);
 			i++;
 		}
+		ft_printf("Total size of array: %u\n", ft_arr_strlen(arr));
 	}
 }
 
@@ -73,10 +74,11 @@ void	print_comands_st(t_list *cmd)
 		ft_printf("    [%u] Node: %p\n", size, cmd);
 		comand = (t_cmd *)cmd->content;
 		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
-		ft_printf("~ comand '%s'\n", comand->comand);
-		ft_printf("~ options '%s'\n", comand->options);
-		ft_printf("~ original: '%s'\n", comand->original);
-		ft_printf("~ input: '%s'\n", comand->input);
+		ft_printf("~ comand '%s'\n", comand->comand->content);
+		ft_printf("~ flags '%s'\n", comand->flags->content);
+		ft_printf("~ original: '%s'\n", comand->original->content);
+		ft_printf("~~~~~~~~~~~~ ~ input: \t~\n");
+		print_all_arrstr(comand->input);
 		ft_printf("⎨---------------v---------------⎬\n");
 		cmd = cmd->next;
 		size++;

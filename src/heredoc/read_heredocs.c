@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/05/20 16:49:41 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	read_hd_child(char *d, const char *file, t_shell *tshell)
 * Returns 0 on success, 1 on SIGINT received, or -1 in case of failure.
 * pid_t wait(int *status);-> It suspends execution of the calling process until
 * a child specified by pid argument has changed state
-* WIFEXITED and WEXITSTATUS are two of the options which can be used to know
+* WIFEXITED and WEXITSTATUS are two of the flags which can be used to know
 * the exit status of the child.
 * WIFEXITED(status) : returns true if the child terminated normally.
 * WEXITSTATUS(status) : returns the exit status of the child.

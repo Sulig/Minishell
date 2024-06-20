@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/06/14 19:10:33 by sadoming         ###   ########.fr        #
+#    Updated: 2024/06/20 19:46:49 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 # Flags:
 
 CC	:= gcc
-FLAGS	:= -lreadline -Llibft -lft #-fsanitize=address
+FLAGS	:= -lreadline -Llibft -lft
 CFLAGS	:= -Wall -Wextra -Werror -g -fsanitize=address
 # ------------------ #
 # Directories:
@@ -54,12 +54,11 @@ DEPS = $(OBJS:%.o=%d)
 -include $(DEPS)
 
 ## MINISHELL SRC ->
-SRC_SRC = minishell_main.c minishell_welcome.c ft_readline.c tokenizer.c\
-		  manage_structs.c check_valid_syntax.c parse_the_tokens.c\
-		  checkfor_unclosedquotes.c split_intodoublelist.c\
-		  redirect_and_execute.c
+SRC_SRC = minishell_main.c ft_readline.c manage_structs.c tokenizer.c\
+		  check_valid_syntax.c checkfor_unclosedquotes.c split_intocomands.c\
+		  split_intodoublelist.c redirect_and_execute.c
 
-BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
+#BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
 		  cd_utils2.c export_utils.c
 
@@ -68,23 +67,22 @@ ENV_SRC = env_get_varname.c env_name_len.c env_set_var.c\
 		  get_var_from_env.c get_vars_from_env.c\
 		  remove_env_var.c
 
-EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
+#EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
 		  exec_cmd.c get_executable.c
 
-PER_SRC = print_common_errors.c print_errors.c
+#PER_SRC = print_common_errors.c print_errors.c
 
-RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
+#RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 		  link_write_end.c open_file.c pipe_or_die.c redirect.c\
 		  save_restore_stdio.c wait_children.c
 
 SIG_SRC = signals.c signals_utils.c
 
-UTL_SRC = expand_vars.c fill_token_location.c polish_comands.c print_utils.c\
-		  quote_removal.c set_path.c trim_input.c is_builtin.c\
-		  fill_comand.c ft_strjoin_free.c expand_vars_utils.c\
-		  replace_exit_status.c clean_comand.c
+UTL_SRC = print_utils.c set_path.c fill_token_location.c is_builtin.c\
+		  splitline_intotokens.c fill_comand.c
 
-UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c builtin_utils.c
+UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
+			builtin_utils.c ft_strjoin_free.c
 
 HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 

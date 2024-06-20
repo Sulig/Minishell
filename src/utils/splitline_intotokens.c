@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_vars_utils.c                                :+:      :+:    :+:   */
+/*   splitline_intotokens.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:35:23 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/17 17:32:20 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:46:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static enum	e_toktype	scan_toktype(char c)
 	else if (c == '$')
 		return (ENV);
 	else if (c == '-')
-		return (OPTION);
+		return (FLAG);
 	else if (c == '\"')
 		return (D_QUOTE);
 	else if (c == '\'')
@@ -78,7 +78,7 @@ static t_token	*create_token(char *line, size_t pos)
 	return (token);
 }
 
-t_list	*split_intotokens_forexpand(char *line)
+t_list	*splitline_intotokens(char *line)
 {
 	t_list	*tmp;
 	t_list	*tokens;
