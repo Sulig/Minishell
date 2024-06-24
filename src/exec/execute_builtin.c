@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:32:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/11 18:48:00 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:39:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	prepare_echo(t_list *piped_cmd)
 	{
 		cmd = piped_cmd->content;
 		if (cmd->cmdtype == CMD)
-			first_cmd->input = ft_strdup(cmd->comand);
+			first_cmd->input = ft_strdup(cmd->comand->content);
 		piped_cmd = piped_cmd->next;
 	}
 }
@@ -41,21 +41,21 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 
 	ext_stat = tshell->exit_state;
 	cmd = expand_exit_status(tshell, piped_cmd->content);
-	if (!ft_strncmp(cmd->comand, "echo", 5) && tshell->cmd_size > 1)
+	if (!ft_strncmp(cmd->comand->content, "echo", 5) && tshell->cmd_size > 1)
 		prepare_echo(piped_cmd);
-	if (!ft_strncmp(cmd->comand, "cd", 3))
+	if (!ft_strncmp(cmd->comand->content, "cd", 3))
 		ext_stat = builtin_cd(cmd, tshell);
-	else if (!ft_strncmp(cmd->comand, "echo", 5))
+	else if (!ft_strncmp(cmd->comand->content, "echo", 5))
 		ext_stat = builtin_echo(cmd);
-	else if (!ft_strncmp(cmd->comand, "env", 4))
+	else if (!ft_strncmp(cmd->comand->content, "env", 4))
 		ext_stat = builtin_env(tshell->env);
-	else if (!ft_strncmp(cmd->comand, "exit", 5))
+	else if (!ft_strncmp(cmd->comand->content, "exit", 5))
 		ext_stat = builtin_exit(cmd, ext_stat, is_child);
-	else if (!ft_strncmp(cmd->comand, "export", 7))
+	else if (!ft_strncmp(cmd->comand->content, "export", 7))
 		ext_stat = builtin_export(cmd, tshell);
-	else if (!ft_strncmp(cmd->comand, "pwd", 4))
+	else if (!ft_strncmp(cmd->comand->content, "pwd", 4))
 		ext_stat = builtin_pwd();
-	else if (!ft_strncmp(cmd->comand, "unset", 6))
+	else if (!ft_strncmp(cmd->comand->content, "unset", 6))
 		ext_stat = builtin_unset(cmd, tshell);
 	return (ext_stat);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:54 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/20 18:28:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:42:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int		g_signal;
 
+/*
 static int	control_and_c(int exit_status)
 {
 	if (g_signal == SIGINT)
 		exit_status = EXIT_FAILURE;
 	signal(SIGINT, SIG_IGN);
 	return (exit_status);
-}
+}*/
 
 void	minishell(t_shell *tshell)
 {
@@ -28,10 +29,11 @@ void	minishell(t_shell *tshell)
 	{
 		set_signals(INTER);
 		tshell->line = ft_readline();
-		tshell->exit_state = control_and_c(tshell->exit_state);
+		//tshell->exit_state = control_and_c(tshell->exit_state);
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
+		print_tokens_st(tshell->tokens);
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands);
 		tshell->line = ft_free_str(tshell->line);

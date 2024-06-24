@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/20 19:55:17 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:07:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 /*
  * This function have 2 parts:
- * 	- Part 1 -> Checker of tokens in tshell
- * 	- Part 2 -> Token->toktype checker
+ * 	- Part 1 -> Check valid syntax && no closed quotes in tshell
+ * 	- Part 2 -> Token->toktype Checker
+ * 		- -1	|> PIPES && REDIRS (NO_QUOTED)
+ * 		- 1		|> ARGS && SPACES (IN_QUOTES)
+ * 		- 2		|> QUOTES
+ * 		- 3		|> FLAGS (NO QUOTED)
+ * 		- 0		|> ETC..
 */
 int	check_beforecreate(t_shell *tshell, t_token *token)
 {
@@ -88,7 +93,7 @@ static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
 		else
 		{
 			cmd = fill_comand_flags(cmd, tokens, pos);
-			cmd = fill_comand_input(cmd, tokens, pos);
+			//cmd = fill_comand_input(cmd, tokens, pos);
 			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 			if (!tokens)
 				break ;
@@ -111,8 +116,8 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		token = (t_token *)tokens->content;
 	if (token->toktype != PIPE)
 	{
-		cmd = fill_command(cmd, tokens, pos);
 		//fill cmd -> original (tokens input)
+		cmd = fill_command(cmd, tokens, pos);
 		//create **input spliting original -> [0][hello] [1]["Exemple   template"]
 		//trim && clean: comand name && flags
 		//asign types for utilities
@@ -145,6 +150,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
-	//Clean comands
+	//Clean comands?
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

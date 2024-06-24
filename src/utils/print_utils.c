@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:16:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	print_comands_st(t_list *cmd)
 		comand = (t_cmd *)cmd->content;
 		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
 		ft_printf("~ comand '%s'\n", comand->comand->content);
-		ft_printf("~ flags '%s'\n", comand->flags->content);
+		//ft_printf("~ flags '%s'\n", comand->flags->content);
 		ft_printf("~ original: '%s'\n", comand->original->content);
 		ft_printf("~~~~~~~~~~~~ ~ input: \t~\n");
-		print_all_arrstr(comand->input);
+		//print arr of tokens
 		ft_printf("⎨---------------v---------------⎬\n");
 		cmd = cmd->next;
 		size++;
