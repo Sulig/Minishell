@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:11:04 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/24 19:39:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:49:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	exec_cmd(t_cmd *cmd, char **env)
 	char	**args;
 	char	*path;
 
-	path = cmd->comand->content;
+	path = cmd->name->content;
 	if (!ft_strchr(path, '/'))
 		path = get_executable(path, env);
 	else
@@ -77,6 +77,6 @@ void	exec_cmd(t_cmd *cmd, char **env)
 	else
 		args = parse_args(path, NULL);
 	execve(path, args, env);
-	print_comandnotfound(cmd->comand->content);
+	print_comandnotfound(cmd->name->content);
 	exit(EXIT_FAILURE);
 }

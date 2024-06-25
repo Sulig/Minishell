@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:59:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ static int	is_flag(char *word)
 	return (TRUE);
 }
 
-static int	get_flag(char **args)
+static int	get_flag(t_token **args)
 {
 	int	idx;
 
 	idx = 0;
-	while (args[idx] && is_flag(args[idx]))
+	if (!args)
+		return (0);
+	while (args[idx]->content && is_flag(args[idx]->content))
 		++idx;
 	return (idx);
 }
@@ -39,17 +41,13 @@ static int	get_flag(char **args)
 int	builtin_echo(t_cmd *cmd)
 {
 	int		flag;
-	char	**args;
 
 	flag = FALSE;
+	// Search and recover the flags?
 	if (cmd->flags)
-	{
-		args = ft_split(cmd->flags, ' ');
-		flag = get_flag(args);
-		free_arr_2d(args);
-	}
+		flag = get_flag(cmd->flags);
 	if (cmd->input != NULL)
-		ft_putstr_fd(cmd->input, STDOUT_FILENO);
+		ft_putstr_fd(cmd->input[0]->content, STDOUT_FILENO);
 	if (!flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);

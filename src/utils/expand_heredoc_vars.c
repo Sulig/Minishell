@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/24 19:34:33 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:15:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*expand_heredoc_vars(char *str, char **env, int exit)
 
 	if (!ft_strstr(str, "$"))
 		return (str);
-	tokens = split_intotokens_forexpand(str);
+	tokens = splitline_intotokens(str);
 	if (!tokens)
 		return (str);
 	first = tokens;

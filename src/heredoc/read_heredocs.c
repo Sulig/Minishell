@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:07:20 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/24 19:39:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:51:08 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ int	read_heredocs(t_list *cmds, int n, t_shell *tshell)
 	while (node)
 	{
 		cmd = node->content;
-		if (cmd->cmdtype == REDIR && !ft_strncmp(cmd->comand->content, "<<", 3))
+		if (cmd->cmdtype == REDIR && !ft_strncmp(cmd->name->content, "<<", 3))
 		{
-			err = read_heredoc_n(cmd->input, n, tshell);
+			//Read all arr[pos] of input?
+			err = read_heredoc_n(cmd->input[0]->content, n, tshell);
 			if (err)
 				return (err);
 		}

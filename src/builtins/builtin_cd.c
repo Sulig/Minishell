@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:19:47 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/20 18:22:34 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:54:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 		change_pwds_home(tshell);
 		return (EXIT_SUCCESS);
 	}
-	if (cmd->input[0] == '\0')
+	if (cmd->input[0]->content == NULL)
 		return (EXIT_SUCCESS);
-	if (is_relativepath(cmd->input)
-		&& is_same_or_parent_dir(cmd->input) == FALSE)
+	if (is_relativepath(cmd->input[0]->content)
+		&& is_same_or_parent_dir(cmd->input[0]->content) == FALSE)
 	{
-		if (try_cdpath(cmd->input, tshell->env))
+		if (try_cdpath(cmd->input[0]->content, tshell->env))
 		{
 			change_oldpwd(tshell);
 			if (!change_pwd(tshell))
@@ -81,7 +81,7 @@ int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 			return (EXIT_FAILURE);
 		}
 	}
-	if (chdir(cmd->input) < 0)
+	if (chdir(cmd->input[0]->content) < 0)
 		return (print_comun_error("cd: no such file or directory", 1));
 	change_pwds(tshell);
 	return (EXIT_SUCCESS);

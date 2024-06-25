@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_comand_utils.c                                :+:      :+:    :+:   */
+/*   arrof_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 19:20:47 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/24 19:28:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:39:59 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,35 @@ size_t	len_of_tokens(t_token **arr)
 	return (size);
 }
 
+t_token	*duplicate_token(t_token *org)
+{
+	t_token	*dup;
+
+	if (!org)
+		return (NULL);
+	dup = ft_calloc(sizeof(t_token), 1);
+	if (!dup)
+		return (NULL);
+	dup->toktype = org->toktype;
+	dup->location = org->location;
+	dup->content = ft_strdup(org->content);
+	return (dup);
+}
+
 t_token	**push_intoarr(t_token **original, t_token *add)
 {
 	t_token	**new_arr;
 	size_t	size;
+	size_t	i;
 
+	i = -1;
 	size = len_of_tokens(original);
 	new_arr = ft_calloc(sizeof(t_token *), size + 2);
 	if (!new_arr)
-		return (print_err_custom(MERR_MALLOC, 1));
+		return (NULL);
+	while (++i < size)
+		new_arr[i] = duplicate_token(original[i]);
+	new_arr[i] = duplicate_token(add);
 	return (new_arr);
 }
 
@@ -40,10 +60,36 @@ t_token	**pop_outarr(t_token **original, size_t pop)
 {
 	t_token	**new_arr;
 	size_t	size;
+	size_t	i;
 
+	i = -1;
 	size = len_of_tokens(original);
 	new_arr = ft_calloc(sizeof(t_token *), size - 1);
 	if (!new_arr)
-		return (print_err_custom(MERR_MALLOC, 1));
+		return (NULL);
+	while (++i < size)
+		if (i != pop)
+			new_arr[i] = duplicate_token(original[i]);
 	return (new_arr);
+}
+
+t_token	**clear_tarr(t_token **to_clear)
+{
+	t_token	*token;
+	size_t	p;
+
+	p = 0;
+	if (!to_clear)
+		return (NULL);
+	while (to_clear[p])
+	{
+		token = to_clear[p];
+		token->content = ft_free_str(token->content);
+		free(token);
+		token = NULL;
+		p++;
+	}
+	free(to_clear);
+	to_clear = NULL;
+	return (NULL);
 }

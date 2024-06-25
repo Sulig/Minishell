@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/24 19:36:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:48:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ void	split_intocomands(t_shell *tshell, t_list *tokens);
 t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos);
 //t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
 //t_cmd	*fill_comand_args(t_cmd *cmd);
+void	printarr_oftokens(t_token **arr, char *print);
 
+size_t	len_of_tokens(t_token **arr);
+t_token	**clear_tarr(t_token **to_clear);
 t_token	**push_intoarr(t_token **original, t_token *add);
+t_token	**pop_outarr(t_token **original, size_t pop);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);
@@ -77,15 +81,14 @@ void	*free_tshell(t_shell *tshell);
 t_shell	*init_tshell(t_shell *tshell, char **env);
 
 /* UTILS */
-t_list	*split_intotokens_forexpand(char *line);
-t_list	*free_tokens_list(t_list **tokens);
-t_list	*fill_token_location(t_list *tokens);
 t_list	*splitline_intotokens(char *line);
+t_list	*fill_token_location(t_list *tokens);
+
+t_cmd	*asign_comandtype(t_cmd *cmd);
 
 int		is_builtin_name(t_cmd *cmd);
 int		set_quote(char ch, int quoted);
 void	set_path(t_shell *tshell);
-t_cmd	*asign_comandtype(t_cmd *cmd);
 char	*expand_heredoc_vars(char *str, char **env, int exit);
 
 /* UTILS FOR DEBBUG */

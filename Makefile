@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/06/24 19:41:32 by sadoming         ###   ########.fr        #
+#    Updated: 2024/06/25 16:50:38 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 
 CC	:= gcc
 FLAGS	:= -lreadline -Llibft -lft
-CFLAGS	:= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	:= -Wall -Wextra -Werror -g #-fsanitize=address
 # ------------------ #
 # Directories:
 
@@ -56,44 +56,44 @@ DEPS = $(OBJS:%.o=%d)
 ## MINISHELL SRC ->
 SRC_SRC = minishell_main.c ft_readline.c manage_structs.c tokenizer.c\
 		  check_valid_syntax.c checkfor_unclosedquotes.c split_intocomands.c\
-		  split_intodoublelist.c redirect_and_execute.c
+		  split_intodoublelist.c #redirect_and_execute.c
 
-#BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
+BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
 		  cd_utils2.c export_utils.c
 
-#ENV_SRC = env_get_varname.c env_name_len.c env_set_var.c\
+ENV_SRC = env_get_varname.c env_name_len.c env_set_var.c\
 		  find_var_index_from_env.c find_var_line_from_env.c\
 		  get_var_from_env.c get_vars_from_env.c\
 		  remove_env_var.c
 
-#EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
+EXE_SRC = exec_utils.c execute_builtin.c execute_comand.c\
 		  exec_cmd.c get_executable.c
 
-#PER_SRC = print_common_errors.c print_errors.c
+PER_SRC = print_common_errors.c print_errors.c
 
-#RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
+RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 		  link_write_end.c open_file.c pipe_or_die.c redirect.c\
 		  save_restore_stdio.c wait_children.c
 
-#SIG_SRC = signals.c signals_utils.c
+SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = print_utils.c set_path.c fill_token_location.c is_builtin.c\
-		  splitline_intotokens.c fill_comand.c expand_heredoc_vars.c\
-		  expand_vars_utils.c
+		  splitline_intotokens.c expand_heredoc_vars.c fill_comand.c\
+		  arrof_tokens_utils.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
 			builtin_utils.c ft_strjoin_free.c
 
-#HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
+HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
 #SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
-#SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
+SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
 #SRC += $(addprefix $(EXE_DIR)/, $(EXE_SRC))
 #SRC += $(addprefix $(RED_DIR)/, $(RED_SRC))
-#SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
-#SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
+SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
+SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
 #SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
 

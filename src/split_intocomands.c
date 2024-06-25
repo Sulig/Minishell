@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/24 17:07:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:23:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,14 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 	t_token	*token;
 	char	*tmp;
 
-	token = (t_token *)tokens->content;
 	tmp = NULL;
+	token = (t_token *)tokens->content;
+	cmd->name = ft_calloc(sizeof(token), 1);
+	if (!cmd->name)
+		return (NULL);
 	if (token->toktype == PIPE || token->toktype == REDIR)
 	{
-		cmd->comand->content = ft_strdup(token->content);
+		cmd->name->content = ft_strdup(token->content);
 		return (cmd);
 	}
 	while (tokens && check_beforecreate(NULL, token) > 0)
@@ -70,35 +73,7 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 	}
 	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
 		*pos = *pos -1;
-	cmd->comand->content = tmp;
-	return (cmd);
-}
-
-static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
-{
-	t_token	*token;
-
-	if (!tokens)
-		return (cmd);
-	while (tokens->next)
-	{
-		*pos = *pos + 1;
-		tokens = tokens->next;
-		token = (t_token *)tokens->content;
-		if (check_beforecreate(NULL, token) == -1)
-		{
-			*pos = *pos - 1;
-			break ;
-		}
-		else
-		{
-			cmd = fill_comand_flags(cmd, tokens, pos);
-			//cmd = fill_comand_input(cmd, tokens, pos);
-			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
-			if (!tokens)
-				break ;
-		}
-	}
+	cmd->name->content = tmp;
 	return (cmd);
 }
 
@@ -114,14 +89,20 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
 	if (tokens)
 		token = (t_token *)tokens->content;
-	if (token->toktype != PIPE)
+	if (token->toktype != PIPE && tokens)
 	{
+		/*
+		//fill-> flags AS
+			[0][-n] [1]["-a   -l"] [2][-$?]
+		*/
+		cmd = fill_comand_flags(cmd, tokens, pos);
 		//fill cmd -> original (tokens input)
-		cmd = fill_command(cmd, tokens, pos);
-		//create **input spliting original -> [0][hello] [1]["Exemple   template"]
+		/*
+		create **input spliting original -> [0][hello] [1]["Exemple   template"]
+		*/
 		//trim && clean: comand name && flags
 		//asign types for utilities
-		cmd = asign_comandtype(cmd);
+		//cmd = asign_comandtype(cmd);
 	}
 	return (cmd);
 }
