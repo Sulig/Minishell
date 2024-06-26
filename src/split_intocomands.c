@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/25 18:23:48 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:32:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (0);
 		if (check_valid_syntax(tshell) == 2)
 			return (0);
-		if (!checkfor_unclosedquotes(tshell, tshell->tokens))
+		if (checkfor_unclosedquotes(tshell, tshell->tokens) == 2)
 			return (0);
 		return (1);
 	}
@@ -51,29 +51,12 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 {
 	t_token	*token;
-	char	*tmp;
 
-	tmp = NULL;
 	token = (t_token *)tokens->content;
-	cmd->name = ft_calloc(sizeof(token), 1);
-	if (!cmd->name)
-		return (NULL);
+	cmd->name = duplicate_token(token);
+	*pos = *pos + 1;
 	if (token->toktype == PIPE || token->toktype == REDIR)
-	{
-		cmd->name->content = ft_strdup(token->content);
-		return (cmd);
-	}
-	while (tokens && check_beforecreate(NULL, token) > 0)
-	{
-		tmp = ft_strjoin_free_fst(tmp, token->content);
-		tokens = tokens->next;
-		*pos = *pos + 1;
-		if (tokens)
-			token = (t_token *)tokens->content;
-	}
-	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
-		*pos = *pos -1;
-	cmd->name->content = tmp;
+		*pos = *pos - 1;
 	return (cmd);
 }
 
@@ -91,6 +74,9 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		token = (t_token *)tokens->content;
 	if (token->toktype != PIPE && tokens)
 	{
+		ft_printf(P);
+		ft_printf("I'm here darling\n");
+		ft_printf(D);
 		/*
 		//fill-> flags AS
 			[0][-n] [1]["-a   -l"] [2][-$?]

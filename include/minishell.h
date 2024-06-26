@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/25 16:48:33 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:50:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	heredoc(t_shell *tshell, char *end, int fd);
 void	split_intotokens(t_shell *tshell);
 
 /* Testing */
+t_list	*agroup_tokens(t_list *tokens);
+void	agroup_mylist(t_shell *tshell);
+
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos);
 //t_cmd	*fill_comand_input(t_cmd *cmd, t_list *tokens, size_t *pos);
@@ -58,6 +61,7 @@ t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos);
 void	printarr_oftokens(t_token **arr, char *print);
 
 size_t	len_of_tokens(t_token **arr);
+t_token	*duplicate_token(t_token *org);
 t_token	**clear_tarr(t_token **to_clear);
 t_token	**push_intoarr(t_token **original, t_token *add);
 t_token	**pop_outarr(t_token **original, size_t pop);

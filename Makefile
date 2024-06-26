@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/06/25 16:50:38 by sadoming         ###   ########.fr        #
+#    Updated: 2024/06/26 17:15:21 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ SIG_SRC = signals.c signals_utils.c
 
 UTL_SRC = print_utils.c set_path.c fill_token_location.c is_builtin.c\
 		  splitline_intotokens.c expand_heredoc_vars.c fill_comand.c\
-		  arrof_tokens_utils.c
+		  arrof_tokens_utils.c agroup_tokens.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
 			builtin_utils.c ft_strjoin_free.c
