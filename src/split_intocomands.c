@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/26 19:32:12 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:54:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,17 @@ static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
 
 	token = (t_token *)tokens->content;
 	cmd->name = duplicate_token(token);
-	*pos = *pos + 1;
-	if (token->toktype == PIPE || token->toktype == REDIR)
-		*pos = *pos - 1;
+	if (token->toktype != PIPE || token->toktype != REDIR)
+	{
+		*pos = *pos + 1;
+		tokens = tokens->next;
+	}
+	if (tokens)
+	{
+		token = (t_token *)tokens->content;
+		if (token->toktype == PIPE || token->toktype == REDIR)
+				*pos = *pos -1;
+	}
 	return (cmd);
 }
 
@@ -74,19 +82,8 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		token = (t_token *)tokens->content;
 	if (token->toktype != PIPE && tokens)
 	{
-		ft_printf(P);
-		ft_printf("I'm here darling\n");
-		ft_printf(D);
-		/*
-		//fill-> flags AS
-			[0][-n] [1]["-a   -l"] [2][-$?]
-		*/
-		cmd = fill_comand_flags(cmd, tokens, pos);
-		//fill cmd -> original (tokens input)
-		/*
-		create **input spliting original -> [0][hello] [1]["Exemple   template"]
-		*/
-		//trim && clean: comand name && flags
+		//cmd = fill_comand_flags(cmd, tokens, pos);
+		//cmd = fill_comand_args(cmd, tokens, pos);
 		//asign types for utilities
 		//cmd = asign_comandtype(cmd);
 	}
@@ -117,6 +114,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
-	//Clean comands?
+	//Clean comands here or on create?
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }
