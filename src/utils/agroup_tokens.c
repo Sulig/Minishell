@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:23:06 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/26 19:52:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:40:33 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,8 @@ t_list	*agroup_tokens(t_list *tokens)
 	{
 		pos = 0;
 		token = (t_token *)tokens->content;
-		if (token->toktype != SPACE)
-		{
-			tmp = ft_lstnew(create_token(tokens, token, &pos));
-			ft_lstadd_back(&new_list, tmp);
-		}
+		tmp = ft_lstnew(create_token(tokens, token, &pos));
+		ft_lstadd_back(&new_list, tmp);
 		tokens = ft_lstgetnode(tokens, pos);
 		if (tokens)
 			tokens = tokens->next;

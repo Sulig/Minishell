@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/27 17:39:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:11:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	split_intotokens(t_shell *tshell);
 t_list	*agroup_tokens(t_list *tokens);
 void	agroup_mylist(t_shell *tshell);
 
+t_token	*jump_tocontent(t_list *tokens, size_t *pos);
 void	split_intocomands(t_shell *tshell, t_list *tokens);
-t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos);
-t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos);
+t_cmd	*clean_comand(t_cmd *cmd);
 
 size_t	len_of_tokens(t_token **arr);
 t_token	*duplicate_token(t_token *org);

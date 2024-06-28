@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/27 18:54:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:25:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,58 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 	return (0);
 }
 
-static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
+static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
 	t_token	*token;
+	int		checker;
 
-	token = (t_token *)tokens->content;
-	cmd->name = duplicate_token(token);
-	if (token->toktype != PIPE || token->toktype != REDIR)
-	{
-		*pos = *pos + 1;
-		tokens = tokens->next;
-	}
-	if (tokens)
+	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		if (token->toktype == PIPE || token->toktype == REDIR)
-				*pos = *pos -1;
+		checker = check_beforecreate(NULL, token);
+		if (checker == -1)
+		{
+			*pos = *pos - 1;
+			break ;
+		}
+		else if (!ft_strstr(token->content, "-") && checker != 0)
+			break ;
+		else if (checker == 1)
+			break ;
+		else if (ft_strstr(token->content, "-"))
+			cmd->flags = push_intoarr(cmd->flags, token);
+		tokens = tokens->next;
+		*pos = *pos + 1;
+	}
+	return (cmd);
+}
+
+static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos)
+{
+	t_token	*token;
+	int		checker;
+	int		join;
+
+	join = 0;
+	tokens = ft_lstgetnode(tokens, *pos);
+	//*pos = tokens->pos;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		checker = check_beforecreate(NULL, token);
+		if (checker == -1)
+		{
+			*pos = *pos - 1;
+			break ;
+		}
+		else if (checker != 0)
+			join = 1;
+		if (join)
+			cmd->input = push_intoarr(cmd->input, token);
+		if (cmd->input[len_of_tokens(cmd->input) - 1]->toktype == SPACE)
+			join = 0;
+		tokens = tokens->next;
+		*pos = *pos + 1;
 	}
 	return (cmd);
 }
@@ -76,18 +112,23 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	if (!cmd)
 		return (NULL);
 	cmd->cmdtype = token->toktype;
-	cmd = fill_comand_name(tokens, cmd, pos);
-	tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+	cmd->name = duplicate_token(token);
+	tokens = tokens->next;
 	if (tokens)
 		token = (t_token *)tokens->content;
-	if (token->toktype != PIPE && tokens)
+	if (cmd->cmdtype == REDIR)
 	{
-		//cmd = fill_comand_flags(cmd, tokens, pos);
-		//cmd = fill_comand_args(cmd, tokens, pos);
-		//asign types for utilities
-		//cmd = asign_comandtype(cmd);
+		token = jump_tocontent(tokens, pos);
+		cmd->input = push_intoarr(cmd->input, token);
+		*pos = *pos + 1;
 	}
-	return (cmd);
+	else if (cmd->cmdtype != PIPE && token->toktype != PIPE)
+	{
+		cmd = fill_comand_flags(cmd, tokens, pos);
+		cmd = fill_comand_args(cmd, tokens, pos);
+	}
+	//cmd = asign_comandtype(cmd); //asign types for utilities
+	return (cmd); //23 lines
 }
 
 void	split_intocomands(t_shell *tshell, t_list *tokens)

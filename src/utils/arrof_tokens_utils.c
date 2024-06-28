@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 19:20:47 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/25 16:39:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:34:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_token	**push_intoarr(t_token **original, t_token *add)
 	while (++i < size)
 		new_arr[i] = duplicate_token(original[i]);
 	new_arr[i] = duplicate_token(add);
+	original = clear_tarr(original);
 	return (new_arr);
 }
 
@@ -61,15 +62,23 @@ t_token	**pop_outarr(t_token **original, size_t pop)
 	t_token	**new_arr;
 	size_t	size;
 	size_t	i;
+	size_t	j;
 
-	i = -1;
-	size = len_of_tokens(original);
-	new_arr = ft_calloc(sizeof(t_token *), size - 1);
+	i = 0;
+	j = -1;
+	size = len_of_tokens(original) - 1;
+	if (!size)
+	{
+		original = clear_tarr(original);
+		return (NULL);
+	}
+	new_arr = ft_calloc(sizeof(t_token *), size);
 	if (!new_arr)
 		return (NULL);
-	while (++i < size)
-		if (i != pop)
-			new_arr[i] = duplicate_token(original[i]);
+	while (original[++j])
+		if (j != pop)
+			new_arr[i++] = duplicate_token(original[j]);
+	original = clear_tarr(original);
 	return (new_arr);
 }
 
