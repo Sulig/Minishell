@@ -187,5 +187,5 @@ clear: fclean
 
 re: fclean all
 
-.PHONY:	all author clean clear debug fclean norm re run val
+.PHONY:	all author clean clear debug fclean norm re run val val-strict
 # **************************************************************************** #
