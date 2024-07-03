@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/28 19:25:17 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:44:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
+	//trim array?
 	return (cmd);
 }
 
@@ -78,11 +79,8 @@ static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
 	t_token	*token;
 	int		checker;
-	int		join;
 
-	join = 0;
-	tokens = ft_lstgetnode(tokens, *pos);
-	//*pos = tokens->pos;
+	tokens = ft_search_nodebypos(tokens, *pos);
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
@@ -92,15 +90,11 @@ static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos - 1;
 			break ;
 		}
-		else if (checker != 0)
-			join = 1;
-		if (join)
-			cmd->input = push_intoarr(cmd->input, token);
-		if (cmd->input[len_of_tokens(cmd->input) - 1]->toktype == SPACE)
-			join = 0;
+		cmd->input = push_intoarr(cmd->input, token);
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
+	//trim array?
 	return (cmd);
 }
 
@@ -124,11 +118,12 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 	}
 	else if (cmd->cmdtype != PIPE && token->toktype != PIPE)
 	{
+		*pos = *pos + 1;
 		cmd = fill_comand_flags(cmd, tokens, pos);
 		cmd = fill_comand_args(cmd, tokens, pos);
 	}
 	//cmd = asign_comandtype(cmd); //asign types for utilities
-	return (cmd); //23 lines
+	return (cmd); //24 lines
 }
 
 void	split_intocomands(t_shell *tshell, t_list *tokens)
@@ -150,7 +145,7 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		{
 			tmp = ft_lstnew(create_command(tokens, token, &pos));
 			ft_lstadd_back(&tshell->comands, tmp);
-			tokens = ft_lstgetnode(tshell->tokens, pos);
+			tokens = ft_search_nodebypos(tokens, pos);
 		}
 		if (tokens)
 			tokens = tokens->next;
