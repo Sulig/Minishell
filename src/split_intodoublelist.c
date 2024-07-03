@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:41:05 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/25 19:06:12 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:43:56 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static t_list	*create_nodelist_intodll(t_list *cmds)
 		cmds = cmds->next;
 	}
 	comand = ft_lstsize(cmds);
-	//test if this works
 	if (cmd->cmdtype == PIPE)
 		comand = cmds->pos + 1;
 	return (list);

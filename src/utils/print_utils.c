@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/28 18:19:07 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:39:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,14 @@ void	print_multiple_cmds_st(t_list **cmds)
 	size = 0;
 	if (!cmds)
 		return ;
+	ft_printf("\t------------------------\n\t----- ARRAY OF CMDS -----\n");
 	while (cmds[size])
 	{
-		ft_printf("~~~~~~~~~~~~ ~ Double linked list node pos: %u", size);
-		ft_printf("\t~ Content: \033[38;5;%um\n", (size + 2) * 7);
+		ft_printf("~~~~~~~~~~~~~~~~~ ~ Array comand pos: %u", size);
+		ft_printf("\t~ Content: \033[38;5;%um\n", (size + 2) * 8);
 		print_comands_st(cmds[size]);
 		ft_printf(D);
-		ft_printf("~~~~~~~~~~~~~ ~ ~~~~~~~~~~~~~~\n\n");
+		ft_printf("~~~~~~~~~~~~~~~~~ ~ ~~~~~~~~~~~~~~~~~\n\n");
 		size++;
 	}
 	ft_printf("Total size of double linked list: %u\n", size);
