@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 19:20:47 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/03 19:53:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:58:26 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,14 @@ t_token	**pop_outarr(t_token **original, size_t pop)
 
 	i = 0;
 	j = -1;
+	new_arr = NULL;
 	size = len_of_tokens(original) - 1;
 	if (!size)
 	{
 		original = clear_tarr(original);
 		return (NULL);
 	}
-	new_arr = ft_calloc(sizeof(t_token *), size - 1);
+	new_arr = ft_calloc(sizeof(t_token *), size + 1);
 	if (!new_arr)
 		return (NULL);
 	while (original[++j])

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/03 19:44:38 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:50:00 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
-	//trim array?
 	return (cmd);
 }
 
@@ -123,8 +122,8 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		cmd = fill_comand_flags(cmd, tokens, pos);
 		cmd = fill_comand_args(cmd, tokens, pos);
 	}
-	//cmd = asign_comandtype(cmd); //asign types for utilities
-	return (cmd); //24 lines
+	cmd = asign_comandtype(cmd);
+	return (cmd);
 }
 
 void	split_intocomands(t_shell *tshell, t_list *tokens)
@@ -151,6 +150,6 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		if (tokens)
 			tokens = tokens->next;
 	}
-	//Clean comands here or on create?
+	expand_and_unquote(tshell, tshell->comands);
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

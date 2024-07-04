@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/03 19:39:57 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:17:26 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	printarr_oftokens(t_token **arr, char *print)
 		while (arr[i])
 		{
 			ft_printf(" ~ [%u] in list\t", i);
-			ft_printf("~ toktype = '%c'\t", arr[i]->toktype);
+			ft_printf("~ toktype = `%c`\t", arr[i]->toktype);
 			ft_printf("~ location/quoted = ");
 			if (arr[i]->location == IN_DOUBLE_Q)
 				ft_printf("IN DOUBLE QUOTES\t");
@@ -51,7 +51,7 @@ void	printarr_oftokens(t_token **arr, char *print)
 				ft_printf("IN SINGLE QUOTES\t");
 			else
 				ft_printf("NO QUOTED\t");
-			ft_printf("~ content '%s'\n", arr[i]->content);
+			ft_printf("~ content `%s`\n", arr[i]->content);
 			ft_printf("--------------------------------\n");
 			i++;
 		}
@@ -70,7 +70,7 @@ void	print_tokens_st(t_list *tokens)
 	{
 		ft_printf(" ~ [%u] in list\t", size);
 		token = (t_token *)tokens->content;
-		ft_printf("~ toktype = '%c'\t", token->toktype);
+		ft_printf("~ toktype = `%c`\t", token->toktype);
 		ft_printf("~ location/quoted = ");
 		if (token->location == IN_DOUBLE_Q)
 			ft_printf("IN DOUBLE QUOTES\t");
@@ -78,7 +78,7 @@ void	print_tokens_st(t_list *tokens)
 			ft_printf("IN SINGLE QUOTES\t");
 		else
 			ft_printf("NO QUOTED\t");
-		ft_printf("~ content '%s'\n", token->content);
+		ft_printf("~ content `%s`\n", token->content);
 		ft_printf("--------------------------------\n");
 		tokens = tokens->next;
 		size++;
@@ -100,8 +100,10 @@ void	print_comands_st(t_list *cmd)
 		ft_printf("⎨---------------^---------------⎬\n");
 		ft_printf("    [%u] Node: %p\n", size, cmd);
 		comand = (t_cmd *)cmd->content;
-		ft_printf("~ cmdtype = '%c'\t", comand->cmdtype);
-		ft_printf("~ comand '%s'\n", comand->name->content);
+		ft_printf("~ cmdtype = `%c`\t\t", comand->cmdtype);
+		ft_printf("~ cmd name `%s`\t", comand->name->content);
+		ft_printf("~ toktype = `%c`\t", comand->name->toktype);
+		ft_printf("~ location = %i\n", comand->name->location);
 		printarr_oftokens(comand->flags, "~~~~~~~~~~ ~ flags ~\n");
 		printarr_oftokens(comand->input, "~~~~~~~~~~ ~ input ~\n");
 		ft_printf("⎨---------------v---------------⎬\n");
@@ -109,7 +111,7 @@ void	print_comands_st(t_list *cmd)
 		cmd = cmd->next;
 		size++;
 	}
-}
+} //23 lines
 
 void	print_multiple_cmds_st(t_list **cmds)
 {
