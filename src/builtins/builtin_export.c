@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:04:32 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:25:32 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ int	builtin_export(t_cmd *cmd, t_shell *tshell)
 	exit_status = 0;
 	if (!cmd->input)
 		return (export_noargs(tshell->env));
-	args = ft_split(cmd->input, ' ');
-	tmp = args;
+	//Maybe will be convenient to make a copy of input?
+	args = ft_strarrdup(cmd->input);
+	//Push the flags to **input?
 	exit_status = process_args(args, exit_status, tshell);
-	free_arr_2d(tmp);
+	free_arr_2d(args);
 	return (exit_status);
 }

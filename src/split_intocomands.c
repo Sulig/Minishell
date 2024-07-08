@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_the_tokens.c                                 :+:      :+:    :+:   */
+/*   split_intocomands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/17 20:02:50 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:32:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 /*
  * This function have 2 parts:
- * 	- Part 1 -> Checker of tokens in tshell
- * 	- Part 2 -> Token->toktype checker
+ * 	- Part 1 -> Check valid syntax && no closed quotes in tshell
+ * 	- Part 2 -> Token->toktype Checker
+ * 		- -1	|> PIPES && REDIRS (NO_QUOTED)
+ * 		- 1		|> ARGS && SPACES (IN_QUOTES)
+ * 		- 2		|> QUOTES
+ * 		- 3		|> FLAGS (NO QUOTED)
+ * 		- 0		|> ETC..
 */
 int	check_beforecreate(t_shell *tshell, t_token *token)
 {
@@ -25,7 +30,7 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (0);
 		if (check_valid_syntax(tshell) == 2)
 			return (0);
-		if (!checkfor_unclosedquotes(tshell, tshell->tokens))
+		if (checkfor_unclosedquotes(tshell, tshell->tokens) == 2)
 			return (0);
 		return (1);
 	}
@@ -34,92 +39,90 @@ int	check_beforecreate(t_shell *tshell, t_token *token)
 			return (-1);
 	if (token->toktype == ARGS || token->toktype == ENV)
 		return (1);
-	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-		return (4);
 	if (token->toktype == SPACE && token->location != NO_QUOTED)
 		return (1);
-	if (token->toktype == OPTION && token->location == NO_QUOTED)
+	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+		return (2);
+	if (token->toktype == FLAG && token->location == NO_QUOTED)
 		return (3);
 	return (0);
 }
 
-static t_cmd	*fill_command(t_cmd *cmd, t_list *tokens, size_t *pos)
+static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
 	t_token	*token;
+	int		checker;
 
-	if (!tokens)
-		return (cmd);
-	while (tokens->next)
+	while (tokens)
 	{
-		*pos = *pos + 1;
-		tokens = tokens->next;
 		token = (t_token *)tokens->content;
-		if (check_beforecreate(NULL, token) == -1)
+		checker = check_beforecreate(NULL, token);
+		if (checker == -1)
 		{
 			*pos = *pos - 1;
 			break ;
 		}
-		else
-		{
-			cmd = fill_comand_options(cmd, tokens, pos);
-			cmd = fill_comand_input(cmd, tokens, pos);
-			cmd->original = ft_strdup(cmd->input);
-			tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
-			if (!tokens)
-				break ;
-		}
+		else if (checker == 1)
+			break ;
+		else if (ft_cnt_tostr(token->content, "-") > 0 && checker != 0)
+			break ;
+		else if (ft_strstr(token->content, "-"))
+			cmd->flags = push_intoarr(cmd->flags, token);
+		tokens = tokens->next;
+		*pos = *pos + 1;
 	}
 	return (cmd);
 }
 
-static t_cmd	*fill_comand_name(t_list *tokens, t_cmd *cmd, size_t *pos)
+static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos)
 {
 	t_token	*token;
+	int		checker;
 
-	token = (t_token *)tokens->content;
-	cmd->comand = NULL;
-	if (token->toktype == PIPE || token->toktype == REDIR)
+	tokens = ft_search_nodebypos(tokens, *pos);
+	while (tokens)
 	{
-		cmd->comand = ft_strdup(token->content);
-		return (cmd);
-	}
-	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-		token->toktype = ARGS;
-	while (tokens && check_beforecreate(NULL, token) > 0)
-	{
-		cmd->comand = ft_strjoin_free_fst(cmd->comand, token->content);
+		token = (t_token *)tokens->content;
+		checker = check_beforecreate(NULL, token);
+		if (checker == -1)
+		{
+			*pos = *pos - 1;
+			break ;
+		}
+		cmd->input = push_intoarr(cmd->input, token);
 		tokens = tokens->next;
 		*pos = *pos + 1;
-		if (tokens)
-			token = (t_token *)tokens->content;
 	}
-	if (tokens && (token->toktype == PIPE || token->toktype == REDIR))
-		*pos = *pos -1;
+	if (cmd->input)
+		cmd->input = clean_array(cmd->input);
 	return (cmd);
 }
 
 static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 {
 	t_cmd	*cmd;
-	char	*trimed;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (NULL);
 	cmd->cmdtype = token->toktype;
-	cmd = fill_comand_name(tokens, cmd, pos);
-	tokens = ft_lstgetnode(tokens, *pos - tokens->pos);
+	cmd->name = duplicate_token(token);
+	tokens = tokens->next;
 	if (tokens)
 		token = (t_token *)tokens->content;
-	if (token->toktype != PIPE)
+	if (cmd->cmdtype == REDIR)
 	{
-		cmd = fill_command(cmd, tokens, pos);
-		trimed = ft_strtrim_s(cmd->options, " ");
-		cmd->options = ft_strremplace(cmd->options, trimed);
-		trimed = ft_free_str(trimed);
-		cmd = trim_input(cmd);
-		cmd = asign_comandtype(cmd);
+		token = jump_tocontent(tokens, pos);
+		cmd->input = push_intoarr(cmd->input, token);
+		*pos = *pos + 1;
 	}
+	else if (cmd->cmdtype != PIPE && token->toktype != PIPE)
+	{
+		*pos = *pos + 1;
+		cmd = fill_comand_flags(cmd, tokens, pos);
+		cmd = fill_comand_args(cmd, tokens, pos);
+	}
+	cmd = asign_comandtype(cmd);
 	return (cmd);
 }
 
@@ -142,11 +145,11 @@ void	split_intocomands(t_shell *tshell, t_list *tokens)
 		{
 			tmp = ft_lstnew(create_command(tokens, token, &pos));
 			ft_lstadd_back(&tshell->comands, tmp);
-			tokens = ft_lstgetnode(tshell->tokens, pos);
+			tokens = ft_search_nodebypos(tokens, pos);
 		}
 		if (tokens)
 			tokens = tokens->next;
 	}
-	tshell->comands = polish_comands(tshell, tshell->comands, tshell->comands);
+	expand_and_unquote(tshell, tshell->comands);
 	tshell->cmd_size = ft_lstsize(tshell->comands);
 }

@@ -3,74 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   checkfor_unclosedquotes.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:59:11 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/06 20:12:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:29:12 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
- * Return a previous content if exist
- * ** This will be considered when printing:
- * * syntax error near token + this-content.
-*/
-static char	*what_content(t_list *node)
-{
-	t_token	*token;
-
-	token = (t_token *)node->content;
-	if (!node->prev)
-		return (token->content);
-	token = (t_token *)node->prev->content;
-	if (token->toktype == SPACE)
-		token = (t_token *)node->content;
-	return (token->content);
-}
-
 static char	*unclosed_dquote(t_list *tokens)
 {
-	t_list	*pos;
 	t_token	*token;
-	size_t	dquotes;
+	size_t	quotes;
 
-	dquotes = 0;
+	quotes = 0;
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		if (token->toktype == D_QUOTE && token->location == NO_QUOTED)
+		if (token->toktype == D_QUOTE)
 		{
-			dquotes++;
-			pos = tokens;
+			quotes = ft_apears_ch_in_str(token->content, '\"');
+			if (quotes % 2)
+				return (token->content);
 		}
 		tokens = tokens->next;
 	}
-	if (dquotes % 2)
-		return (what_content(pos));
 	return (NULL);
 }
 
 static char	*unclosed_squote(t_list *tokens)
 {
-	t_list	*pos;
 	t_token	*token;
-	size_t	dquotes;
+	size_t	quotes;
 
-	dquotes = 0;
+	quotes = 0;
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
-		if (token->toktype == S_QUOTE && token->location == NO_QUOTED)
+		if (token->toktype == S_QUOTE)
 		{
-			dquotes++;
-			pos = tokens;
+			quotes = ft_apears_ch_in_str(token->content, '\'');
+			if (quotes % 2)
+				return (token->content);
 		}
 		tokens = tokens->next;
 	}
-	if (dquotes % 2)
-		return (what_content(pos));
 	return (NULL);
 }
 

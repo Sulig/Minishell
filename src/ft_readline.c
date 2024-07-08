@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:45:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/22 19:18:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:54:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	heredoc(t_shell *tshell, char *end, int fd)
 			tmp = ft_free_str(tmp);
 			break ;
 		}
-		tmp = expand_env_var_instr(tmp, tshell->env, tshell->exit_state);
+		tmp = expand_heredoc_vars(tmp, tshell->env, tshell->exit_state);
 		joined = ft_strjoin_free_fst(joined, tmp);
 		joined = ft_strjoin_free_fst(joined, "\n");
 		tmp = ft_free_str(tmp);

@@ -3,89 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/05/28 17:43:42 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:28:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
-static char	*consider_envcase(char *result, t_token *token)
+static t_token	**unquote_intoarr(t_token **arr)
 {
-	if (ft_strstr(token->content, "$?") && token->location != IN_SINGLE_Q)
-	{
-		result = ft_strjoin_free_fst(result, "\1");
-		result = ft_strjoin_free_fst(result, token->content);
-		result = ft_strjoin_free_fst(result, "\1");
-	}
-	else
-		result = ft_strjoin_free_fst(result, token->content);
-	return (result);
-}*/
+	size_t	i;
+	char	*tmp;
 
-static char	*convert_tokens_instr(t_list *tokens)
-{
-	char	*result;
-	t_token	*token;
-
-	result = NULL;
-	while (tokens)
+	i = -1;
+	while (arr[++i])
 	{
-		token = (t_token *)tokens->content;
-		if (token->toktype == ARGS || token->toktype == OPTION)
-			result = ft_strjoin_free_fst(result, token->content);
-		else if (token->toktype == SPACE)
-			result = ft_strjoin_free_fst(result, token->content);
-		else if (token->toktype == ENV)
-			result = ft_strjoin_free_fst(result, token->content);
-		else if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
-			if (token->location != NO_QUOTED)
-				result = ft_strjoin_free_fst(result, token->content);
-		tokens = tokens->next;
+		tmp = arr[i]->content;
+		if (!ft_strllen(arr[i]->content))
+			arr[i]->location = NO_QUOTED;
+		else if (ft_cnt_tostr(tmp, "\"") < ft_cnt_tostr(tmp, "\'"))
+			arr[i]->location = IN_DOUBLE_Q;
+		else if (ft_cnt_tostr(tmp, "\'") < ft_cnt_tostr(tmp, "\""))
+			arr[i]->location = IN_SINGLE_Q;
+		if (arr[i]->location == IN_SINGLE_Q)
+			arr[i]->content = ft_strremove(arr[i]->content, "\'");
+		else if (arr[i]->location == IN_DOUBLE_Q)
+			arr[i]->content = ft_strremove(arr[i]->content, "\"");
+		if (ft_strstr(arr[i]->content, "$") && ft_strllen(arr[i]->content) > 2)
+			if (arr[i]->location != IN_SINGLE_Q)
+				arr[i]->toktype = ENV;
 	}
-	return (result);
-}
-
-static t_cmd	*quote_removal_options(t_shell *tshell, t_cmd *cmd)
-{
-	if (ft_strchr(cmd->options, '\"') || ft_strchr(cmd->options, '\''))
-	{
-		free_tokens(tshell);
-		tshell->line = cmd->options;
-		split_intotokens(tshell);
-		cmd->options = ft_free_str(cmd->options);
-		cmd->options = convert_tokens_instr(tshell->tokens);
-	}
-	return (cmd);
+	return (arr);
 }
 
 /*
- * Removes all quotes of comand
- * * Considers cases like: "''" && '""' and so on..
+** Unquoting
+*	The unquoter will asing the location with the quote encountered.
+*	NO_QUOTED || IN_SINGLE_Q '' || IN_DOUBLE_Q ""
+*	By deffault, if no quote encountered the location is NO_QUOTED
+*	If encounters a env_var && can expand
+*		** The toktype will be ENV
 */
-t_cmd	*quote_removal(t_shell *tshell, t_cmd *cmd)
+t_cmd	*quote_removal(t_cmd *cmd)
 {
-	tshell->line = ft_free_str(tshell->line);
-	if (ft_strchr(cmd->comand, '\"') || ft_strchr(cmd->comand, '\''))
-	{
-		free_tokens(tshell);
-		tshell->line = cmd->comand;
-		split_intotokens(tshell);
-		cmd->comand = ft_free_str(cmd->comand);
-		cmd->comand = convert_tokens_instr(tshell->tokens);
-	}
-	if (ft_strchr(cmd->input, '\"') || ft_strchr(cmd->input, '\''))
-	{
-		free_tokens(tshell);
-		tshell->line = cmd->input;
-		split_intotokens(tshell);
-		cmd->input = ft_free_str(cmd->input);
-		cmd->input = convert_tokens_instr(tshell->tokens);
-	}
-	cmd = quote_removal_options(tshell, cmd);
-	tshell->line = NULL;
+	char	*tmp;
+
+	tmp = cmd->name->content;
+	if (cmd->cmdtype == CMD)
+		cmd->name->toktype = ARGS;
+	if (ft_cnt_tostr(tmp, "\"") < ft_cnt_tostr(tmp, "\'"))
+		cmd->name->location = IN_DOUBLE_Q;
+	else if (ft_cnt_tostr(tmp, "\'") < ft_cnt_tostr(tmp, "\""))
+		cmd->name->location = IN_SINGLE_Q;
+	if (cmd->name->location == IN_SINGLE_Q)
+		cmd->name->content = ft_strremove(cmd->name->content, "\'");
+	else if (cmd->name->location == IN_DOUBLE_Q)
+		cmd->name->content = ft_strremove(cmd->name->content, "\"");
+	if (ft_strstr(cmd->name->content, "$"))
+		if (ft_strllen(cmd->name->content) > 2)
+			if (cmd->name->location != IN_SINGLE_Q)
+				cmd->name->toktype = ENV;
+	if (cmd->flags)
+		cmd->flags = unquote_intoarr(cmd->flags);
+	if (cmd->input)
+		cmd->input = unquote_intoarr(cmd->input);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/12 19:29:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:49:22 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	is_builtin_cmd(t_list *cmd_lst)
 				return (FALSE);
 			cmd = node->content;
 		}
-		if (!ft_strllen(cmd->comand))
+		if (!ft_strllen(cmd->name->content))
 			return (FALSE);
-		if (is_builtin(cmd->comand))
+		if (is_builtin(cmd->name->content))
 			return (TRUE);
 	}
 	return (FALSE);

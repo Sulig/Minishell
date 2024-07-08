@@ -6,19 +6,19 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/12 19:48:22 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:03:40 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char	*expansor_utils(char *str, char **env, int exit)
+static char	*expansor_utils(char *str, char **env, int exit, int expand)
 {
 	char	*env_var;
 	char	*tmp;
 	char	*itoa;
 
-	if (ft_strstr(str, "$?"))
+	if (ft_strstr(str, "$?") && expand)
 	{
 		itoa = ft_itoa(exit);
 		tmp = ft_strinter(str, itoa, ft_cnt_tostr(str, "$?") + 2);
@@ -27,8 +27,10 @@ static char	*expansor_utils(char *str, char **env, int exit)
 		tmp = ft_strremove(tmp, "$?");
 		return (tmp);
 	}
+	else if (ft_strstr(str, "$?") && !expand)
+		return (str);
 	env_var = NULL;
-	tmp = ft_strdup(str + 1);
+	tmp = ft_strdup(str + ft_cnttoch_in(str, '$'));
 	tmp = ft_strjoin_free_fst(tmp, "=");
 	env_var = find_var_line_from_env(tmp, env);
 	env_var = ft_strcut(env_var, '=', '>', 'y');
@@ -52,13 +54,7 @@ static char	*join_again(t_list *tokens)
 	return (joined);
 }
 
-/*
- * Expands the str.
- * 1. Create a list of tokens
- * 2. Expand each token
- * 3. Join again in str
-*/
-char	*expand_env_var_instr(char *str, char **env, int exit)
+static char	*expand_str(char *str, char **env, int exit, int exp)
 {
 	t_list	*tokens;
 	t_list	*first;
@@ -66,41 +62,16 @@ char	*expand_env_var_instr(char *str, char **env, int exit)
 
 	if (!ft_strstr(str, "$"))
 		return (str);
-	tokens = split_intotokens_forexpand(str);
+	tokens = splitline_intotokens(str);
 	if (!tokens)
 		return (str);
-	first = tokens;
-	while (tokens)
-	{
-		token = (t_token *)tokens->content;
-		if (token->toktype == ENV)
-			token->content = expansor_utils(token->content, env, exit);
-		tokens = tokens->next;
-	}
-	str = ft_free_str(str);
-	str = join_again(first);
-	tokens = free_tokens_list(&first);
-	return (str);
-}
-
-static char	*expand_env_var_str(char *str, char **env, int exit)
-{
-	t_list	*tokens;
-	t_list	*first;
-	t_token	*token;
-
-	if (!ft_strstr(str, "$"))
-		return (str);
-	tokens = split_intotokens_forexpand(str);
 	tokens = fill_token_location(tokens);
-	if (!tokens)
-		return (str);
 	first = tokens;
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
 		if (token->toktype == ENV && token->location != IN_SINGLE_Q)
-			token->content = expansor_utils(token->content, env, exit);
+			token->content = expansor_utils(token->content, env, exit, exp);
 		tokens = tokens->next;
 	}
 	str = ft_free_str(str);
@@ -109,13 +80,53 @@ static char	*expand_env_var_str(char *str, char **env, int exit)
 	return (str);
 }
 
-t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd)
+static t_token	**expand_intoarr(t_token **arr, char **env, int exit, int exp)
+{
+	size_t	i;
+
+	i = -1;
+	while (arr[++i])
+	{
+		if (arr[i]->toktype == ENV && arr[i]->location != IN_SINGLE_Q)
+			arr[i]->content = expand_str(arr[i]->content, env, exit, exp);
+		if (!ft_strstr(arr[i]->content, "$") && arr[i]->toktype != FLAG)
+			arr[i]->toktype = ARGS;
+		else
+			arr[i]->toktype = ENV;
+		if (!ft_strllen(arr[i]->content))
+		{
+			arr = pop_outarr(arr, i);
+			i = -1;
+		}
+		if (!len_of_tokens(arr))
+			return (clear_tarr(arr));
+	}
+	return (arr);
+}
+
+/*
+** Expansor
+*	If encounters a $? && exp is 1 -> expand to tshell->exit_state
+*	If te variable is inside of '' -> do not expand
+*/
+t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd, int exp)
 {
 	int		exit;
+	char	*tmp;
 
 	exit = tshell->exit_state;
-	cmd->comand = expand_env_var_str(cmd->comand, tshell->env, exit);
-	cmd->options = expand_env_var_str(cmd->options, tshell->env, exit);
-	cmd->input = expand_env_var_str(cmd->input, tshell->env, exit);
+	if (cmd->name->toktype == ENV && cmd->name->location != IN_SINGLE_Q)
+	{
+		tmp = cmd->name->content;
+		cmd->name->content = expand_str(tmp, tshell->env, exit, exp);
+		if (!ft_strstr(cmd->name->content, "$"))
+			cmd->name->toktype = ARGS;
+		else
+			cmd->name->toktype = ENV;
+	}
+	if (cmd->flags)
+		cmd->flags = expand_intoarr(cmd->flags, tshell->env, exit, exp);
+	if (cmd->input)
+		cmd->input = expand_intoarr(cmd->input, tshell->env, exit, exp);
 	return (cmd);
 }

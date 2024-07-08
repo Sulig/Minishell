@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:45:42 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/18 17:22:44 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* pwd with no options
+/* pwd with no flags
  * - print the full filename of the current working directory
  */
 
