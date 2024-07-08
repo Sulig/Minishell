@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/08 17:28:46 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:49:52 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,18 @@
 static t_token	**unquote_intoarr(t_token **arr)
 {
 	size_t	i;
-	char	*tmp;
 
 	i = -1;
 	while (arr[++i])
 	{
-		tmp = arr[i]->content;
-		if (!ft_strllen(arr[i]->content))
-			arr[i]->location = NO_QUOTED;
-		else if (ft_cnt_tostr(tmp, "\"") < ft_cnt_tostr(tmp, "\'"))
+		if (arr[i]->toktype == D_QUOTE)
 			arr[i]->location = IN_DOUBLE_Q;
-		else if (ft_cnt_tostr(tmp, "\'") < ft_cnt_tostr(tmp, "\""))
+		else if (arr[i]->toktype == S_QUOTE)
 			arr[i]->location = IN_SINGLE_Q;
-		if (arr[i]->location == IN_SINGLE_Q)
-			arr[i]->content = ft_strremove(arr[i]->content, "\'");
-		else if (arr[i]->location == IN_DOUBLE_Q)
+		if (arr[i]->location == IN_DOUBLE_Q)
 			arr[i]->content = ft_strremove(arr[i]->content, "\"");
+		else if (arr[i]->location == IN_SINGLE_Q)
+			arr[i]->content = ft_strremove(arr[i]->content, "\'");
 		if (ft_strstr(arr[i]->content, "$") && ft_strllen(arr[i]->content) > 2)
 			if (arr[i]->location != IN_SINGLE_Q)
 				arr[i]->toktype = ENV;

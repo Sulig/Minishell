@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/07/04 18:36:25 by sadoming         ###   ########.fr        #
+#    Updated: 2024/07/08 18:41:04 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 
 CC	:= gcc
 FLAGS	:= -lreadline -Llibft -lft
-CFLAGS	:= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	:= -Wall -Wextra -Werror -g -fsanitize=address
 # ------------------ #
 # Directories:
 

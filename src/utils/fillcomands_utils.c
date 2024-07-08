@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/04 19:55:04 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:41:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 */
 t_token	*jump_tocontent(t_list *tokens, size_t *pos)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = NULL;
 	while (tokens)

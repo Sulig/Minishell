@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:54:26 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/04 19:17:26 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:41:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	print_comands_st(t_list *cmd)
 		cmd = cmd->next;
 		size++;
 	}
-} //23 lines
+}
 
 void	print_multiple_cmds_st(t_list **cmds)
 {
