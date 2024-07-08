@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/04 17:50:00 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:32:16 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos - 1;
 			break ;
 		}
-		else if (!ft_strstr(token->content, "-") && checker != 0)
-			break ;
 		else if (checker == 1)
+			break ;
+		else if (ft_cnt_tostr(token->content, "-") > 0 && checker != 0)
 			break ;
 		else if (ft_strstr(token->content, "-"))
 			cmd->flags = push_intoarr(cmd->flags, token);

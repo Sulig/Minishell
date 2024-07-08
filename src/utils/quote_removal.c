@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/04 19:40:11 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:28:46 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 static t_token	**unquote_intoarr(t_token **arr)
 {
 	size_t	i;
+	char	*tmp;
 
 	i = -1;
 	while (arr[++i])
 	{
-		if (ft_strstr(arr[i]->content, "\""))
+		tmp = arr[i]->content;
+		if (!ft_strllen(arr[i]->content))
+			arr[i]->location = NO_QUOTED;
+		else if (ft_cnt_tostr(tmp, "\"") < ft_cnt_tostr(tmp, "\'"))
 			arr[i]->location = IN_DOUBLE_Q;
-		else if (ft_strstr(arr[i]->content, "\'"))
+		else if (ft_cnt_tostr(tmp, "\'") < ft_cnt_tostr(tmp, "\""))
 			arr[i]->location = IN_SINGLE_Q;
 		if (arr[i]->location == IN_SINGLE_Q)
 			arr[i]->content = ft_strremove(arr[i]->content, "\'");
@@ -44,11 +48,14 @@ static t_token	**unquote_intoarr(t_token **arr)
 */
 t_cmd	*quote_removal(t_cmd *cmd)
 {
+	char	*tmp;
+
+	tmp = cmd->name->content;
 	if (cmd->cmdtype == CMD)
 		cmd->name->toktype = ARGS;
-	if (ft_strstr(cmd->name->content, "\""))
+	if (ft_cnt_tostr(tmp, "\"") < ft_cnt_tostr(tmp, "\'"))
 		cmd->name->location = IN_DOUBLE_Q;
-	else if (ft_strstr(cmd->name->content, "\'"))
+	else if (ft_cnt_tostr(tmp, "\'") < ft_cnt_tostr(tmp, "\""))
 		cmd->name->location = IN_SINGLE_Q;
 	if (cmd->name->location == IN_SINGLE_Q)
 		cmd->name->content = ft_strremove(cmd->name->content, "\'");
