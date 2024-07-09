@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:23:06 by sadoming          #+#    #+#             */
-/*   Updated: 2024/06/28 16:40:33 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:55:24 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static t_token	*create_token(t_list *tokens, t_token *token, size_t *pos)
 	if (!new_t)
 		return (NULL);
 	checker = check_beforecreate(NULL, token);
+	//Revise case-> echo-l
 	if (checker == -1 || checker == 1 || checker == 0)
 		return (new_t);
 	else if (checker == 2)
