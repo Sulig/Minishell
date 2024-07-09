@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 17:29:22 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:43:36 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos)
 			*pos = *pos - 1;
 			break ;
 		}
-		cmd->input = push_intoarr(cmd->input, token);
+		else if (checker != 0)
+			cmd->input = push_intoarr(cmd->input, token);
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
