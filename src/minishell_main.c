@@ -39,8 +39,8 @@ void	minishell(t_shell *tshell)
 		split_intodoublelist(tshell);
 		print_multiple_cmds_st(tshell->tree_cmd);
 		free_tokens(tshell);
-		//if (tshell->cmd_size && tshell->tree_cmd)
-			//redirect_and_execute(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();
