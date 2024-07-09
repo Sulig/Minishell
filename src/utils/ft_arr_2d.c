@@ -27,7 +27,7 @@ void	free_arr_2d(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	while (arr && arr[i])
 	{
 		if (arr[i])
 			free(arr[i]);

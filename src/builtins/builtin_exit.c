@@ -78,15 +78,11 @@ handles no arguments exiting with code 0
 handles non numeric arguments
 handles arguments with values larger than 255 (max exit code)
 */
-int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
+int	builtin_ex(char **flags, char **input, int exit_status, int is_child)
 {
 	int		exit_stat;
 	char	*arg;
-	char	**input;
-	char	**flags;
 
-	input = get_arr_input_from_cmd(cmd);
-	flags = get_arr_flags_from_cmd(cmd);
 	if (!is_child)
 		ft_putendl_fd("exit", STDIN_FILENO);
 	if (input == NULL && flags == NULL)
@@ -102,5 +98,18 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 	exit_stat = ft_atoll(arg);
 	free(arg);
 	restore_exit(exit_stat % 256);
+	return (exit_status);
+}
+
+int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
+{
+	char	**input;
+	char	**flags;
+
+	input = get_arr_input_from_cmd(cmd);
+	flags = get_arr_flags_from_cmd(cmd);
+	exit_status = builtin_ex(flags, input, exit_status, is_child);
+	free_arr_2d(input);
+	free_arr_2d(flags);
 	return (exit_status);
 }
