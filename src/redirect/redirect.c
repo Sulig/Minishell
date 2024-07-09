@@ -61,7 +61,6 @@ int	redirect(t_list *cmds, int n)
 			comand = get_name_from_cmd(cmd);
 			exit_stat = redirect_one(args, comand, n);
 			free_arr_2d(args);
-			free(comand);
 			node = node->next;
 		}
 		else
