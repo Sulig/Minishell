@@ -35,5 +35,6 @@ char	*concat_path(char **env, char *str);
 char	**get_key_value_pair(char *arg);
 void	change_pwds(t_shell *tshell);
 void	change_pwds_home(t_shell *tshell);
+int		check_cd_input (t_cmd *cmd, t_shell *tshell);
 
 #endif
