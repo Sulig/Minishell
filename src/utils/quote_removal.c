@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/08 18:49:52 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:08:10 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_token	**unquote_intoarr(t_token **arr)
 			arr[i]->content = ft_strremove(arr[i]->content, "\"");
 		else if (arr[i]->location == IN_SINGLE_Q)
 			arr[i]->content = ft_strremove(arr[i]->content, "\'");
-		if (ft_strstr(arr[i]->content, "$") && ft_strllen(arr[i]->content) > 2)
+		if (ft_strstr(arr[i]->content, "$") && ft_strllen(arr[i]->content) >= 2)
 			if (arr[i]->location != IN_SINGLE_Q)
 				arr[i]->toktype = ENV;
 	}

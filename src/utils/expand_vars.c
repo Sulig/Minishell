@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/08 17:03:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:48:02 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,7 @@ static t_token	**expand_intoarr(t_token **arr, char **env, int exit, int exp)
 	{
 		if (arr[i]->toktype == ENV && arr[i]->location != IN_SINGLE_Q)
 			arr[i]->content = expand_str(arr[i]->content, env, exit, exp);
-		if (!ft_strstr(arr[i]->content, "$") && arr[i]->toktype != FLAG)
-			arr[i]->toktype = ARGS;
-		else
+		if (ft_strstr(arr[i]->content, "$"))
 			arr[i]->toktype = ENV;
 		if (!ft_strllen(arr[i]->content))
 		{
