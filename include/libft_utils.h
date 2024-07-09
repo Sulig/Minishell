@@ -34,4 +34,10 @@ long long	ft_atoll(char *str);
 char		*ft_strcpy(char *dst, const char *src);
 char		*ft_strncpy(char *dst, const char *src, size_t len);
 
+/* token_utils */
+int			count_tokens(t_token **toks);
+char		*get_name_from_cmd(t_cmd *comand);
+char		**get_arr_input_from_cmd(t_cmd *comand);
+char		**get_arr_input_from_cmd(t_cmd *comand);
+
 #endif
