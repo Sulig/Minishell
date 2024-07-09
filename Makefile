@@ -56,7 +56,7 @@ DEPS = $(OBJS:%.o=%d)
 ## MINISHELL SRC ->
 SRC_SRC = minishell_main.c ft_readline.c manage_structs.c tokenizer.c\
 		  check_valid_syntax.c checkfor_unclosedquotes.c split_intocomands.c\
-		  split_intodoublelist.c #redirect_and_execute.c
+		  split_intodoublelist.c redirect_and_execute.c
 
 BLT_SRC = builtin_cd.c builtin_echo.c builtin_env.c builtin_exit.c\
 		  builtin_export.c builtin_pwd.c builtin_unset.c cd_utils.c\
@@ -89,14 +89,14 @@ UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
 HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_SRC))
-#SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
+SRC += $(addprefix $(BLT_DIR)/, $(BLT_SRC))
 SRC += $(addprefix $(ENV_DIR)/, $(ENV_SRC))
-#SRC += $(addprefix $(EXE_DIR)/, $(EXE_SRC))
-#SRC += $(addprefix $(RED_DIR)/, $(RED_SRC))
+SRC += $(addprefix $(EXE_DIR)/, $(EXE_SRC))
+SRC += $(addprefix $(RED_DIR)/, $(RED_SRC))
 SRC += $(addprefix $(PER_DIR)/, $(PER_SRC))
 SRC += $(addprefix $(SIG_DIR)/, $(SIG_SRC))
 SRC += $(addprefix $(UTL_DIR)/, $(UTL_SRC))
-#SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
+SRC += $(addprefix $(HER_DIR)/, $(HER_SRC))
 
 OBJS 	= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 INC	:=	$(addprefix $(INC_DIR)/, $(INCS))
