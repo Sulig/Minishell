@@ -12,12 +12,12 @@
 
 #include "../../include/minishell.h"
 
-int		count_tokens(t_token **toks)
+int	count_tokens(t_token **toks)
 {
 	int	i;
 
 	i = 0;
-	while(toks && toks[i])
+	while (toks && toks[i])
 	{
 		i++;
 	}
@@ -36,18 +36,18 @@ char	**get_arr_input_from_cmd(t_cmd *comand)
 {
 	t_token	**tok;
 	char	**arr;
-	int len;
-	int i;
+	int		len;
+	int		i;
 
 	tok = comand->input;
 	len = count_tokens(tok);
 	if (len == 0)
 		return (NULL);
-	arr = malloc(sizeof(char *)*(len+1));
+	arr = malloc(sizeof(char *) * (len + 1));
 	if (!arr)
 		return (NULL);
 	i = 0;
-	while(i<len)
+	while (i < len)
 	{
 		arr[i] = ft_strdup(tok[i]->content);
 		i++;
@@ -60,18 +60,18 @@ char	**get_arr_flags_from_cmd(t_cmd	*comand)
 {
 	t_token	**tok;
 	char	**arr;
-	int len;
-	int i;
+	int		len;
+	int		i;
 
 	tok = comand->flags;
 	len = count_tokens(tok);
 	if (len == 0)
 		return (NULL);
-	arr = malloc(sizeof(char *)*(len+1));
+	arr = malloc(sizeof(char *) * (len + 1));
 	if (!arr)
 		return (NULL);
 	i = 0;
-	while(i<len)
+	while (i < len)
 	{
 		arr[i] = ft_strdup(tok[i]->content);
 		i++;

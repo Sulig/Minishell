@@ -42,7 +42,6 @@ void	exec_cmd(t_cmd *cmd, char **env)
 		check_path(path);
 	flags = get_arr_flags_from_cmd(cmd);
 	input = get_arr_input_from_cmd(cmd);
-
 	args = joinpath_withargs(path, flags, input);
 	flags = ft_auto_free_arr(flags);
 	input = ft_auto_free_arr(input);

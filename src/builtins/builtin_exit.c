@@ -63,6 +63,15 @@ static int	is_longlong(char *arg)
 	return (ft_check_llong(arg));
 }
 
+void	check_exit_arg(char *arg)
+{
+	if (is_longlong(arg) == FALSE)
+	{
+		free(arg);
+		restore_exit(print_comun_error("numeric argument required", 2));
+	}
+}
+
 /*
 handles more than 2 arguments
 handles no arguments exiting with code 0
@@ -89,14 +98,9 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 	if (arr_2d_len(input) > 1)
 		return (print_comun_error("too many arguments", 1));
 	arg = ft_strtrim(input[0], " \n\t\v\f\r");
-	if (is_longlong(arg) == FALSE)
-	{
-		free(arg);
-		restore_exit(print_comun_error("numeric argument required", 2));
-	}
+	check_exit_arg (arg);
 	exit_stat = ft_atoll(arg);
 	free(arg);
 	restore_exit(exit_stat % 256);
-	//free(arg);
 	return (exit_status);
 }

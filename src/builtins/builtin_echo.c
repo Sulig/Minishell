@@ -38,6 +38,23 @@ static int	get_flag(t_token **args)
 	return (idx);
 }
 
+void	print_echo(t_cmd *cmd, int flag)
+{
+	int	i;
+
+	i = 0;
+	if (cmd->input != NULL)
+	{
+		while (cmd->input[i])
+		{
+			ft_putstr_fd(cmd->input[i]->content, STDOUT_FILENO);
+			i++;
+		}
+	}
+	if (!flag)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+}
+
 int	builtin_echo(t_cmd *cmd)
 {
 	int	flag;
@@ -53,27 +70,16 @@ int	builtin_echo(t_cmd *cmd)
 		flag = get_flag(cmd->flags);
 		i = flag;
 	}
-	if (flag<len)
+	if (flag < len)
 	{
 		while (cmd->flags[i])
 		{
 			ft_putstr_fd(cmd->flags[i]->content, STDOUT_FILENO);
-			if(i < len-1 ||cmd->input != NULL)
+			if (i < len - 1 || cmd->input != NULL)
 				ft_putstr_fd(" ", STDOUT_FILENO);
 			i++;
 		}
 	}
-	i = 0;
-	if (cmd->input != NULL)
-	{
-		while(cmd->input[i])
-		{
-			ft_putstr_fd(cmd->input[i]->content, STDOUT_FILENO);
-			i++;
-		}
-
-	}
-	if (!flag)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+	print_echo(cmd, flag);
 	return (0);
 }
