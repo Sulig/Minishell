@@ -16,10 +16,12 @@ char	*heredoc_filename(int n)
 {
 	char	*tmp;
 	char	*filename;
+	char	*path;
 
 	filename = ft_strdup(HEREDOC_FILENAME_PREFIX);
 	tmp = ft_itoa(n);
-	ft_strjoin_free_fst(filename, tmp);
+	path = ft_strjoin(filename, tmp);
 	free(tmp);
-	return (filename);
+	free(filename);
+	return (path);
 }

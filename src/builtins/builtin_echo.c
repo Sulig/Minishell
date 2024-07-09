@@ -40,14 +40,39 @@ static int	get_flag(t_token **args)
 
 int	builtin_echo(t_cmd *cmd)
 {
-	int		flag;
+	int	flag;
+	int	len;
+	int	i;
 
 	flag = FALSE;
-	// Search and recover the flags?
+	len = 0;
+	i = flag;
 	if (cmd->flags)
+	{
+		len = count_tokens(cmd->flags);
 		flag = get_flag(cmd->flags);
+		i = flag;
+	}
+	if (flag<len)
+	{
+		while (cmd->flags[i])
+		{
+			ft_putstr_fd(cmd->flags[i]->content, STDOUT_FILENO);
+			if(i < len-1 ||cmd->input != NULL)
+				ft_putstr_fd(" ", STDOUT_FILENO);
+			i++;
+		}
+	}
+	i = 0;
 	if (cmd->input != NULL)
-		ft_putstr_fd(cmd->input[0]->content, STDOUT_FILENO);
+	{
+		while(cmd->input[i])
+		{
+			ft_putstr_fd(cmd->input[i]->content, STDOUT_FILENO);
+			i++;
+		}
+
+	}
 	if (!flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
