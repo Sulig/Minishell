@@ -22,38 +22,6 @@ static void	check_path(const char *path)
 		exit(print_comun_error("Permission denied", 126));
 }
 
-char	**parse_args(char *path, char *args)
-{
-	char	*arg[3];
-
-	arg[0] = path;
-	arg[1] = args;
-	arg[2] = NULL;
-	return (ft_strarrdup(arg));
-}
-
-char	**parse_expr(char *path, char *args)
-{
-	char	**splited;
-	char	**arg;
-	int		items;
-	int		i;
-
-	splited = ft_split(args, ' ');
-	items = ft_arr_strlen(splited);
-	arg = malloc(sizeof(char *) * (items + 2));
-	i = 1;
-	arg[0] = path;
-	while (i <= items)
-	{
-		arg[i] = ft_strdup(splited[i - 1]);
-		i++;
-	}
-	arg[i] = NULL;
-	free_arr_2d(splited);
-	return (ft_strarrdup(arg));
-}
-
 /*
 * Executes the shell command 'cmd' and exits, assuming 'cmd' is a non-empty
 * NULL-terminated array of strings in which the first element is the path or
@@ -62,20 +30,22 @@ char	**parse_expr(char *path, char *args)
 */
 void	exec_cmd(t_cmd *cmd, char **env)
 {
-	char	**args;
+	char	**flags;
+	char	**input;
 	char	*path;
+	char	**args;
 
 	path = cmd->name->content;
 	if (!ft_strchr(path, '/'))
 		path = get_executable(path, env);
 	else
 		check_path(path);
-	if (!ft_strstr(path, "expr") && cmd->flags != NULL)
-		args = parse_args(path, cmd->flags);
-	else if (cmd->input)
-		args = parse_expr(path, cmd->input);
-	else
-		args = parse_args(path, NULL);
+	flags = get_arr_flags_from_cmd(cmd);
+	input = get_arr_input_from_cmd(cmd);
+
+	args = joinpath_withargs(path, flags, input);
+	flags = ft_auto_free_arr(flags);
+	input = ft_auto_free_arr(input);
 	execve(path, args, env);
 	print_comandnotfound(cmd->name->content);
 	exit(EXIT_FAILURE);

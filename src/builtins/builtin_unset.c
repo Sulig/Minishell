@@ -22,7 +22,7 @@ int	builtin_unset(t_cmd *cmd, t_shell *tshell)
 	if (cmd->input != NULL)
 	{
 		i = 0;
-		args = ft_split(cmd->input, ' ');
+		args = get_arr_input_from_cmd(cmd);
 		if (!ft_arr_strlen(args))
 		{
 			free_arr_2d(args);

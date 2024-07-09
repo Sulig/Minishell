@@ -88,7 +88,8 @@ int	builtin_export(t_cmd *cmd, t_shell *tshell)
 	if (!cmd->input)
 		return (export_noargs(tshell->env));
 	//Maybe will be convenient to make a copy of input?
-	args = ft_strarrdup(cmd->input);
+	args = get_arr_input_from_cmd(cmd);
+	//args = ft_strarrdup(cmd->input);
 	//Push the flags to **input?
 	exit_status = process_args(args, exit_status, tshell);
 	free_arr_2d(args);

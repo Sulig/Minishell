@@ -61,6 +61,8 @@ static int	is_same_or_parent_dir(char *str)
 
 int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 {
+	int len;
+
 	if (cmd->input == NULL)
 	{
 		if (chdir(get_var_from_env("HOME", tshell->env)) < 0)
@@ -70,6 +72,9 @@ int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 	}
 	if (cmd->input[0]->content == NULL)
 		return (EXIT_SUCCESS);
+	len = count_tokens(cmd->input);
+	if (len > 1)
+		return (print_comun_error("minishell: cd: too many arguments", 1));
 	if (is_relativepath(cmd->input[0]->content)
 		&& is_same_or_parent_dir(cmd->input[0]->content) == FALSE)
 	{
@@ -82,7 +87,7 @@ int	builtin_cd(t_cmd *cmd, t_shell *tshell)
 		}
 	}
 	if (chdir(cmd->input[0]->content) < 0)
-		return (print_comun_error("cd: no such file or directory", 1));
+		return (print_comun_error("minishell: cd: no such file or directory", 1));
 	change_pwds(tshell);
 	return (EXIT_SUCCESS);
 }

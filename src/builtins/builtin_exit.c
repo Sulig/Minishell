@@ -73,18 +73,22 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 {
 	int		exit_stat;
 	char	*arg;
+	char	**input;
+	char	**flags;
 
+	input = get_arr_input_from_cmd(cmd);
+	flags = get_arr_flags_from_cmd(cmd);
 	if (!is_child)
 		ft_putendl_fd("exit", STDIN_FILENO);
-	if (cmd->input == NULL && cmd->flags == NULL)
+	if (input == NULL && flags == NULL)
 		restore_exit(exit_status);
-	if (cmd->input != NULL && cmd->flags != NULL)
+	if (input != NULL && flags != NULL)
 		return (print_comun_error("too many arguments", 1));
-	if (cmd->flags != NULL && cmd->input == NULL)
-		cmd->input = ft_strdup(cmd->flags);
-	if (ft_strchr(cmd->input, ' ') != NULL)
+	if (flags != NULL && input == NULL)
+		input = flags;
+	if (arr_2d_len(input) > 1)
 		return (print_comun_error("too many arguments", 1));
-	arg = ft_strtrim(cmd->input, " \n\t\v\f\r");
+	arg = ft_strtrim(input[0], " \n\t\v\f\r");
 	if (is_longlong(arg) == FALSE)
 	{
 		free(arg);
@@ -93,6 +97,6 @@ int	builtin_exit(t_cmd *cmd, int exit_status, int is_child)
 	exit_stat = ft_atoll(arg);
 	free(arg);
 	restore_exit(exit_stat % 256);
-	free(arg);
+	//free(arg);
 	return (exit_status);
 }
