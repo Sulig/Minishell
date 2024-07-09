@@ -6,11 +6,11 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 19:26:38 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/08 19:45:40 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:13:47 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static char	**free_case(char **tofree, int free, int strcase)
 {
@@ -46,14 +46,15 @@ char	**join_strarr(char **arr1, char **arr2, int free)
 	result = ft_calloc(sizeof(char *), size + 1);
 	if (!result)
 		return (NULL);
-	i = -1;
+	i = 0;
+	j = 0;
 	if (arr1)
-		while (arr1[++i])
-			result[i] = ft_strdup(arr1[i]);
-	j = -1;
+		while (arr1[j])
+			result[i++] = ft_strdup(arr1[j++]);
+	j = 0;
 	if (arr2)
-		while (arr2[++j])
-			result[i++] = ft_strdup(arr1[j]);
+		while (arr2[j])
+			result[i++] = ft_strdup(arr2[j++]);
 	arr1 = free_case(arr1, free, 1);
 	arr2 = free_case(arr2, free, 2);
 	return (result);
@@ -65,8 +66,8 @@ char	**joinpath_withargs(char *path, char **flags, char **args)
 	char	**tmp;
 	size_t	size;
 
-	size = ft_arr_strlen(flags) + ft_arr_strlen(args) + 2;
-	result = ft_calloc(sizeof(char *), size);
+	size = ft_arr_strlen(flags) + ft_arr_strlen(args) + 1;
+	result = ft_calloc(sizeof(char *), size + 1);
 	if (!result)
 		return (NULL);
 	result[0] = ft_strdup(path);
