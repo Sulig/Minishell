@@ -82,7 +82,6 @@ int	builtin_export(t_cmd *cmd, t_shell *tshell)
 {
 	int		exit_status;
 	char	**args;
-	char	**tmp;
 
 	exit_status = 0;
 	if (!cmd->input)

@@ -35,7 +35,7 @@ static char	**free_case(char **tofree, int free, int strcase)
 * * If free = 2 -> free arr2
 * * If free = 3 -> free arr1 & arr2
 */
-char	*join_strarr(char **arr1, char **arr2, int free)
+char	**join_strarr(char **arr1, char **arr2, int free)
 {
 	char	**result;
 	size_t	size;
@@ -59,7 +59,7 @@ char	*join_strarr(char **arr1, char **arr2, int free)
 	return (result);
 }
 
-char	*joinpath_withargs(char *path, char **flags, char **args)
+char	**joinpath_withargs(char *path, char **flags, char **args)
 {
 	char	**result;
 	char	**tmp;

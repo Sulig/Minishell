@@ -20,21 +20,23 @@
 */
 static int	redirect_one(t_cmd *redir, int n)
 {
-	char	*str;
+	char	*comand;
+	char	**arr;
 
-	if (redir->input == NULL)
+	arr = get_arr_input_from_cmd(redir);
+	if (arr == NULL)
 	{
 		print_err_custom("ambiguous redirect", 1);
 		return (EXIT_FAILURE);
 	}
-	str = redir->input;
-	if (!ft_strncmp(redir->comand, ">", 2))
-		return (link_output_file(str, FALSE));
-	else if (!ft_strncmp(redir->comand, ">>", 3))
-		return (link_output_file(str, TRUE));
-	else if (!ft_strncmp(redir->comand, "<", 2))
-		return (link_input_file(str));
-	else if (!ft_strncmp(redir->comand, "<<", 3))
+	comand = get_name_from_cmd(redir);
+	if (!ft_strncmp(comand, ">", 2))
+		return (link_output_file(arr[0], FALSE));
+	else if (!ft_strncmp(comand, ">>", 3))
+		return (link_output_file(arr[0], TRUE));
+	else if (!ft_strncmp(comand, "<", 2))
+		return (link_input_file(arr[0]));
+	else if (!ft_strncmp(comand, "<<", 3))
 		return (link_heredoc(n));
 	return (EXIT_FAILURE);
 }

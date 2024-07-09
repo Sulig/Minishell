@@ -54,7 +54,7 @@ t_list	*agroup_tokens(t_list *tokens);
 void	agroup_mylist(t_shell *tshell);
 
 /* Testing */
-char	*joinpath_withargs(char *path, char **flags, char **args);
+char	**joinpath_withargs(char *path, char **flags, char **args);
 
 void	expand_and_unquote(t_shell *tshell, t_list *comands);
 t_cmd	*quote_removal(t_cmd *cmd);

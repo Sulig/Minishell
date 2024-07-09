@@ -23,7 +23,10 @@ void	prepare_echo(t_list *piped_cmd)
 	{
 		cmd = piped_cmd->content;
 		if (cmd->cmdtype == CMD)
-			first_cmd->input = ft_strdup(cmd->name->content);
+		{
+			first_cmd->input[0]->content = NULL;
+			first_cmd->input[0]->content = ft_strdup(cmd->name->content);
+		}
 		piped_cmd = piped_cmd->next;
 	}
 }
