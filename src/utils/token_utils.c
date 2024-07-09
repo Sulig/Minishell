@@ -39,11 +39,12 @@ char	**get_arr_input_from_cmd(t_cmd *comand)
 	int		len;
 	int		i;
 
+	arr = NULL;
 	tok = comand->input;
 	len = count_tokens(tok);
 	if (len == 0)
 		return (NULL);
-	arr = malloc(sizeof(char *) * (len + 1));
+	arr = ft_calloc(sizeof(char *), len + 1);
 	if (!arr)
 		return (NULL);
 	i = 0;
@@ -63,11 +64,12 @@ char	**get_arr_flags_from_cmd(t_cmd	*comand)
 	int		len;
 	int		i;
 
+	arr = NULL;
 	tok = comand->flags;
 	len = count_tokens(tok);
 	if (len == 0)
 		return (NULL);
-	arr = malloc(sizeof(char *) * (len + 1));
+	arr = ft_calloc(sizeof(char *), len + 1);
 	if (!arr)
 		return (NULL);
 	i = 0;

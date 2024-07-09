@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/18 17:23:15 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:54:38 by jguillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@
  * In the case of here documents, quote-removal is performed.
  * Returns the appropriate exit code after printing any error message.
 */
-static int	redirect_one(t_cmd *redir, int n)
+static int	redirect_one(char **arr, char *comand, int n)
 {
-	char	*comand;
-	char	**arr;
-
-	arr = get_arr_input_from_cmd(redir);
 	if (arr == NULL)
 	{
 		print_err_custom("ambiguous redirect", 1);
 		return (EXIT_FAILURE);
 	}
-	comand = get_name_from_cmd(redir);
 	if (!ft_strncmp(comand, ">", 2))
 		return (link_output_file(arr[0], FALSE));
 	else if (!ft_strncmp(comand, ">>", 3))
@@ -51,7 +46,10 @@ int	redirect(t_list *cmds, int n)
 	int		exit_stat;
 	t_list	*node;
 	t_cmd	*cmd;
+	char	**args;
+	char	*comand;
 
+	args = NULL;
 	exit_stat = 0;
 	node = cmds;
 	while (node && exit_stat == 0)
@@ -59,7 +57,11 @@ int	redirect(t_list *cmds, int n)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
-			exit_stat = redirect_one(cmd, n);
+			args = get_arr_input_from_cmd(cmd);
+			comand = get_name_from_cmd(cmd);
+			exit_stat = redirect_one(args, comand, n);
+			free_arr_2d(args);
+			free(comand);
 			node = node->next;
 		}
 		else
