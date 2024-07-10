@@ -41,13 +41,18 @@ static int	get_flag(t_token **args)
 void	print_echo(t_cmd *cmd, int flag)
 {
 	int	i;
+	int	notfirst;
 
+	notfirst = FALSE;
 	i = 0;
 	if (cmd->input != NULL)
 	{
 		while (cmd->input[i])
 		{
+			if (notfirst)
+				ft_putstr_fd(" ", STDOUT_FILENO);
 			ft_putstr_fd(cmd->input[i]->content, STDOUT_FILENO);
+			notfirst = TRUE;
 			i++;
 		}
 	}
