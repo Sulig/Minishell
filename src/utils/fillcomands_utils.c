@@ -6,11 +6,47 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:50:39 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:56:23 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+ * This function have 2 parts:
+ * 	- Part 1 -> Check valid syntax && no closed quotes in tshell
+ * 	- Part 2 -> Token->toktype Checker
+ * 		- -1	|> PIPES && REDIRS (NO_QUOTED)
+ * 		- 1		|> ARGS && SPACES (IN_QUOTES)
+ * 		- 2		|> QUOTES
+ * 		- 3		|> FLAGS (NO QUOTED)
+ * 		- 0		|> ETC..
+*/
+int	check_beforecreate(t_shell *tshell, t_token *token)
+{
+	if (!token)
+	{
+		if (!tshell->tokens)
+			return (0);
+		if (check_valid_syntax(tshell) == 2)
+			return (0);
+		if (checkfor_unclosedquotes(tshell, tshell->tokens) == 2)
+			return (0);
+		return (1);
+	}
+	if (token->toktype == PIPE || token->toktype == REDIR)
+		if (token->location == NO_QUOTED)
+			return (-1);
+	if (token->toktype == ARGS || token->toktype == ENV)
+		return (1);
+	if (token->toktype == SPACE && token->location != NO_QUOTED)
+		return (1);
+	if (token->toktype == D_QUOTE || token->toktype == S_QUOTE)
+		return (2);
+	if (token->toktype == FLAG && token->location == NO_QUOTED)
+		return (3);
+	return (0);
+}
 
 /* Asing comand type:
  * - REDIR	< > << >>
@@ -36,14 +72,15 @@ t_cmd	*asign_comandtype(t_cmd *cmd)
 
 /*
 ** Skips Spaces ->
-*	Look to tthe content, if toktype is " " go to next
+*	Look to the content, if toktype is " " go to next
 *	and so on, until finds a other content or no more nodes.
 */
-t_token	*jump_tocontent(t_list *tokens, size_t *pos)
+t_list	*jump_tocontent(t_list *tokens, size_t *pos)
 {
 	t_token	*token;
 
 	token = NULL;
+	*pos = tokens->pos;
 	while (tokens)
 	{
 		token = (t_token *)tokens->content;
@@ -52,7 +89,7 @@ t_token	*jump_tocontent(t_list *tokens, size_t *pos)
 		tokens = tokens->next;
 		*pos = *pos + 1;
 	}
-	return (token);
+	return (tokens);
 }
 
 /*
@@ -63,11 +100,8 @@ t_token	**clean_array(t_token **tokens)
 	size_t	j;
 
 	j = -1;
-	if (tokens[0]->toktype == SPACE)
-	{
-		tokens = clear_tarr(tokens);
-		return (tokens);
-	}
+	while (tokens[0]->toktype == SPACE)
+		tokens = pop_outarr(tokens, 0);
 	while (tokens[++j])
 	{
 		if (tokens[j]->toktype == SPACE && tokens[j + 1])

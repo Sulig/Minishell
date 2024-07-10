@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jguillot <jguillot@student.42barcelona>    +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:19:11 by jguillot          #+#    #+#             */
-/*   Updated: 2024/07/07 12:54:38 by jguillot         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:14:50 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	redirect(t_list *cmds, int n)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
+			//#~call to dobefore_execve * it will join the input[x] to one
 			args = get_arr_input_from_cmd(cmd);
 			comand = get_name_from_cmd(cmd);
 			exit_stat = redirect_one(args, comand, n);

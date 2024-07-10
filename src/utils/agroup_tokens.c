@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:23:06 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:55:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:21:39 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ static t_token	*create_token(t_list *tokens, t_token *token, size_t *pos)
 	if (!new_t)
 		return (NULL);
 	checker = check_beforecreate(NULL, token);
-	//Revise case-> echo-l
-	if (checker == -1 || checker == 1 || checker == 0)
+	if (checker == -1 || !checker)
 		return (new_t);
+	else if (checker == 1)
+		new_t = fill_args_case(new_t, tokens->next, pos);
 	else if (checker == 2)
 		new_t = fill_quote_case(new_t, tokens->next, pos);
 	else if (checker == 3)

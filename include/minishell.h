@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:01:26 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:57:13 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	expand_and_unquote(t_shell *tshell, t_list *comands);
 t_cmd	*quote_removal(t_cmd *cmd);
 t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd, int exp);
 
+t_token	*fill_args_case(t_token *new_t, t_list *tokens, size_t *pos);
+
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 void	split_intodoublelist(t_shell *tshell);
 
@@ -84,6 +86,7 @@ t_shell	*init_tshell(t_shell *tshell, char **env);
 /* UTILS */
 t_list	*splitline_intotokens(char *line);
 t_list	*fill_token_location(t_list *tokens);
+t_list	*jump_tocontent(t_list *tokens, size_t *pos);
 
 size_t	len_of_tokens(t_token **arr);
 t_token	*duplicate_token(t_token *org);
@@ -92,7 +95,6 @@ t_token	**push_intoarr(t_token **original, t_token *add);
 t_token	**pop_outarr(t_token **original, size_t pop);
 
 t_token	**clean_array(t_token **tokens);
-t_token	*jump_tocontent(t_list *tokens, size_t *pos);
 
 t_cmd	*asign_comandtype(t_cmd *cmd);
 

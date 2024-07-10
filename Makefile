@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:55:31 by sadoming          #+#    #+#              #
-#    Updated: 2024/07/09 18:59:45 by sadoming         ###   ########.fr        #
+#    Updated: 2024/07/10 17:17:54 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ RED_SRC = fork_or_die.c link_input_file.c link_output_file.c link_read_end.c\
 
 SIG_SRC = signals.c signals_utils.c
 
-UTL_SRC = print_utils.c set_path.c fill_token_location.c is_builtin.c\
+UTL_SRC = print_utils.c set_path.c filltokens_utils.c is_builtin.c\
 		  splitline_intotokens.c expand_heredoc_vars.c\
 		  arrof_tokens_utils.c agroup_tokens.c fillcomands_utils.c\
 		  quote_removal.c expand_vars.c join_pathwithargs.c\
