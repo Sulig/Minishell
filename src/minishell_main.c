@@ -32,14 +32,17 @@ void	minishell(t_shell *tshell)
 		if (!tshell->line)
 			exit_minishell(tshell);
 		split_intotokens(tshell);
-		print_tokens_st(tshell->tokens);
+		//print_tokens_st(tshell->tokens);
 		split_intocomands(tshell, tshell->tokens);
 		print_comands_st(tshell->comands);
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		free_tokens(tshell);
 		if (tshell->cmd_size && tshell->tree_cmd)
-			redirect_and_execute(tshell);
+		{
+			if (check_comand(tshell))
+				redirect_and_execute(tshell);
+		}
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

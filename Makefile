@@ -82,7 +82,7 @@ UTL_SRC = print_utils.c set_path.c fill_token_location.c is_builtin.c\
 		  splitline_intotokens.c expand_heredoc_vars.c\
 		  arrof_tokens_utils.c agroup_tokens.c fillcomands_utils.c\
 		  quote_removal.c expand_vars.c join_pathwithargs.c\
-		  dobefore_execve.c
+		  dobefore_execve.c check_comand.c
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
 			builtin_utils.c ft_strjoin_free.c token_utils.c\

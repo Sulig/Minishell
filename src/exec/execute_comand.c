@@ -21,7 +21,7 @@ void	execute_command(t_list *cmds, t_shell *tshell)
 	node = cmds;
 	while (node)
 	{
-		cmd	= dobefore_execve(tshell, node->content);
+		cmd = dobefore_execve(tshell, node->content);
 		if (cmd->cmdtype != REDIR)
 		{
 			set_signals(NON_INTER);
