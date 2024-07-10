@@ -43,7 +43,7 @@ int	execute_builtin(t_list *piped_cmd, t_shell *tshell, int is_child)
 	int		ext_stat;
 
 	ext_stat = tshell->exit_state;
-	cmd = expand_exit_status(tshell, piped_cmd->content);
+	cmd	= dobefore_execve(tshell, piped_cmd->content);
 	if (!ft_strncmp(cmd->name->content, "echo", 5) && tshell->cmd_size > 1)
 		prepare_echo(piped_cmd);
 	if (!ft_strncmp(cmd->name->content, "cd", 3))

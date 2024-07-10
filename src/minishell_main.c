@@ -38,8 +38,8 @@ void	minishell(t_shell *tshell)
 		tshell->line = ft_free_str(tshell->line);
 		split_intodoublelist(tshell);
 		free_tokens(tshell);
-		//if (tshell->cmd_size && tshell->tree_cmd)
-		//	redirect_and_execute(tshell);
+		if (tshell->cmd_size && tshell->tree_cmd)
+			redirect_and_execute(tshell);
 		free_comands(tshell);
 		free_tree_cmds(tshell);
 		rl_on_new_line();

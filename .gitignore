@@ -247,3 +247,5 @@ mpanic-main/test/mandatory/status/status.txt
 mpanic-main/test/panic/panic_mandatory/panic_mandatory.txt
 mpanic-main/test/panic/scapes/scapes.txt
 Makefile sadoming
+.vscode/launch.json
+.vscode/tasks.json
