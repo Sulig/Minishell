@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:48:02 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:40:19 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*expansor_utils(char *str, char **env, int exit, int expand)
 	char	*tmp;
 	char	*itoa;
 
-	if (ft_strstr(str, "$?") && expand)
+	if (ft_strstr(str, "$?") && expand == 1)
 	{
 		itoa = ft_itoa(exit);
 		tmp = ft_strinter(str, itoa, ft_cnt_tostr(str, "$?") + 2);
@@ -116,15 +116,15 @@ t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd, int exp)
 	if (cmd->name->toktype == ENV && cmd->name->location != IN_SINGLE_Q)
 	{
 		tmp = cmd->name->content;
-		cmd->name->content = expand_str(tmp, tshell->env, exit, exp);
+		cmd->name->content = expand_str(tmp, tshell->env, exit, 1);
 		if (!ft_strstr(cmd->name->content, "$"))
 			cmd->name->toktype = ARGS;
 		else
 			cmd->name->toktype = ENV;
 	}
-	if (cmd->flags)
+	if (cmd->flags && exp == 2)
 		cmd->flags = expand_intoarr(cmd->flags, tshell->env, exit, exp);
-	if (cmd->input)
+	if (cmd->input && exp == 2)
 		cmd->input = expand_intoarr(cmd->input, tshell->env, exit, exp);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/10 17:56:23 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:40:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,9 @@ void	expand_and_unquote(t_shell *tshell, t_list *comands)
 		cmd = (t_cmd *)comands->content;
 		if (cmd->cmdtype != PIPE)
 		{
-			cmd = quote_removal(cmd);
 			cmd = expand_env_vars_cmd(tshell, cmd, 0);
+			cmd = quote_removal(cmd);
+			cmd = expand_env_vars_cmd(tshell, cmd, 2);
 		}
 		comands = comands->next;
 	}
