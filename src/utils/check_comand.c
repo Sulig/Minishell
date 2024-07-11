@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 08:28:49 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/25 15:49:22 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:00:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	check_cmd(t_cmd *cmd)
 {
-	if (!ft_strcmp(cmd->name->content, "") || cmd->name->content[0] == '\0')
+	if (!ft_strllen(cmd->name->content))
 	{
-		if (cmd->input && cmd->input[0])
+		if (len_of_tokens(cmd->input))
 		{
-			free(cmd->name->content);
+			cmd->name->content = ft_free_str(cmd->name->content);
 			cmd->name->content = ft_strdup(cmd->input[0]->content);
 			cmd->input = pop_outarr(cmd->input, 0);
-			if (cmd->input[0] && (ft_strcmp(cmd->input[0]->content, "")
-					|| cmd->input[0]->content[0] == '\0'))
-				cmd->input = pop_outarr(cmd->input, 0);
+			if (!len_of_tokens(cmd->input))
+				cmd->input = clear_tarr(cmd->input);
 		}
 		else
 			return (0);
