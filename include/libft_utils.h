@@ -40,5 +40,6 @@ char		*get_name_from_cmd(t_cmd *comand);
 char		**get_arr_input_from_cmd(t_cmd *comand);
 char		**get_arr_flags_from_cmd(t_cmd *comand);
 int			check_comand(t_shell *tshell);
+void		prepare_echo(t_list *piped_cmd);
 
 #endif

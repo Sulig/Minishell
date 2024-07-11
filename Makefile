@@ -86,7 +86,7 @@ UTL_SRC = print_utils.c set_path.c filltokens_utils.c is_builtin.c\
 
 UTL_SRC += ft_arr_2d.c libft_utils.c libft_utils2.c libft_utils3.c\
 			builtin_utils.c ft_strjoin_free.c token_utils.c\
-			replace_exit_status.c
+			replace_exit_status.c prepare_echo.c
 
 HER_SRC = read_heredocs.c heredoc_filename.c clear_heredocs.c link_heredoc.c
 
