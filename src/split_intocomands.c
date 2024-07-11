@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 18:35:48 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:22:35 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,13 @@ static t_cmd	*create_command(t_list *tokens, t_token *token, size_t *pos)
 		cmd = fill_comand_args(cmd, tokens, pos, 1);
 		*pos = *pos + 1;
 	}
-	else if (cmd->cmdtype != PIPE && token->toktype != PIPE)
+	else if (cmd->cmdtype != PIPE && check_beforecreate(NULL, token) != -1)
 	{
 		*pos = *pos + 1;
 		cmd = fill_comand_flags(cmd, tokens, pos);
 		cmd = fill_comand_args(cmd, tokens, pos, 0);
 	}
+	select_nextpos(cmd, token, pos);
 	cmd = asign_comandtype(cmd);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 13:57:51 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:23:29 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_token	*fill_args_case(t_token *new_t, t_list *tokens, size_t *pos);
 
 void	split_intocomands(t_shell *tshell, t_list *tokens);
 void	split_intodoublelist(t_shell *tshell);
+
+void	select_nextpos(t_cmd *cmd, t_token *token, size_t *pos);
 
 /* REDIRECT AND EXECUTE */
 void	redirect_and_execute(t_shell *tshell);

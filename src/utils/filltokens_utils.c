@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/10 17:31:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:23:18 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,12 @@ t_token	*fill_args_case(t_token *new_t, t_list *tokens, size_t *pos)
 		*pos = *pos + 1;
 	}
 	return (new_t);
+}
+
+void	select_nextpos(t_cmd *cmd, t_token *token, size_t *pos)
+{
+	if (cmd->cmdtype == PIPE || cmd->cmdtype == REDIR)
+		return ;
+	if (token->toktype == REDIR)
+		*pos = *pos - 1;
 }
