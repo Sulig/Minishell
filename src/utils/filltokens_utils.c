@@ -86,7 +86,11 @@ t_token	*fill_args_case(t_token *new_t, t_list *tokens, size_t *pos)
 void	select_nextpos(t_cmd *cmd, t_token *token, size_t *pos)
 {
 	if (cmd->cmdtype == PIPE || cmd->cmdtype == REDIR)
-		return ;
-	if (token->toktype == REDIR)
+	{
+		if (check_beforecreate(NULL, token))
+			*pos = *pos -1 ;
+		return ;	
+	}
+	if (check_beforecreate(NULL, token) == -1)
 		*pos = *pos - 1;
 }
