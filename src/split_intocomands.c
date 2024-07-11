@@ -48,9 +48,7 @@ static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 	{
 		token = (t_token *)tokens->content;
 		checker = check_beforecreate(NULL, token);
-		if (checker == -1)
-			break ;
-		else if (checker == 1)
+		if (checker == -1 || checker == 1)
 			break ;
 		else if (ft_cnt_tostr(token->content, "-") > 0 && checker != 0)
 			break ;
