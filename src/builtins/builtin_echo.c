@@ -33,7 +33,7 @@ static int	get_flag(t_token **args)
 	idx = 0;
 	if (!args)
 		return (0);
-	while (args[idx]->content && is_flag(args[idx]->content))
+	while (args[idx] && args[idx]->content && is_flag(args[idx]->content))
 		++idx;
 	return (idx);
 }
