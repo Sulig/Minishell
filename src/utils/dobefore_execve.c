@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:50:05 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:35:06 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_cmd	*dobefore_execve(t_shell *tshell, t_cmd *cmd)
 	if (cmd->cmdtype != PIPE)
 	{
 		cmd = expand_env_vars_cmd(tshell, cmd, 1);
-		if (cmd->flags)
-			cmd->flags = join_and_separe(cmd->flags);
 		if (cmd->input)
 			cmd->input = join_and_separe(cmd->input);
 	}

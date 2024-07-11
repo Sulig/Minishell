@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 17:56:17 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:35:48 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static t_cmd	*fill_comand_name(t_cmd *cmd, t_list *tokens, size_t *pos)
 	int		checker;
 
 	cmd->name = duplicate_token((t_token *)tokens->content);
+	if (check_beforecreate(NULL, cmd->name) == -1)
+	{
+		*pos = *pos + 1;
+		return (cmd);	
+	}
 	while (tokens->next)
 	{
 		tokens = tokens->next;
