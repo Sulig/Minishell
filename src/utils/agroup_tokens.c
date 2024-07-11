@@ -41,9 +41,10 @@ static t_token	*fill_flags_case(t_token *new_t, t_list *tokens, size_t *pos)
 	while (tokens)
 	{
 		act = (t_token *)tokens->content;
-		new_t->content = ft_strjoin_free_fst(new_t->content, act->content);
 		checker = check_beforecreate(NULL, act);
-		if (checker == 0)
+		if (checker != -1)
+			new_t->content = ft_strjoin_free_fst(new_t->content, act->content);
+		if (checker == 0 || checker == -1)
 		{
 			*pos = *pos + 1;
 			break ;
