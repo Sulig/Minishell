@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_intocomands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 17:00:54 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:56:17 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ static t_cmd	*fill_comand_name(t_cmd *cmd, t_list *tokens, size_t *pos)
 		token = (t_token *)tokens->content;
 		checker = check_beforecreate(NULL, token);
 		if (checker == -1 || !checker)
-		{
-			*pos = *pos - 1;
 			break ;
-		}
 		tmp = cmd->name->content;
 		cmd->name->content = ft_strjoin_free_fst(tmp, token->content);
 	}

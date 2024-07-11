@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 17:00:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:56:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ t_cmd	*expand_env_vars_cmd(t_shell *tshell, t_cmd *cmd, int exp)
 		else
 			cmd->name->toktype = ENV;
 	}
-	if (cmd->flags && exp == 2)
+	if (cmd->flags && exp)
 		cmd->flags = expand_intoarr(cmd->flags, tshell->env, exit, exp);
-	if (cmd->input && exp == 2)
+	if (cmd->input && exp)
 		cmd->input = expand_intoarr(cmd->input, tshell->env, exit, exp);
 	return (cmd);
 }
