@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:21:39 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/10 19:10:12 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:57:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	agroup_mylist(t_shell *tshell);
 
 /* Testing */
 t_cmd	*dobefore_execve(t_shell *tshell, t_cmd *cmd);
+t_cmd	*remplace_cmdname(t_cmd *cmd);
 
 void	expand_and_unquote(t_shell *tshell, t_list *comands);
 t_cmd	*quote_removal(t_cmd *cmd);

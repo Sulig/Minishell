@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/09 19:08:10 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:00:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,27 @@ t_cmd	*quote_removal(t_cmd *cmd)
 		cmd->flags = unquote_intoarr(cmd->flags);
 	if (cmd->input)
 		cmd->input = unquote_intoarr(cmd->input);
+	return (cmd);
+}
+
+/*
+** Remplace cmd name for 1st input content
+*/
+t_cmd	*remplace_cmdname(t_cmd *cmd)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	cmd->name->content = ft_free_str(cmd->name->content);
+	free(cmd->name);
+	cmd->name = duplicate_token(cmd->input[0]);
+	cmd->input = pop_outarr(cmd->input, 0);
+	if (len_of_tokens(cmd->input))
+		cmd->input = clean_array(cmd->input);
+	else
+		cmd->input = clear_tarr(cmd->input);
+	tmp = ft_strtrim(cmd->name->content, " ");
+	cmd->name->content = ft_strremplace(cmd->name->content, tmp);
+	tmp = ft_free_str(tmp);
 	return (cmd);
 }

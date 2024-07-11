@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillcomands_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:45 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/10 19:40:17 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:00:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,11 @@ void	expand_and_unquote(t_shell *tshell, t_list *comands)
 			cmd = expand_env_vars_cmd(tshell, cmd, 0);
 			cmd = quote_removal(cmd);
 			cmd = expand_env_vars_cmd(tshell, cmd, 2);
+			if (!ft_strllen(cmd->name->content) && len_of_tokens(cmd->input))
+			{
+				remplace_cmdname(cmd);
+				expand_and_unquote(tshell, comands);
+			}
 		}
 		comands = comands->next;
 	}

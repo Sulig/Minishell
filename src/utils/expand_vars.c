@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:37 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/10 19:40:19 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:00:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*expansor_utils(char *str, char **env, int exit, int expand)
 		tmp = ft_strremove(tmp, "$?");
 		return (tmp);
 	}
-	else if (ft_strstr(str, "$?") && !expand)
+	else if (ft_strstr(str, "$?") && (!expand || expand == 2))
 		return (str);
 	env_var = NULL;
 	tmp = ft_strdup(str + ft_cnttoch_in(str, '$'));

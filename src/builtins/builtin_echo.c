@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sadoming <sadoming@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:56:45 by jguillot          #+#    #+#             */
-/*   Updated: 2024/06/25 15:59:52 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:06:14 by sadoming        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ static int	get_flag(t_token **args)
 	idx = 0;
 	if (!args)
 		return (0);
-	while (args[idx] && args[idx]->content && is_flag(args[idx]->content))
-		++idx;
+	while (args[idx])
+	{
+		if (args[idx]->content && is_flag(args[idx]->content))
+			++idx;
+		else
+			break ;
+	}
 	return (idx);
 }
 
