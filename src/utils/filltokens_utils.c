@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:10:13 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 19:23:18 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:32:49 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	select_nextpos(t_cmd *cmd, t_token *token, size_t *pos)
 	{
 		if (check_beforecreate(NULL, token))
 			*pos = *pos -1 ;
-		return ;	
+		return ;
 	}
 	if (check_beforecreate(NULL, token) == -1)
 		*pos = *pos - 1;

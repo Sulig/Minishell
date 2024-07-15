@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:49:43 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 17:57:24 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:27:53 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_cmd	*quote_removal(t_cmd *cmd)
 	else if (cmd->name->location == IN_DOUBLE_Q)
 		cmd->name->content = ft_strremove(cmd->name->content, "\"");
 	if (ft_strstr(cmd->name->content, "$"))
-		if (ft_strllen(cmd->name->content) > 2)
+		if (ft_strllen(cmd->name->content) >= 2)
 			if (cmd->name->location != IN_SINGLE_Q)
 				cmd->name->toktype = ENV;
 	if (cmd->flags)

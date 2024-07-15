@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:24:02 by sadoming          #+#    #+#             */
-/*   Updated: 2024/07/11 19:22:35 by sadoming         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:34:05 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_cmd	*fill_comand_name(t_cmd *cmd, t_list *tokens, size_t *pos)
 	if (check_beforecreate(NULL, cmd->name) == -1)
 	{
 		*pos = *pos + 1;
-		return (cmd);	
+		return (cmd);
 	}
 	while (tokens->next)
 	{
@@ -60,15 +60,15 @@ static t_cmd	*fill_comand_flags(t_cmd *cmd, t_list *tokens, size_t *pos)
 	return (cmd);
 }
 
-static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos, int br)
+static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tkns, size_t *pos, int br)
 {
 	t_token	*token;
 	int		checker;
 
-	tokens = ft_search_nodebypos(tokens, *pos);
-	while (tokens)
+	tkns = ft_search_nodebypos(tkns, *pos);
+	while (tkns)
 	{
-		token = (t_token *)tokens->content;
+		token = (t_token *)tkns->content;
 		checker = check_beforecreate(NULL, token);
 		if (checker == -1 || (!checker && br))
 		{
@@ -76,7 +76,7 @@ static t_cmd	*fill_comand_args(t_cmd *cmd, t_list *tokens, size_t *pos, int br)
 			break ;
 		}
 		cmd->input = push_intoarr(cmd->input, token);
-		tokens = tokens->next;
+		tkns = tkns->next;
 		*pos = *pos + 1;
 	}
 	if (cmd->input)
