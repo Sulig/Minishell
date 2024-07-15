@@ -18,9 +18,14 @@
  * In the case of here documents, quote-removal is performed.
  * Returns the appropriate exit code after printing any error message.
 */
-static int	redirect_one(char **arr, char *comand, int n)
+static int	redirect_one(char **arr, char *comand, int n, t_cmd *cmd)
 {
 	if (arr == NULL)
+	{
+		print_err_custom("ambiguous redirect", 1);
+		return (EXIT_FAILURE);
+	}
+	else if (ft_strchr(arr[0], ' ') && cmd->input[0]->location == NO_QUOTED)
 	{
 		print_err_custom("ambiguous redirect", 1);
 		return (EXIT_FAILURE);
@@ -57,10 +62,9 @@ int	redirect(t_list *cmds, int n)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
-			//#~call to dobefore_execve * it will join the input[x] to one
 			args = get_arr_input_from_cmd(cmd);
 			comand = get_name_from_cmd(cmd);
-			exit_stat = redirect_one(args, comand, n);
+			exit_stat = redirect_one(args, comand, n, cmd);
 			free_arr_2d(args);
 			node = node->next;
 		}
