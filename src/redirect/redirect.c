@@ -62,6 +62,7 @@ int	redirect(t_list *cmds, int n)
 		cmd = node->content;
 		if (cmd->cmdtype == REDIR)
 		{
+			cmd = dobefore_execve(NULL, cmd);
 			args = get_arr_input_from_cmd(cmd);
 			comand = get_name_from_cmd(cmd);
 			exit_stat = redirect_one(args, comand, n, cmd);
