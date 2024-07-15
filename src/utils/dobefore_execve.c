@@ -56,7 +56,8 @@ t_cmd	*dobefore_execve(t_shell *tshell, t_cmd *cmd)
 {
 	if (cmd->cmdtype != PIPE)
 	{
-		cmd = expand_env_vars_cmd(tshell, cmd, 1);
+		if (tshell)
+			cmd = expand_env_vars_cmd(tshell, cmd, 1);
 		if (cmd->input)
 			cmd->input = join_and_separe(cmd->input);
 	}
