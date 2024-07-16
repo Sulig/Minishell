@@ -1,22 +1,37 @@
-To do or think:
-* Ambigous redirect or not --------------------------
-  - export a="Space between args"
+# Minishell
 
-Case 1 :
-  - echo something > $a
-/* In comands this will be
-  ! cmd name >
-  input -> [0] Space between args NO_QUOTED
-*/
-bash -> Ambiguos Redirect
+~ Started on: 05/03/2024 ~ *** ~ Ended on: 16/07/2024 ~~~ Graded with 100/100
 
-Case 2:
-  - echo something > "$a"
-/* In comands this will be
-  ! cmd name >
-  input -> [0] Space between args IN_DOUBLE_Q
-*/
-bash -> Creates a file `Space between args` and put in `something`
-_____________________________________________-
+[![Stars](https://img.shields.io/github/stars/Sulig/Minishell?color=ffff00&label=Stars&logo=Stars&style=?style=flat)](https://github.com/Sulig/Minishell)
+[![Size](https://img.shields.io/github/repo-size/Sulig/Minishell?color=blue&label=Size&logo=Size&style=?style=flat)](https://github.com/Sulig/Minishell)
+[![Activity](https://img.shields.io/github/last-commit/Sulig/Minishell?color=orange&label=Last%20Commit&style=flat)](https://github.com/Sulig/Minishell)
 
-* The rest cases is working, if a speciall case is found, coment in this file
+***
+## Resumen: 
+El objetivo de este proyecto es que crees un shell sencillo. Sí, tu propio
+pequeño bash. Aprenderás un montón sobre procesos y file descriptors.
+
+***
+## Contenido del repositorio:
+- Libft + ft_printf + GetNextLine
+- Minishell (/src y /include)
+- [Subject ES](https://github.com/Sulig/Minishell/blob/master/Minishell.pdf)
+
+***
+## Informacion:
+> [!WARNING]\
+> Este proyecto hace uso de `ReadLine` y no viene incorporada en este repositorio.
+>> Puedes dirigirte a la pagina principal de `ReadLine` [desde este link](https://savannah.gnu.org/git/?group=readline)
+  * Descargar e Intalar `Readline` directamente con este comando:
+
+    brew install readline
+
+Una vez instalada, puedes clonar este repositorio y ejecutarlo:
+
+    git clone https://github.com/Sulig/Minishell.git
+    cd Minishell
+    make run
+
+***
+~ Made by sadoming and jguillot ~ 
+***
