@@ -23,15 +23,15 @@ pequeño bash. Aprenderás un montón sobre procesos y file descriptors.
 > Este proyecto hace uso de `ReadLine` y no viene incorporada en este repositorio.
 >> Puedes dirigirte a la pagina principal de `ReadLine` [desde este link](https://savannah.gnu.org/git/?group=readline)
   * Descargar e Intalar `Readline` directamente con este comando:
-
-    brew install readline
-
+```
+     brew install readline
+```
 Una vez instalada, puedes clonar este repositorio y ejecutarlo:
-
+```
     git clone https://github.com/Sulig/Minishell.git
     cd Minishell
     make run
-
+```
 ***
 ~ Made by sadoming and jguillot ~ 
 ***
